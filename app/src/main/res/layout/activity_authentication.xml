@@ -14,42 +14,39 @@
         android:src="@drawable/upsaclay"
         android:contentDescription="@string/desc_logo_upsaclay"
         app:layout_constraintTop_toBottomOf="@id/guidelineTop_horizontal"
-        app:layout_constraintStart_toEndOf="@id/guidelineStart_vertical"/>
+        app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"/>
 
     <TextView
+        style="@style/h1"
         android:id="@+id/title_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
-        android:textColor="@color/primary_color"
-        android:textSize="@dimen/title_size"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guidelineTitle"/>
+        app:layout_constraintTop_toBottomOf="@id/guideline_title"/>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintEnd_toStartOf="@id/guidelineEnd_vertical"
-        app:layout_constraintStart_toEndOf="@id/guidelineStart_vertical"
-        app:layout_constraintTop_toBottomOf="@id/guidelineMiddle_horizontal">
+        app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
+        app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
+        app:layout_constraintTop_toBottomOf="@id/guideline_middle_horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:suffixText="@string/mail_suffix"
             app:startIconDrawable="@drawable/ic_person"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="@dimen/margin_form">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputTextUsername_login"
+                android:id="@+id/input_text_username_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/username"
+                android:hint="@string/mail"
                 android:inputType="textEmailAddress"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -61,7 +58,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputTextMdp_login"
+                android:id="@+id/input_text_password_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
@@ -69,7 +66,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/txtView_connect_error"
+            android:id="@+id/txt_view_connect_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/holo_red_dark"
@@ -79,30 +76,27 @@
             tools:text="Nom d'utilisateur ou mot de passe incorrect" />
 
         <TextView
-            android:id="@+id/txtView_password"
+            android:id="@+id/txt_view_forget_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/forget_password"
+            android:textColor="@color/primary_color"
             android:clickable="true"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_login"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_gravity="center"
             android:layout_marginTop="@dimen/margin_form"
             android:text="@string/connect" />
 
-        <TextView
-            android:id="@+id/txtView_registration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/sing_up"
-            android:textSize="20sp"
-            android:textColor="@color/primary_color"
-            android:clickable="true"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_registration"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/third_color"
+            android:text="@string/register"/>
     </LinearLayout>
 
     <TextView
@@ -110,41 +104,41 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/signature"
-        app:layout_constraintBottom_toBottomOf="@id/guidelineBottom_horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_bottom_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineStart_vertical"
+        android:id="@+id/guideline_start_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.10" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineEnd_vertical"
+        android:id="@+id/guideline_end_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.90" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineTitle"
+        android:id="@+id/guideline_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.25" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineMiddle_horizontal"
+        android:id="@+id/guideline_middle_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.35" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineBottom_horizontal"
+        android:id="@+id/guideline_bottom_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
