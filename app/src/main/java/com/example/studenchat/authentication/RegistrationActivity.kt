@@ -4,43 +4,37 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Button
+import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isVisible
-import com.example.studenchat.MainActivity
+import com.example.studenchat.main.MainActivity
 import com.example.studenchat.R
 import com.example.studenchat.data.User
 import com.example.studenchat.databinding.ActivityRegistrationBinding
+import com.example.studenchat.firebase.FirebaseRegistrationHelper
 import com.example.studenchat.inputIsNotEmpty
 import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
-class RegistrationActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityRegistrationBinding
-    /*
-    FOR LATER
-        private lateinit var inputFirstName: TextInputEditText
-        private lateinit var inputName: TextInputEditText
-        private lateinit var inputBirthday: TextInputEditText
-        private lateinit var spinnerStatus: Spinner
-        private lateinit var spinnerGender: Spinner
-
-        inputName = binding.inputTextNameRegistration
-        inputFirstName = binding.inputTextFirstnameRegistration
-        inputBirthday = binding.inputTextBirthdayRegistration
-        spinnerGender = binding.spinnerGenderRegistration
-        spinnerStatus = binding.spinnerStatusRegistration
-    */
+class RegistrationActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+    private lateinit var binding: ActivityRegistrationBinding
     private lateinit var inputMail: TextInputEditText
     private lateinit var inputPassword: TextInputEditText
     private lateinit var txtViewError: TextView
     private lateinit var btnRgistration: Button
     private lateinit var user: User
-    private val TAG = RegistrationActivity::class.java.name
-    private val auth = Firebase.auth
+    private lateinit var inputFirstName: TextInputEditText
+    private lateinit var inputName: TextInputEditText
+    private lateinit var inputBirthday: TextInputEditText
+    private lateinit var spinnerStatus: Spinner
+    private lateinit var spinnerGender: Spinner
+    private lateinit var gender: String
+    private lateinit var status: String
     private val context: Context = this
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
@@ -50,42 +44,69 @@ class RegistrationActivity : AppCompatActivity() {
         txtViewError = binding.txtViewRegisterError
         inputMail = binding.inputTextMailRegistration
         inputPassword = binding.inputTextPasswordRegistration
+        inputName = binding.inputTextNameRegistration
+        inputFirstName = binding.inputTextFirstnameRegistration
+        inputBirthday = binding.inputTextBirthdayRegistration
+        spinnerGender = binding.spinnerGenderRegistration
+        spinnerStatus = binding.spinnerStatusRegistration
+        spinnerGender.onItemSelectedListener = this
+        spinnerStatus.onItemSelectedListener = this
 
         btnRgistration.setOnClickListener {
             txtViewError.isVisible = false
             val inputList = listOf(
+                inputName,
+                inputFirstName,
                 inputMail,
                 inputPassword,
+                inputBirthday,
             )
-            if(inputIsNotEmpty(inputList) && verifPassword()){
-                user = User(inputMail.text.toString(), inputPassword.text.toString())
-                registerUser(user)
-                Intent(context, MainActivity::class.java).also {
-                    startActivity(it)
-                    finish()
-                }
-            }
-            else{
+            if (inputIsNotEmpty(inputList) && verifPassword()) {
+                user = User (
+                    inputName.text.toString(),
+                    inputFirstName.text.toString(),
+                    inputMail.text.toString(),
+                    inputPassword.text.toString(),
+                    inputBirthday.text.toString(),
+                    gender,
+                    status
+                )
+                registration()
+            } else {
                 txtViewError.isVisible = true
             }
         }
     }
-    private fun registerUser(user: User){
-        auth.createUserWithEmailAndPassword(user.mail, user.password)
-            .addOnSuccessListener {
-                Log.i(TAG, "Registration successful")
+
+    private fun registration() {
+        try {
+            FirebaseRegistrationHelper.registerUserWithEmailAndPassword(user)
+            Intent(context, MainActivity::class.java).also {
+                startActivity(it)
+                finish()
             }
-            .addOnFailureListener { e->
-                Log.e(TAG, e.message.toString())
-            }
+        }catch(e: Exception) {
+            Toast.makeText(
+                context,
+                "Erreur d'inscription, veuillez réessayer",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
-    private fun verifPassword(): Boolean{
-        return if(inputPassword.text.toString().length < 6){
+    private fun verifPassword(): Boolean {
+        return if (inputPassword.text.toString().length < 6) {
             txtViewError.text = getString(R.string.error_short_password)
             false
-        } else{
+        } else {
             true
         }
     }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        gender = parent!!.getItemAtPosition(position).toString()
+        status = parent.getItemAtPosition(position).toString()
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {}
 }

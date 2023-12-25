@@ -33,7 +33,7 @@
         app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
         app:layout_constraintTop_toBottomOf="@id/guidelineTop_horizontal"/>
 
-   <!-- <com.google.android.material.textfield.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_layout_name_registration"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/firstname"
             android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>-->
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -76,7 +76,7 @@
         android:layout_marginTop="@dimen/margin_form"
         app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
         app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
-        app:layout_constraintTop_toBottomOf="@id/guideline_middle_horizontal">
+        app:layout_constraintTop_toBottomOf="@id/input_layout_firstname_registration">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_text_mail_registration"
@@ -104,7 +104,7 @@
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!--<com.google.android.material.textfield.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_layout_birthday_registration"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
@@ -144,7 +144,7 @@
         android:entries="@array/status"
         app:layout_constraintStart_toEndOf="@id/spinner_gender_registration"
         app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
-        app:layout_constraintTop_toBottomOf="@id/input_layout_birthday_registration"/>-->
+        app:layout_constraintTop_toBottomOf="@id/input_layout_birthday_registration"/>
 
     <TextView
         android:id="@+id/txt_view_register_error"
@@ -157,7 +157,7 @@
         tools:text="Nom d'utilisateur ou mot de passe incorrect"
         app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
         app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
-        app:layout_constraintTop_toBottomOf="@id/input_layout_password_registration"
+        app:layout_constraintTop_toBottomOf="@id/spinner_gender_registration"
         />
 
     <Button
@@ -189,7 +189,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35"
+        app:layout_constraintGuide_percent="0.2"
         />
 
     <androidx.constraintlayout.widget.Guideline

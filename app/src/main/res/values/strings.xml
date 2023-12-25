@@ -14,12 +14,23 @@
     <string name="firstname">Prénom</string>
     <string name="birthday">Date de naissance</string>
     <string name="error_short_password">Le mot de passe doit faire plus de 6 caractères</string>
+    <string name="user_image_description">User profile picture</string>
+    <string name="string_friends">Amis</string>
+    <string name="string_conversation">Conversation</string>
+    <string name="string_apps">Applications</string>
+    <string name="empty_conversation">Aucune conversation</string>
+    <string name="empty_apps">Aucune application</string>
+    <string name="empty_friends">Auncun amis</string>
+    <string name="new_conversation">Nouvelle conversation</string>
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="search">Rechercher</string>
+    <string name="create_conversation">Créer conversation</string>
     <string-array name="gender">
         <item>Homme</item>
         <item>Femme</item>
     </string-array>
     <string-array name="status">
         <item>Etudiant</item>
-        <item>Professeur</item>
+        <item>Enseignant</item>
     </string-array>
 </resources>

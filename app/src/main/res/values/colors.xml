@@ -5,4 +5,6 @@
     <color name="primary_color">#63013C</color>
     <color name="secondary_color">#2B011A</color>
     <color name="third_color">#323E48</color>
+    <color name="grey">#878787</color>
+    <color name="background">@color/white</color>
 </resources>
