@@ -7,16 +7,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".authentication.EmailPasswordAuthentication">
+    tools:context=".activity.AuthenticationActivity">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/upsaclay"
         android:contentDescription="@string/desc_logo_upsaclay"
-        app:layout_constraintTop_toBottomOf="@id/guidelineTop_horizontal"
-        app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"/>
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
     <TextView
         style="@style/h1"
         android:id="@+id/title_login"
@@ -82,10 +81,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/forget_password"
-            android:textColor="@color/primary_color"
             android:clickable="true"/>
 
         <com.google.android.material.button.MaterialButton
+            style="@style/buttonColor"
             android:id="@+id/button_login"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -93,6 +92,7 @@
             android:text="@string/connect" />
 
         <com.google.android.material.button.MaterialButton
+            style="@style/buttonColor"
             android:id="@+id/button_registration"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -143,14 +143,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.95" />
+        app:layout_constraintGuide_percent="0.98" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineTop_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

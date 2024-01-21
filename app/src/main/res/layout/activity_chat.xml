@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activity.ChatActivity">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_above="@id/linear_layout"/>
+
+        <LinearLayout
+            android:id="@+id/linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="10dp">
+
+            <EditText
+                android:id="@+id/edit_txt_chat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="40dp"
+                android:maxHeight="150dp"
+                android:layout_weight="1"
+                android:inputType="text|textMultiLine|textCapSentences"
+                android:background="@drawable/bg_edit_text"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_gravity="center_vertical"
+                android:hint="@string/enter_message"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fl_button_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_send"
+                android:layout_gravity="bottom"
+                android:backgroundTint="@color/primary_color"
+                android:outlineSpotShadowColor="@color/background"
+                app:tint="@color/white"
+                app:maxImageSize="20dp"
+                app:fabCustomSize="50dp"
+                android:contentDescription="Bouton d'envoi de message" />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

@@ -11,27 +11,17 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".authentication.RegistrationActivity">
+    android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
+    tools:context=".activity.RegistrationActivity">
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/upsaclay"
-        android:scaleType="centerInside"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/desc_logo_upsaclay"
-        app:layout_constraintTop_toBottomOf="@id/guidelineTop_horizontal"
-        app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"/>
-
-    <TextView
-        style="@style/h3"
-        android:id="@+id/title_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:layout_marginTop="15dp"
-        app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
-        app:layout_constraintTop_toBottomOf="@id/guidelineTop_horizontal"/>
+        android:src="@drawable/upsaclay"
+        android:contentDescription="@string/desc_logo_upsaclay"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_layout_name_registration"
@@ -92,6 +82,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_form"
+        app:passwordToggleEnabled="true"
         app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
         app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
         app:layout_constraintTop_toBottomOf="@id/input_layout_mail_registration">
@@ -110,6 +101,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_form"
+        app:startIconDrawable="@drawable/ic_calendar"
         app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
         app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
         app:layout_constraintTop_toBottomOf="@id/input_layout_password_registration">
@@ -119,32 +111,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/birthday"
-            android:inputType="date" />
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Spinner
-        android:id="@+id/spinner_gender_registration"
-        android:background="@drawable/bg_spinner"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="@dimen/margin_form"
-        android:layout_marginEnd="5dp"
-        android:entries="@array/gender"
-        app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
-        app:layout_constraintEnd_toStartOf="@id/spinner_status_registration"
-        app:layout_constraintTop_toBottomOf="@id/input_layout_birthday_registration"/>
-
-    <Spinner
-        android:id="@+id/spinner_status_registration"
-        android:background="@drawable/bg_spinner"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="@dimen/margin_form"
-        android:layout_marginStart="5dp"
-        android:entries="@array/status"
-        app:layout_constraintStart_toEndOf="@id/spinner_gender_registration"
-        app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
-        app:layout_constraintTop_toBottomOf="@id/input_layout_birthday_registration"/>
 
     <TextView
         android:id="@+id/txt_view_register_error"
@@ -157,10 +127,11 @@
         tools:text="Nom d'utilisateur ou mot de passe incorrect"
         app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
         app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
-        app:layout_constraintTop_toBottomOf="@id/spinner_gender_registration"
+        app:layout_constraintTop_toBottomOf="@id/input_layout_birthday_registration"
         />
 
     <Button
+        style="@style/buttonColor"
         android:id="@+id/button_registration"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -189,22 +160,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2"
-        />
+        app:layout_constraintGuide_percent="0.15" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_bottom_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.95" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineTop_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
