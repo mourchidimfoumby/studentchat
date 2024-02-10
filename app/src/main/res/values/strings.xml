@@ -15,9 +15,9 @@
     <string name="birthday">Date de naissance</string>
     <string name="error_short_password">Le mot de passe doit faire plus de 6 caractères</string>
     <string name="user_image_description">User profile picture</string>
-    <string name="string_friends">Amis</string>
-    <string name="string_conversation">Conversation</string>
-    <string name="string_apps">Applications</string>
+    <string name="friends">Amis</string>
+    <string name="conversation">Conversation</string>
+    <string name="apps">Applications</string>
     <string name="empty_conversation">Aucune conversation</string>
     <string name="empty_apps">Aucune application</string>
     <string name="empty_friends">Auncun amis</string>
@@ -25,7 +25,6 @@
     <string name="username">Nom d\'utilisateur</string>
     <string name="search">Rechercher</string>
     <string name="create_conversation">Créer conversation</string>
-    <string name="friends">Amis</string>
     <string name="enter_message">Entrer un message</string>
     <string name="string_self_author">Moi</string>
     <string name="select_users">Selectionner un ou plusieurs utilisateurs</string>
@@ -34,4 +33,7 @@
     <string name="messages">Messages</string>
     <string name="nav_open">Nav open</string>
     <string name="nav_close">Nav close</string>
+    <string name="settings">Paramètres</string>
+    <string name="account">Compte</string>
+    <string name="logout">Se déconnecter</string>
 </resources>

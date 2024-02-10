@@ -4,12 +4,5 @@ plugins {
     id("com.android.application") version "8.1.2" apply false
     id("org.jetbrains.kotlin.android") version "1.9.0" apply false
     id("com.google.gms.google-services") version "4.4.0" apply false
-    id("com.diffplug.spotless") version "5.0.0"
 }
 
-spotless {
-    kotlin {
-        target("**/*.kt")
-        ktlint()
-    }
-}

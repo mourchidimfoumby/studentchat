@@ -5,166 +5,176 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
-    tools:context=".activity.RegistrationActivity">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/upsaclay"
-        android:contentDescription="@string/desc_logo_upsaclay"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_layout_name_registration"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
-        app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
-        app:layout_constraintTop_toBottomOf="@id/guideline_middle_horizontal">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_text_name_registration"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/name"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_layout_firstname_registration"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_form"
-        app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
-        app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
-        app:layout_constraintTop_toBottomOf="@id/input_layout_name_registration">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_text_firstname_registration"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/firstname"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:id="@+id/input_layout_mail_registration"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_form"
-        app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
-        app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
-        app:layout_constraintTop_toBottomOf="@id/input_layout_firstname_registration">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_text_mail_registration"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/mail"
-            android:inputType="textEmailAddress" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_layout_password_registration"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_form"
-        app:passwordToggleEnabled="true"
-        app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
-        app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
-        app:layout_constraintTop_toBottomOf="@id/input_layout_mail_registration">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_text_password_registration"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_layout_birthday_registration"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_form"
-        app:startIconDrawable="@drawable/ic_calendar"
-        app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
-        app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
-        app:layout_constraintTop_toBottomOf="@id/input_layout_password_registration">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_text_birthday_registration"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/birthday"
-            android:focusable="false"
-            android:focusableInTouchMode="false"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <TextView
-        android:id="@+id/txt_view_register_error"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="15sp"
-        android:visibility="gone"
-        android:layout_marginTop="@dimen/margin_form"
-        tools:text="Nom d'utilisateur ou mot de passe incorrect"
-        app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
-        app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
-        app:layout_constraintTop_toBottomOf="@id/input_layout_birthday_registration"
-        />
-
-    <Button
-        style="@style/buttonColor"
-        android:id="@+id/button_registration"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="@dimen/margin_form"
-        android:text="@string/register"
-        app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
-        app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
-        app:layout_constraintTop_toBottomOf="@id/txt_view_register_error"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_start_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.10" />
+        android:padding="16dp"
+        android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
+        tools:context=".authentication.ui.RegistrationActivity">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_end_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.90" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_middle_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/desc_logo_upsaclay"
+            android:src="@drawable/upsaclay"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_name_registration"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
+            app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
+            app:layout_constraintTop_toBottomOf="@id/guideline_middle_horizontal">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_text_name_registration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_firstname_registration"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_form"
+            app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
+            app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
+            app:layout_constraintTop_toBottomOf="@id/input_layout_name_registration">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_text_firstname_registration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/firstname"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_mail_registration"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_form"
+            app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
+            app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
+            app:layout_constraintTop_toBottomOf="@id/input_layout_firstname_registration">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_text_mail_registration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/mail"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_password_registration"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_form"
+            app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
+            app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
+            app:layout_constraintTop_toBottomOf="@id/input_layout_mail_registration"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_text_password_registration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_birthday_registration"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_form"
+            app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
+            app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
+            app:layout_constraintTop_toBottomOf="@id/input_layout_password_registration"
+            app:startIconDrawable="@drawable/ic_calendar">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_text_birthday_registration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="@string/birthday" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/txt_view_register_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_form"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="15sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
+            app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
+            app:layout_constraintTop_toBottomOf="@id/input_layout_birthday_registration"
+            tools:text="Nom d'utilisateur ou mot de passe incorrect" />
+
+        <Button
+            android:id="@+id/button_registration"
+            style="@style/buttonColor"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="@dimen/margin_form"
+            android:text="@string/register"
+            app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
+            app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
+            app:layout_constraintTop_toBottomOf="@id/txt_view_register_error" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_registration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:indeterminateTint="@color/primary_color"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.10" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.90" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_middle_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.15" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
