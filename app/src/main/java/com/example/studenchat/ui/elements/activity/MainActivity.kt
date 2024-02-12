@@ -22,13 +22,14 @@ class MainActivity : AppCompatActivity(){
     private lateinit var binding: ActivityMainBinding
     private lateinit var btmNavigationView: BottomNavigationView
     private val mainViewModel : MainViewModel by viewModels()
-    private val isLoggedIn = IsLoggedInUseCase()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (!isLoggedIn()) {
-            Intent(this, AuthenticationActivity::class.java).also {
-                startActivity(it)
-                finish()
+        authenticationViewModel.logged.observe(this) { isLogged ->
+            if (!isLogged) {
+                Intent(this, AuthenticationActivity::class.java).also {
+                    startActivity(it)
+                    finish()
+                }
             }
         }
         binding = ActivityMainBinding.inflate(layoutInflater)
