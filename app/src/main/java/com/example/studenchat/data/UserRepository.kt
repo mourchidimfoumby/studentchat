@@ -1,16 +1,42 @@
-package com.example.studenchat.data.repositories.firebase
+package com.example.studenchat.data
 
 import android.util.Log
-import com.example.studenchat.data.sources.User
+import com.example.studenchat.data.repositories.firebase.FirebaseParameters
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 class UserRepository : FirebaseParameters {
     override val tableName: String = "users"
-    suspend fun getAllUser(): List<User> {
+    suspend fun createUser(user: User) {
+        suspendCoroutine { continuation ->
+            firebaseDatabase
+                .child(tableName)
+                .child(auth.uid!!)
+                .setValue(user)
+                .addOnSuccessListener {
+                    setUidAttribute()
+                    continuation.resume(Unit)
+                }
+                .addOnFailureListener { error ->
+                    Log.e(javaClass.name, error.message!!)
+                    continuation.resumeWithException(error)
+                }
+        }
+    }
+    private fun setUidAttribute() {
+        firebaseDatabase
+            .child(tableName)
+            .child(auth.uid!!)
+            .child("uid")
+            .setValue(auth.uid)
+            .addOnFailureListener { throw Exception(it) }
+    }
+
+    /*suspend fun getAllUser(): List<User> {
         return suspendCoroutine { continuation ->
             firebaseDatabase.child(tableName).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -85,25 +111,6 @@ class UserRepository : FirebaseParameters {
                         Log.e(javaClass.name, error.message)
                     }
                 })
-        }
-
-    suspend fun createUser(user: User) = suspendCoroutine { continuation ->
-        firebaseDatabase.child(tableName).child(auth.uid!!).setValue(user)
-        .addOnSuccessListener {
-            setUidAttribute()
-            continuation.resume(Unit)
-        }
-        .addOnFailureListener { error ->
-            Log.e(javaClass.name, error.message!!)
-            continuation.resumeWithException(error)
-        }
-    }
-    private fun setUidAttribute() = firebaseDatabase
-        .child(tableName)
-        .child(auth.uid!!)
-        .child("uid")
-        .setValue(auth.uid)
-        .addOnFailureListener { throw Exception(it) }
-    }
-
+        }*/
 }
+

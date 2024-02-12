@@ -26,7 +26,7 @@ class AuthenticationRepository {
     suspend fun signUpWithEmailPassword(mail: String, password: String) = suspendCoroutine { continuation ->
         auth.createUserWithEmailAndPassword(mail, password)
             .addOnSuccessListener {
-                Log.i(javaClass.name, "Registration and Sign-in successful !")
+                Log.i(javaClass.name, "Registration successful !")
                 continuation.resume(Unit)
             }
             .addOnFailureListener { e ->

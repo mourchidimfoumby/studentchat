@@ -1,19 +1,36 @@
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.example.studenchat.authentication.domain.IsLoggedInUseCase
+import com.example.studenchat.authentication.domain.LogInWithEmailPasswordUseCase
+import com.example.studenchat.authentication.domain.SignUpUseCase
+import com.example.studenchat.data.User
+import com.google.firebase.auth.FirebaseAuth
+
 class AuthenticationViewModel: ViewModel() {
     private val _logged = MutableLiveData<Boolean>()
     val logged : LiveData<Boolean> = _logged
     private val logInWithEmailPasswordUseCase = LogInWithEmailPasswordUseCase()
-    private val isLoggedIn = IsLoggedInUseCase()
     private val signUp = SignUpUseCase()
-    init {
-        _logged.value =  isLoggedIn()
-    }
+    private val mAuth = FirebaseAuth.getInstance()
+    private val authStateListener: FirebaseAuth.AuthStateListener =
+        FirebaseAuth.AuthStateListener { firebaseAuth ->
+            val user = firebaseAuth.currentUser
+            _logged.value = user != null
+        }
 
+    init {
+        mAuth.addAuthStateListener(authStateListener)
+    }
     suspend fun logInWithEmailPassword(mail: String, password: String){
         logInWithEmailPasswordUseCase(mail, password)
-        _logged.value = true
     }
     suspend fun signUpWithEmailPassword(user: User){
         signUp(user)
-        _logged.value = true
     }
+    override fun onCleared() {
+        super.onCleared()
+        mAuth.removeAuthStateListener(authStateListener)
+    }
+
 }

@@ -5,7 +5,7 @@ import com.google.firebase.database.Exclude
 import java.io.Serializable
 
 data class User(
-    val uid: String = ""
+    val uid: String = "",
     val name: String = "",
     val firstname: String = "",
     val mail: String = "",

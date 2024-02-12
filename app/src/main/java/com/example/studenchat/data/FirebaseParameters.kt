@@ -13,9 +13,9 @@ interface FirebaseParameters {
         get() = FirebaseDatabase.getInstance(urlDatabase).reference
 
     val tableName: String
-
     val auth: FirebaseAuth
         get() = Firebase.auth
     val userId
         get() = Firebase.auth.uid
+
 }

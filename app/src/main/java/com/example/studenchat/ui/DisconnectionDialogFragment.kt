@@ -1,18 +1,18 @@
-package com.example.studenchat.ui.stateholders.dialog
+package com.example.studenchat.ui
 
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import com.example.studenchat.authentication.AuthenticationActivity
 import com.example.studenchat.authentication.domain.LogOutUseCase
-import com.example.studenchat.authentication.ui.AuthenticationActivity
 
 class DisconnectionDialogFragment: DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let { activity ->
             val builder = AlertDialog.Builder(activity)
-            builder.setMessage("Se déconnecter ?")
+            builder.setMessage("Voulez-vous vraiment vous déconnecter ?")
                 .setPositiveButton("Se déconnecter"){ _, _ ->
                     Intent(context, AuthenticationActivity::class.java).also{
                         LogOutUseCase().invoke()
