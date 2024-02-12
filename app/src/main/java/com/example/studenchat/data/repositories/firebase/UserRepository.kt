@@ -87,4 +87,23 @@ class UserRepository : FirebaseParameters {
                 })
         }
 
+    suspend fun createUser(user: User) = suspendCoroutine { continuation ->
+        firebaseDatabase.child(tableName).child(auth.uid!!).setValue(user)
+        .addOnSuccessListener {
+            setUidAttribute()
+            continuation.resume(Unit)
+        }
+        .addOnFailureListener { error ->
+            Log.e(javaClass.name, error.message!!)
+            continuation.resumeWithException(error)
+        }
+    }
+    private fun setUidAttribute() = firebaseDatabase
+        .child(tableName)
+        .child(auth.uid!!)
+        .child("uid")
+        .setValue(auth.uid)
+        .addOnFailureListener { throw Exception(it) }
+    }
+
 }
