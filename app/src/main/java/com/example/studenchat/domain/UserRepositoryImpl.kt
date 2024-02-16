@@ -1,20 +1,20 @@
-package com.example.studenchat.data
+package com.example.studenchat.domain
 
 import android.util.Log
-import com.example.studenchat.data.repositories.firebase.FirebaseParameters
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
+import com.example.studenchat.data.interfaces.UserRepository
+import com.example.studenchat.data.source.User
+import com.example.studenchat.utils.FirebaseUtils.Companion.auth
+import com.example.studenchat.utils.FirebaseUtils.Companion.firebaseDatabase
+import com.example.studenchat.utils.TABLE_USER
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class UserRepository : FirebaseParameters {
-    override val tableName: String = "users"
+class UserRepositoryImpl: UserRepository{
     suspend fun createUser(user: User) {
         suspendCoroutine { continuation ->
             firebaseDatabase
-                .child(tableName)
+                .child(TABLE_USER)
                 .child(auth.uid!!)
                 .setValue(user)
                 .addOnSuccessListener {
@@ -29,11 +29,23 @@ class UserRepository : FirebaseParameters {
     }
     private fun setUidAttribute() {
         firebaseDatabase
-            .child(tableName)
+            .child(TABLE_USER)
             .child(auth.uid!!)
             .child("uid")
             .setValue(auth.uid)
             .addOnFailureListener { throw Exception(it) }
+    }
+
+    override suspend fun getAllUser(): List<User> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getUser(uid: String): User {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getCurrentUser(): User {
+        TODO("Not yet implemented")
     }
 
     /*suspend fun getAllUser(): List<User> {

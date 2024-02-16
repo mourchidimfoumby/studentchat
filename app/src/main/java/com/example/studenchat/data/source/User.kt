@@ -1,4 +1,4 @@
-package com.example.studenchat.data
+package com.example.studenchat.data.source
 
 import com.example.studenchat.R
 import com.google.firebase.database.Exclude

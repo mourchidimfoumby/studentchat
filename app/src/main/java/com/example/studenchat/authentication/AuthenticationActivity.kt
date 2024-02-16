@@ -8,7 +8,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.example.studenchat.R
-import com.example.studenchat.data.User
 import com.example.studenchat.databinding.ActivityAuthenticationBinding
 import com.google.android.material.textfield.TextInputEditText
 import android.widget.ProgressBar

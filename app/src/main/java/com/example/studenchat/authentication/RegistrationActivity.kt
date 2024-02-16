@@ -16,15 +16,13 @@ import androidx.core.view.isVisible
 import com.example.studenchat.R
 import com.example.studenchat.databinding.ActivityRegistrationBinding
 import com.example.studenchat.ui.MainActivity
-import com.example.studenchat.data.User
+import com.example.studenchat.data.source.User
 import com.example.studenchat.utils.DateUtils.Companion.convertDateToString
 import com.example.studenchat.utils.InputUtils.Companion.inputIsEmpty
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.invoke
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.Calendar
 
 class RegistrationActivity : AppCompatActivity() {
