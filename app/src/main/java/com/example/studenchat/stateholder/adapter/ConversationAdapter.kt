@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studenchat.R
 import com.example.studenchat.data.source.Conversation
+<<<<<<< Updated upstream:app/src/main/java/com/example/studenchat/stateholder/adapter/ConversationAdapter.kt
 import com.example.studenchat.stateholder.adapter.diffcallback.ConversationDiffCallback
+=======
+>>>>>>> Stashed changes:app/src/main/java/com/example/studenchat/ui/conversation/ConversationAdapter.kt
 
 class ConversationAdapter(
     private var conversationList: List<Conversation>,

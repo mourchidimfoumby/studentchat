@@ -40,6 +40,7 @@ class ConversationFragment: Fragment(R.layout.fragment_conversation){
         }
         recyclerViewConversation.adapter = conversationAdapter
         recyclerViewConversation.layoutManager = LinearLayoutManager(context)
+
         viewModel.conversations.observe(viewLifecycleOwner) { conversationsList ->
             conversationAdapter.updateConversationList(conversationsList)
             if (conversationAdapter.itemCount == 0) {
