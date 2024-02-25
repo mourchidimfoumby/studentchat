@@ -1,3 +1,5 @@
+import java.util.Calendar.YEAR
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -76,16 +78,16 @@ subprojects {
     apply(plugin = "com.diffplug.spotless")
     configure<com.diffplug.gradle.spotless.SpotlessExtension> {
         kotlin {
-            target("**/*.kt")
-            targetExclude("$buildDir/**/*.kt")
-
-            ktlint()
-            licenseHeaderFile(rootProject.file("spotless/copyright.kt"))
+            // by default the target is every '.kt' and '.kts` file in the java sourcesets
+            ktfmt()    // has its own section below
+            ktlint()   // has its own section below
+            diktat()   // has its own section below
+            prettier() // has its own section below
+            licenseHeader("/* (C)$YEAR */") // or licenseHeaderFile
         }
-
         kotlinGradle {
-            target("*.gradle.kts")
-            ktlint()
+            target ("*.gradle.kts") // default target for kotlinGradle
+            ktlint() // or ktfmt() or prettier()
         }
     }
 }
