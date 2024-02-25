@@ -8,13 +8,9 @@ import androidx.fragment.app.Fragment
 import com.example.studenchat.R
 import com.example.studenchat.authentication.AuthenticationActivity
 import com.example.studenchat.databinding.ActivityMainBinding
-<<<<<<< Updated upstream
 import com.example.studenchat.ui.dialog.DisconnectionDialogFragment
 import com.example.studenchat.ui.fragment.ConversationFragment
-=======
-import com.example.studenchat.ui.conversation.ConversationFragment
-import com.example.studenchat.ui.friends.FriendsFragment
->>>>>>> Stashed changes
+
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -39,7 +35,7 @@ class MainActivity : AppCompatActivity(){
         btmNavigationView.setOnItemSelectedListener{itemMenu ->
             when(itemMenu.itemId){
                 R.id.nav_item_conversation -> setCurrentFragment(ConversationFragment())
-                R.id.nav_item_friends -> setCurrentFragment(FriendsFragment())
+//                R.id.nav_item_friends -> setCurrentFragment(FriendsFragment())
             }
             true
         }

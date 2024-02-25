@@ -36,6 +36,4 @@
     <string name="settings">Paramètres</string>
     <string name="account">Compte</string>
     <string name="logout">Se déconnecter</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

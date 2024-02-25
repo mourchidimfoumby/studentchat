@@ -6,21 +6,6 @@ import com.google.firebase.auth.auth
 import com.google.firebase.database.Exclude
 
 data class Conversation(
-<<<<<<< Updated upstream
-    val interlocutors: Pair<User,User>,
-){
-    var id: String = ""
-    var lastMessage: String = ""
-    @Exclude
-    var title: String = otherUser().toString()
-    @Exclude
-    var picture: Int = R.drawable.ic_avatar
-
-    @Exclude
-    private fun otherUser(): User {
-        return if(interlocutors.first.uid == Firebase.auth.uid) interlocutors.second
-        else interlocutors.first
-=======
     val interlocutors: Pair<User, User>? = null,
     var id: String = "",
     var lastMessage: Message? = null
@@ -35,7 +20,6 @@ data class Conversation(
             if (interlocutors.first.uid == Firebase.auth.uid) interlocutors.second
             else interlocutors.first
         } else User()
->>>>>>> Stashed changes
     }
 }
 
@@ -61,5 +45,5 @@ data class ConversationGroup(
 data class ConversationDTO(
     val interlocutors: List<Map<String, Boolean>>? = null,
     var id: String = "",
-    var lastMessage: Message? = null
+    var lastMessage: String? = null
 )

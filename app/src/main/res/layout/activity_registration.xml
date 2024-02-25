@@ -12,7 +12,7 @@
         android:orientation="vertical"
         android:padding="16dp"
         android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
-        tools:context=".authentication.ui.RegistrationActivity">
+        tools:context=".authentication.RegistrationActivity">
 
         <ImageView
             android:layout_width="wrap_content"

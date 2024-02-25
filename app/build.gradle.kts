@@ -70,6 +70,7 @@ dependencies {
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
     // Koin for Android
     implementation("io.insert-koin:koin-android:3.6.0-wasm-alpha2")
+    implementation("com.diffplug.spotless:spotless-plugin-gradle:6.25.0")
 }
 subprojects {
     apply(plugin = "com.diffplug.spotless")

@@ -15,11 +15,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.studenchat.R
 import com.example.studenchat.databinding.FragmentConversationBinding
 import com.example.studenchat.stateholder.adapter.ConversationAdapter
-import com.example.studenchat.stateholder.viewmodel.ConversationViewModel
-import com.example.studenchat.utils.ToastUtils.Companion.clickToast
+import com.example.studenchat.ui.conversation.ConversationViewModel
+import com.example.studenchat.utils.clickToast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-
-
 class ConversationFragment: Fragment(R.layout.fragment_conversation){
     private lateinit var binding : FragmentConversationBinding
     private lateinit var recyclerViewConversation: RecyclerView
@@ -36,7 +34,7 @@ class ConversationFragment: Fragment(R.layout.fragment_conversation){
         txtViewEmptyConversation = binding.txtViewEmptyConversation
         floatingButtonConversation = binding.floatingButtonConversation
         conversationAdapter = ConversationAdapter(emptyList()) { conversation ->
-            requireContext().clickToast("Click sur ${conversation.title}")
+            requireContext().clickToast("Click sur ${conversation.otherUser()}")
         }
         recyclerViewConversation.adapter = conversationAdapter
         recyclerViewConversation.layoutManager = LinearLayoutManager(context)

@@ -1,6 +1,5 @@
 package com.example.studenchat.authentication
 
-import AuthenticationViewModel
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,9 +11,8 @@ import com.example.studenchat.databinding.ActivityAuthenticationBinding
 import com.google.android.material.textfield.TextInputEditText
 import android.widget.ProgressBar
 import androidx.activity.viewModels
-import com.example.studenchat.authentication.ui.RegistrationActivity
 import com.example.studenchat.ui.MainActivity
-import com.example.studenchat.utils.InputUtils.Companion.inputIsEmpty
+import com.example.studenchat.utils.inputIsEmpty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

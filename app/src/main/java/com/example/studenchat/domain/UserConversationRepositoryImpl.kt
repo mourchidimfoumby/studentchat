@@ -9,11 +9,9 @@ import com.example.studenchat.utils.userId
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.withContext
 
 class UserConversationRepositoryImpl: UserConversationRepository {
     private val userConversationsDatabaseReference = firebaseDatabase.child(TABLE_USER_CONVERSATIONS)

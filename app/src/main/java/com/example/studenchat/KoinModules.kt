@@ -5,8 +5,10 @@ import org.koin.dsl.module
 import com.example.studenchat.data.repository.UserConversationRepository
 import com.example.studenchat.domain.FriendsRepositoryImpl
 import com.example.studenchat.data.repository.FriendsRepository
+import com.example.studenchat.data.repository.MessageRepository
 import com.example.studenchat.data.repository.UserRepository
 import com.example.studenchat.domain.ConversationRepository
+import com.example.studenchat.domain.MessageRepositoryImpl
 import com.example.studenchat.domain.UserConversationRepositoryImpl
 import com.example.studenchat.domain.UserRepositoryImpl
 import com.example.studenchat.domain.usecase.CreateConversationUseCase
@@ -26,6 +28,7 @@ val appModule = module {
     singleOf(::UserConversationRepositoryImpl) { bind<UserConversationRepository>() }
     singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
     singleOf(::FriendsRepositoryImpl) { bind<FriendsRepository>() }
+    singleOf(::MessageRepositoryImpl) { bind<MessageRepository>() }
     factoryOf(::CreateConversationUseCase)
     factoryOf(::DeleteConversationUseCase)
     factoryOf(::GetUserWithUidUseCase)

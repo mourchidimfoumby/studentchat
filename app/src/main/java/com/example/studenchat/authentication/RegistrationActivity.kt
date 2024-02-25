@@ -1,6 +1,5 @@
-package com.example.studenchat.authentication.ui
+package com.example.studenchat.authentication
 
-import AuthenticationViewModel
 import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -17,8 +16,9 @@ import com.example.studenchat.R
 import com.example.studenchat.databinding.ActivityRegistrationBinding
 import com.example.studenchat.ui.MainActivity
 import com.example.studenchat.data.source.User
-import com.example.studenchat.utils.DateUtils.Companion.convertDateToString
-import com.example.studenchat.utils.InputUtils.Companion.inputIsEmpty
+import com.example.studenchat.utils.PATTERN_DAY_MONTH_YEAR
+import com.example.studenchat.utils.convertDateToString
+import com.example.studenchat.utils.inputIsEmpty
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -120,7 +120,7 @@ class RegistrationActivity : AppCompatActivity() {
             this,
             { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
                 calendar.set(year, month, dayOfMonth)
-                inputBirthday.setText(convertDateToString(calendar.time))
+                inputBirthday.setText(convertDateToString(calendar.time, PATTERN_DAY_MONTH_YEAR))
             },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),

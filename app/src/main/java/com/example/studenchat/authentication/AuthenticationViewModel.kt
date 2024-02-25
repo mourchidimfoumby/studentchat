@@ -1,13 +1,10 @@
+package com.example.studenchat.authentication
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-<<<<<<< Updated upstream
 import com.example.studenchat.authentication.domain.LogInWithEmailPasswordUseCase
 import com.example.studenchat.authentication.domain.SignUpUseCase
-=======
-import com.example.studenchat.authentication.usecase.LogInWithEmailPasswordUseCase
-import com.example.studenchat.authentication.usecase.SignUpUseCase
->>>>>>> Stashed changes
 import com.example.studenchat.data.source.User
 import com.google.firebase.auth.FirebaseAuth
 

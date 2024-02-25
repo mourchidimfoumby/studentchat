@@ -9,10 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studenchat.R
 import com.example.studenchat.data.source.Conversation
-<<<<<<< Updated upstream:app/src/main/java/com/example/studenchat/stateholder/adapter/ConversationAdapter.kt
 import com.example.studenchat.stateholder.adapter.diffcallback.ConversationDiffCallback
-=======
->>>>>>> Stashed changes:app/src/main/java/com/example/studenchat/ui/conversation/ConversationAdapter.kt
 
 class ConversationAdapter(
     private var conversationList: List<Conversation>,
@@ -45,9 +42,9 @@ class ConversationAdapter(
             val hourConversation = findViewById<TextView>(R.id.txt_view_hour_conversation)
             val imgAvatar = findViewById<ImageView>(R.id.img_view_avatar_user_conversation)
 
-            lastMessage.text = "Dernier message"
+            lastMessage.text = conversation.lastMessage?.let { it.text }?: "Message supprimé"
             hourConversation.text = "19:00"
-            title.text = conversation.title
+            title.text = conversation.otherUser().toString()
             imgAvatar.setImageResource(conversation.picture)
         }
     }

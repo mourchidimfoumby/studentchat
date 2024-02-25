@@ -13,18 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StudenChat"
-<<<<<<< Updated upstream
         tools:targetApi="31"
         android:name=".StudentChatApplication">
-=======
-        tools:targetApi="31">
         <activity
             android:name=".ui.friends.AddFriendsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.conversation.AddConversationActivity"
             android:exported="false" />
->>>>>>> Stashed changes
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
@@ -39,7 +35,7 @@
             android:name=".authentication.AuthenticationActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".authentication.ui.RegistrationActivity"
+            android:name=".authentication.RegistrationActivity"
             android:parentActivityName=".authentication.AuthenticationActivity"
             android:label="Inscription"
             android:screenOrientation="portrait"/>

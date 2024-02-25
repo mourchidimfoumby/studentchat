@@ -10,23 +10,12 @@ import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 import kotlin.reflect.KClass
 
-<<<<<<< Updated upstream
-const val TABLE_CONVERSATION = "conversation"
-const val TABLE_MESSAGE = "message"
-const val TABLE_USER = "user"
-const val URL_DATABASE = "https://studentchat-a99ae-default-rtdb.europe-west1.firebasedatabase.app/"
-
-class FirebaseUtils {
-    companion object {
-        val userId = Firebase.auth.uid
-        val auth = Firebase.auth
-        val firebaseDatabase = FirebaseDatabase.getInstance(URL_DATABASE).reference
-=======
 private const val URL_DATABASE = "https://studentchat-a99ae-default-rtdb.europe-west1.firebasedatabase.app/"
 const val TABLE_USER_CONVERSATIONS = "user-conversations"
 const val TABLE_CONVERSATIONS = "conversations"
 const val TABLE_USER_FRIENDS = "user-friends"
 const val TABLE_USERS = "users"
+const val TABLE_MESSAGES = "messages"
 val firebaseDatabase = FirebaseDatabase.getInstance(URL_DATABASE).reference
 val auth = Firebase.auth
 val userId = Firebase.auth.uid ?: run {
@@ -71,6 +60,5 @@ suspend fun <T> DatabaseReference.getValue(type: Class<T>): T? = suspendCoroutin
     }.addOnFailureListener { error ->
         Log.e(javaClass.name, "Failed to get the value at $root", error)
         continuation.resume(null)
->>>>>>> Stashed changes
     }
 }

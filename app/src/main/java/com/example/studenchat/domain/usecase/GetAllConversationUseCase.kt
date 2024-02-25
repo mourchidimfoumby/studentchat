@@ -1,23 +1,11 @@
 package com.example.studenchat.domain.usecase
 
-<<<<<<< Updated upstream
-import com.example.studenchat.data.interfaces.ConversationRepository
-import com.example.studenchat.data.source.Conversation
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
-
-class GetAllConversationUseCase(
-    private val conversationRepository: ConversationRepository
-) {
-    suspend operator fun invoke(): List<Conversation> = suspendCoroutine { continuation ->
-        conversationRepository.getAllConversations { continuation.resume(it) }
-=======
 import android.util.Log
 import com.example.studenchat.data.repository.UserConversationRepository
-import com.example.studenchat.data.source.Conversation
 import com.example.studenchat.domain.ConversationRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import com.example.studenchat.data.source.Conversation
 
 class GetAllConversationUseCase(
     private val userConversationRepository: UserConversationRepository,
@@ -36,6 +24,5 @@ class GetAllConversationUseCase(
             catch (e: Exception){
                 Log.e(javaClass.name,"" ,e)
             }
->>>>>>> Stashed changes
     }
 }
