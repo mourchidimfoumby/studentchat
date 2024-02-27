@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "945529664435",
+    "firebase_url": "https://studentchat-a99ae-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "studentchat-a99ae",
+    "storage_bucket": "studentchat-a99ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945529664435:android:1867f9551010f2fb9b11c6",
+        "android_client_info": {
+          "package_name": "com.example.studenchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "945529664435-1ljc6mr1plrpskukavblul0mnpvko97d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.studenchat",
+            "certificate_hash": "9e9c647d0f158ff2f069db2ea7f636ed29da3aa2"
+          }
+        },
+        {
+          "client_id": "945529664435-3arh3fipmu8r79pcqkfpnr8uchjrig7o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxXmomXahiLeXhlB4Mn1JYYOTJPTZRzhk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "945529664435-3arh3fipmu8r79pcqkfpnr8uchjrig7o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
