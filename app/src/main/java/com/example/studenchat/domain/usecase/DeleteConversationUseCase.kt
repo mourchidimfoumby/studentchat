@@ -6,7 +6,6 @@ import com.example.studenchat.data.source.Conversation
 class DeleteConversationUseCase(
     private val userConversationRepository: UserConversationRepository,
 ) {
-    suspend operator fun invoke(conversation: Conversation){
+    suspend operator fun invoke(conversation: Conversation) =
         userConversationRepository.deleteConversation(conversation)
-    }
 }

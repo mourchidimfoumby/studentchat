@@ -7,8 +7,6 @@ import com.example.studenchat.data.source.Message
 import com.example.studenchat.utils.TABLE_MESSAGES
 import com.example.studenchat.utils.firebaseDatabase
 import com.example.studenchat.utils.getValue
-import com.example.studenchat.utils.remove
-import com.example.studenchat.utils.userId
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -19,7 +17,7 @@ import kotlinx.coroutines.flow.callbackFlow
 class MessageRepositoryImpl: MessageRepository {
     private val messageDatabaseReference = firebaseDatabase.child(TABLE_MESSAGES)
     private var valueEventListener: ValueEventListener? = null
-    override suspend fun getAllMessage(conversation: Conversation): Flow<List<Message>> = callbackFlow {
+    override suspend fun getAllMessage(conversation: Conversation): Flow<List<Message>?> = callbackFlow {
         valueEventListener = messageDatabaseReference
             .child(conversation.id)
             .addValueEventListener(object : ValueEventListener{
@@ -32,29 +30,41 @@ class MessageRepositoryImpl: MessageRepository {
                             messageList.add(it)
                         }
                     }
-                    trySend(messageList)
+                    trySend(messageList.ifEmpty { null })
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                     Log.e(javaClass.name, error.message)
                 }
             })
-        awaitClose {
-            Log.i(javaClass.name, "Flow closed")
+        awaitClose {}
+    }
+
+    override fun closeListener() {
+        valueEventListener?.let {
+            messageDatabaseReference.removeEventListener(it)
         }
     }
 
-    override suspend fun getMessage(messageId: String): Message? {
-        return messageDatabaseReference
+    override suspend fun getMessage(conversationId: String, messageId: String): Message? {
+        val message = messageDatabaseReference
+            .child(conversationId)
             .child(messageId)
             .getValue(Message::class.java)
+        message?.let {
+            it.dateTime = messageId
+            return it
+        }?: return null
     }
 
     override suspend fun deleteMessage(conversation: Conversation, message: Message) {
         messageDatabaseReference
             .child(conversation.id)
-            .child(message.dateTime.toString())
-            .remove()
+            .child(message.dateTime)
+            .removeValue()
+            .addOnFailureListener {
+                Log.e(javaClass.name, "Failed to delete $message", it)
+            }
     }
 
     override suspend fun createMessage(conversation: Conversation, message: Message) {
@@ -64,9 +74,4 @@ class MessageRepositoryImpl: MessageRepository {
             .setValue(message)
     }
 
-    override fun closeListener() {
-        valueEventListener?.let {
-            messageDatabaseReference.removeEventListener(it)
-        }
-    }
 }

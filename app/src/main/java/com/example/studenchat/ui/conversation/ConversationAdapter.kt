@@ -1,4 +1,4 @@
-package com.example.studenchat.stateholder.adapter
+package com.example.studenchat.ui.conversation
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studenchat.R
 import com.example.studenchat.data.source.Conversation
-import com.example.studenchat.stateholder.adapter.diffcallback.ConversationDiffCallback
 
 class ConversationAdapter(
     private var conversationList: List<Conversation>,

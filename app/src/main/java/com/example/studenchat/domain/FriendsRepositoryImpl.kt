@@ -6,22 +6,34 @@ import com.example.studenchat.data.source.User
 import com.example.studenchat.utils.TABLE_USER_FRIENDS
 import com.example.studenchat.utils.firebaseDatabase
 import com.example.studenchat.utils.userId
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 
 class FriendsRepositoryImpl: FriendsRepository {
+
     private val friendsDatabaseReference =
-        firebaseDatabase.child(TABLE_USER_FRIENDS).child(userId)
+        firebaseDatabase.child(TABLE_USER_FRIENDS)
     private var valueEventListener: ValueEventListener? = null
-    override suspend fun getAllFriendsUid(): List<String>{
-        val friendsUids = mutableListOf<String>()
-        val snapshot = friendsDatabaseReference
+
+    override suspend fun getAllFriendsUid(): Flow<List<String>?> = callbackFlow {
+        valueEventListener = friendsDatabaseReference
             .child(userId)
-            .get()
-            .result
-        snapshot.children.forEach { value ->
-            value.key?.let { friendsUids.add(it) }
-        }
-        return friendsUids
+            .addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val friendsUid = snapshot.children.map { it.key!! }.toList()
+                    trySend(friendsUid.ifEmpty { null })
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e(javaClass.name, "Failed to get values", error.toException())
+                }
+
+            })
+        awaitClose {}
     }
 
     override suspend fun addFriend(user: User) {

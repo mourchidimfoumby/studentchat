@@ -1,4 +1,4 @@
-package com.example.studenchat.stateholder.adapter.diffcallback
+package com.example.studenchat.ui.conversation
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.studenchat.data.source.Conversation

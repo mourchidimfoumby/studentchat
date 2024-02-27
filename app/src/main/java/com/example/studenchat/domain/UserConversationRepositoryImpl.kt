@@ -16,20 +16,20 @@ import kotlinx.coroutines.flow.callbackFlow
 class UserConversationRepositoryImpl: UserConversationRepository {
     private val userConversationsDatabaseReference = firebaseDatabase.child(TABLE_USER_CONVERSATIONS)
     private var valueEventListener: ValueEventListener? = null
-    override suspend fun getAllIdsConversations(): Flow<List<String>> = callbackFlow {
-        valueEventListener = userConversationsDatabaseReference.child(userId).addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val userConversationIds = snapshot.children.map { it.key }.toList()
-                trySend(userConversationIds.filterNotNull())
-            }
+    override suspend fun getAllIdsConversations(): Flow<List<String>?> = callbackFlow {
+        valueEventListener = userConversationsDatabaseReference
+            .child(userId)
+            .addValueEventListener(object: ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val userConversationIds = snapshot.children.map { it.key!! }.toList()
+                    trySend(userConversationIds.ifEmpty { null })
+                }
 
-            override fun onCancelled(error: DatabaseError) {
-                Log.e(javaClass.name, error.message)
-            }
-        })
-        awaitClose {
-            Log.i(javaClass.name, "Fermeture du flow")
-        }
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e(javaClass.name, "Failed to get all ids conversations", error.toException())
+                }
+            })
+        awaitClose {}
     }
 
     override fun closeListener(){

@@ -7,21 +7,18 @@ import com.example.studenchat.data.source.ConversationDTO
 import com.example.studenchat.data.source.User
 import com.example.studenchat.utils.TABLE_CONVERSATIONS
 import com.example.studenchat.utils.firebaseDatabase
-import com.example.studenchat.utils.remove
-import com.example.studenchat.utils.set
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 class ConversationRepository: Repository {
     private val conversationDatabaseReference = firebaseDatabase.child(TABLE_CONVERSATIONS)
     private var valueEventListener: ValueEventListener? = null
 
-    suspend fun getConversation(conversationId: String) = suspendCoroutine{ continuation ->
+    suspend fun getConversation(conversationId: String) = suspendCoroutine { continuation ->
         conversationDatabaseReference.child(conversationId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -29,12 +26,14 @@ class ConversationRepository: Repository {
                     result?.let {
                         it.id = conversationId
                         continuation.resume(result)
-                    }?: continuation.resumeWithException(Exception("Conversation is null"))
+                    }?: run {
+                        Log.w(javaClass.name, "Conversation $conversationId not found")
+                        null
+                    }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                     Log.e(javaClass.name, "Failed to get value of $conversationId", error.toException())
-                    continuation.resumeWithException(error.toException())
                 }
             })
     }
@@ -45,22 +44,29 @@ class ConversationRepository: Repository {
         }
     }
 
-    suspend fun getConversation(listIds: List<String>): List<ConversationDTO>{
+    suspend fun getConversation(listIds: List<String>): List<ConversationDTO>? {
         val conversationList = mutableListOf<ConversationDTO>()
         listIds.forEach { id ->
             getConversation(id).let { conversationList.add(it) }
         }
-        return conversationList
+        return conversationList.ifEmpty { null }
     }
     suspend fun createConversation(conversation: Conversation) =
-        conversationDatabaseReference.set(conversation)
+        conversationDatabaseReference
+            .setValue(conversation)
+            .addOnFailureListener {
+                Log.e(javaClass.name, "Failed to create conversation : $conversation", it)
+            }
 
     suspend fun removeUser(conversation: Conversation, user: User){
         conversationDatabaseReference
             .child(conversation.id)
             .child("interlocutors")
             .child(user.uid)
-            .remove()
+            .removeValue()
+            .addOnFailureListener {
+                Log.e(javaClass.name, "Failed to remove $user", it)
+            }
     }
     suspend fun verifConversation(conversation: Conversation): Boolean{
         val snapshot = conversationDatabaseReference
@@ -72,6 +78,6 @@ class ConversationRepository: Repository {
     private suspend fun deleteConversation(conversation: Conversation) {
         conversationDatabaseReference
             .child(conversation.id)
-            .remove()
+            .removeValue()
     }
 }

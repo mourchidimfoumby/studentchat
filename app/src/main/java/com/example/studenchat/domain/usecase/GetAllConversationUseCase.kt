@@ -6,23 +6,23 @@ import com.example.studenchat.domain.ConversationRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.example.studenchat.data.source.Conversation
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 class GetAllConversationUseCase(
     private val userConversationRepository: UserConversationRepository,
     private val conversationRepository: ConversationRepository,
     private val convertConversationDTOUseCase: ConvertConversationDTOUseCase
 ) {
-    suspend operator fun invoke(callback: (List<Conversation>) -> Unit) =
-        withContext(Dispatchers.IO){
-            try {
-                userConversationRepository.getAllIdsConversations().collect {
-                    val conversationDTOList = conversationRepository.getConversation(it)
-                    val conversationList = convertConversationDTOUseCase(conversationDTOList)
+    suspend operator fun invoke(callback: (List<Conversation>?) -> Unit) =
+        userConversationRepository.getAllIdsConversations().collect { conversationIds ->
+            if(conversationIds == null) return@collect
+            CoroutineScope(Dispatchers.IO).launch {
+                    val conversationDTOList = conversationRepository.getConversation(conversationIds)
+                    val conversationList = conversationDTOList?.let{
+                        convertConversationDTOUseCase(it)
+                    }
                     withContext(Dispatchers.Main){ callback(conversationList)}
-                }
-            }
-            catch (e: Exception){
-                Log.e(javaClass.name,"" ,e)
-            }
+                }.join()
     }
 }

@@ -17,8 +17,10 @@ import com.example.studenchat.domain.usecase.AddFriendsUseCase
 import com.example.studenchat.domain.usecase.ConvertConversationDTOUseCase
 import com.example.studenchat.domain.usecase.GetAllConversationUseCase
 import com.example.studenchat.domain.usecase.GetAllFriendsUseCase
+import com.example.studenchat.domain.usecase.GetAllNotFriendsUseCase
 import com.example.studenchat.domain.usecase.GetCurrentUserUseCase
 import com.example.studenchat.domain.usecase.GetUserWithUidUseCase
+import com.example.studenchat.domain.usecase.RemoveListenerUseCase
 import com.example.studenchat.ui.conversation.ConversationViewModel
 import com.example.studenchat.ui.friends.FriendsViewModel
 import org.koin.core.module.dsl.bind
@@ -29,15 +31,19 @@ val appModule = module {
     singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
     singleOf(::FriendsRepositoryImpl) { bind<FriendsRepository>() }
     singleOf(::MessageRepositoryImpl) { bind<MessageRepository>() }
+    factoryOf(::ConversationRepository)
+
     factoryOf(::CreateConversationUseCase)
     factoryOf(::DeleteConversationUseCase)
     factoryOf(::GetUserWithUidUseCase)
     factoryOf(::GetCurrentUserUseCase)
     factoryOf(::AddFriendsUseCase)
     factoryOf(::GetAllFriendsUseCase)
+    factoryOf(::GetAllNotFriendsUseCase)
     factoryOf(::GetAllConversationUseCase)
     factoryOf(::ConvertConversationDTOUseCase)
+    factoryOf(::RemoveListenerUseCase)
+
     factoryOf(::ConversationViewModel)
     factoryOf(::FriendsViewModel)
-    factoryOf(::ConversationRepository)
 }
