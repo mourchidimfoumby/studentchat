@@ -1,8 +1,8 @@
 package com.example.studenchat.authentication.domain
 
 import com.example.studenchat.authentication.AuthenticationRepository
-import com.example.studenchat.data.repository.UserRepository
-import com.example.studenchat.data.source.User
+import com.example.studenchat.user.data.UserRepository
+import com.example.studenchat.user.data.User
 import org.koin.java.KoinJavaComponent.inject
 
 class SignUpUseCase {

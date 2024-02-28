@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.studenchat.authentication.domain.LogInWithEmailPasswordUseCase
 import com.example.studenchat.authentication.domain.SignUpUseCase
-import com.example.studenchat.data.source.User
+import com.example.studenchat.user.data.User
 import com.google.firebase.auth.FirebaseAuth
 
 class AuthenticationViewModel: ViewModel() {

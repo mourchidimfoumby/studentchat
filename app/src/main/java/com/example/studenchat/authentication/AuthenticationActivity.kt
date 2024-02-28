@@ -11,7 +11,7 @@ import com.example.studenchat.databinding.ActivityAuthenticationBinding
 import com.google.android.material.textfield.TextInputEditText
 import android.widget.ProgressBar
 import androidx.activity.viewModels
-import com.example.studenchat.ui.MainActivity
+import com.example.studenchat.MainActivity
 import com.example.studenchat.utils.inputIsEmpty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

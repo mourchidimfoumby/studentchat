@@ -2,27 +2,26 @@ package com.example.studenchat
 
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
-import com.example.studenchat.data.repository.UserConversationRepository
-import com.example.studenchat.domain.FriendsRepositoryImpl
-import com.example.studenchat.data.repository.FriendsRepository
-import com.example.studenchat.data.repository.MessageRepository
-import com.example.studenchat.data.repository.UserRepository
-import com.example.studenchat.domain.ConversationRepository
-import com.example.studenchat.domain.MessageRepositoryImpl
-import com.example.studenchat.domain.UserConversationRepositoryImpl
-import com.example.studenchat.domain.UserRepositoryImpl
-import com.example.studenchat.domain.usecase.CreateConversationUseCase
-import com.example.studenchat.domain.usecase.DeleteConversationUseCase
-import com.example.studenchat.domain.usecase.AddFriendsUseCase
-import com.example.studenchat.domain.usecase.ConvertConversationDTOUseCase
-import com.example.studenchat.domain.usecase.GetAllConversationUseCase
-import com.example.studenchat.domain.usecase.GetAllFriendsUseCase
-import com.example.studenchat.domain.usecase.GetAllNotFriendsUseCase
-import com.example.studenchat.domain.usecase.GetCurrentUserUseCase
-import com.example.studenchat.domain.usecase.GetUserWithUidUseCase
-import com.example.studenchat.domain.usecase.RemoveListenerUseCase
-import com.example.studenchat.ui.conversation.ConversationViewModel
-import com.example.studenchat.ui.friends.FriendsViewModel
+import com.example.studenchat.conversation.data.UserConversationRepository
+import com.example.studenchat.friends.data.FriendsRepositoryImpl
+import com.example.studenchat.friends.data.FriendsRepository
+import com.example.studenchat.chat.data.MessageRepository
+import com.example.studenchat.user.data.UserRepository
+import com.example.studenchat.conversation.data.ConversationRepositoryImpl
+import com.example.studenchat.chat.data.MessageRepositoryImpl
+import com.example.studenchat.conversation.data.UserConversationRepositoryImpl
+import com.example.studenchat.user.data.UserRepositoryImpl
+import com.example.studenchat.conversation.domain.CreateConversationUseCase
+import com.example.studenchat.conversation.domain.DeleteConversationUseCase
+import com.example.studenchat.friends.domain.AddFriendsUseCase
+import com.example.studenchat.conversation.domain.ConvertConversationDTOUseCase
+import com.example.studenchat.conversation.domain.GetAllConversationUseCase
+import com.example.studenchat.friends.domain.GetAllFriendsUseCase
+import com.example.studenchat.friends.domain.GetAllNotFriendsUseCase
+import com.example.studenchat.user.domain.GetCurrentUserUseCase
+import com.example.studenchat.user.domain.GetUserWithUidUseCase
+import com.example.studenchat.conversation.ui.stateholder.ConversationViewModel
+import com.example.studenchat.friends.ui.stateholder.FriendsViewModel
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
 
@@ -31,7 +30,7 @@ val appModule = module {
     singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
     singleOf(::FriendsRepositoryImpl) { bind<FriendsRepository>() }
     singleOf(::MessageRepositoryImpl) { bind<MessageRepository>() }
-    factoryOf(::ConversationRepository)
+    factoryOf(::ConversationRepositoryImpl)
 
     factoryOf(::CreateConversationUseCase)
     factoryOf(::DeleteConversationUseCase)
