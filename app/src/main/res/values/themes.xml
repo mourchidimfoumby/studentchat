@@ -47,4 +47,10 @@
     <style name="toolbarCustom" parent="Theme.Material3.Dark">
         <item name="popupMenuBackground">@color/white</item>
     </style>
+
+    <style name="ChatToolbar" parent="Base.Theme.StudenChat">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
 </resources>

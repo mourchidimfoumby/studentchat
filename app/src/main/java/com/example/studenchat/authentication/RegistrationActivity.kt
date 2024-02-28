@@ -14,8 +14,8 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import com.example.studenchat.R
 import com.example.studenchat.databinding.ActivityRegistrationBinding
-import com.example.studenchat.ui.MainActivity
-import com.example.studenchat.data.source.User
+import com.example.studenchat.MainActivity
+import com.example.studenchat.user.data.User
 import com.example.studenchat.utils.PATTERN_DAY_MONTH_YEAR
 import com.example.studenchat.utils.convertDateToString
 import com.example.studenchat.utils.inputIsEmpty
