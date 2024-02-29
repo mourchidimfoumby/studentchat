@@ -16,9 +16,9 @@ class MessageRepositoryImpl: MessageRepository {
     private val messageDatabaseReference = firebaseDatabase.child(TABLE_MESSAGES)
     private var valueEventListener: ValueEventListener? = null
     override suspend fun getAllMessage(conversation: Conversation): Flow<List<Message>?> = callbackFlow {
-        valueEventListener = messageDatabaseReference
+        messageDatabaseReference
             .child(conversation.id)
-            .addValueEventListener(object : ValueEventListener{
+            .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val messageList = mutableListOf<Message>()
                     snapshot.children.forEach { values ->
@@ -38,7 +38,30 @@ class MessageRepositoryImpl: MessageRepository {
         awaitClose {}
     }
 
-    override fun closeListener() {
+    override suspend fun getLastMessage(conversation: Conversation): Flow<Message?> = callbackFlow {
+        valueEventListener = messageDatabaseReference
+            .child(conversation.id)
+            .orderByKey()
+            .limitToLast(1)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        val message = snapshot.children.first().getValue(Message::class.java)
+                        message?.let {
+                            it.dateTime = snapshot.children.first().key.toString()
+                        }
+                        trySend(message)
+                    } else trySend(null)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e(javaClass.name, error.message)
+                }
+            })
+        awaitClose {}
+    }
+
+    override fun removeListener() {
         valueEventListener?.let {
             messageDatabaseReference.removeEventListener(it)
         }
@@ -68,7 +91,7 @@ class MessageRepositoryImpl: MessageRepository {
     override suspend fun createMessage(conversation: Conversation, message: Message) {
         messageDatabaseReference
             .child(conversation.id)
-            .child(message.dateTime.toString())
+            .child(message.dateTime)
             .setValue(message)
     }
 

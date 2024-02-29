@@ -48,7 +48,7 @@ class FriendsRepositoryImpl: FriendsRepository {
             }
     }
 
-    override fun closeListener() {
+    override fun removeListener() {
         valueEventListener?.let {
             friendsDatabaseReference.removeEventListener(it)
         }

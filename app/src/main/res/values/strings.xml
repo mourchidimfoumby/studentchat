@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StudenChat</string>
+    <string name="app_name">StudentChat</string>
     <string name="connect">Se connecter</string>
     <string name="mail_suffix">\@universite-paris-saclay.fr</string>
     <string name="register">S\'inscrire</string>
@@ -36,4 +36,6 @@
     <string name="settings">Paramètres</string>
     <string name="account">Compte</string>
     <string name="logout">Se déconnecter</string>
+    <string name="fl_button_friends_desc">Floating button to add friends</string>
+    <string name="fl_button_conversation_desc">Floating button to add conversation</string>
 </resources>
