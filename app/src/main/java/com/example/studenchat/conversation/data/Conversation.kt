@@ -24,6 +24,13 @@ data class Conversation(
             else interlocutors.first
         } else User()
     }
+
+    override fun equals(other: Any?): Boolean {
+        other as Conversation
+        return this.picture == other.picture &&
+                this.lastMessage == other.lastMessage &&
+                this.interlocutors == other.interlocutors
+    }
 }
 
 data class ConversationGroup(

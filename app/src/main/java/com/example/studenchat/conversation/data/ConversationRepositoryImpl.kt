@@ -36,7 +36,7 @@ class ConversationRepositoryImpl: Repository {
             })
     }
 
-    override fun closeListener() {
+    override fun removeListener() {
         valueEventListener?.let {
             conversationDatabaseReference.removeEventListener(it)
         }
@@ -49,14 +49,14 @@ class ConversationRepositoryImpl: Repository {
         }
         return conversationList.ifEmpty { null }
     }
-    suspend fun createConversation(conversation: Conversation) =
+    fun createConversation(conversation: Conversation) {
         conversationDatabaseReference
             .setValue(conversation)
             .addOnFailureListener {
                 Log.e(javaClass.name, "Failed to create conversation : $conversation", it)
             }
-
-    suspend fun removeUser(conversation: Conversation, user: User){
+    }
+    fun removeUser(conversation: Conversation, user: User) {
         conversationDatabaseReference
             .child(conversation.id)
             .child("interlocutors")
@@ -66,14 +66,14 @@ class ConversationRepositoryImpl: Repository {
                 Log.e(javaClass.name, "Failed to remove $user", it)
             }
     }
-    suspend fun verifConversation(conversation: Conversation): Boolean{
+    suspend fun verifConversation(conversation: Conversation): Boolean {
         val snapshot = conversationDatabaseReference
             .child(conversation.id)
             .child("interlocutors")
             .get().await()
         return snapshot.hasChildren()
     }
-    private suspend fun deleteConversation(conversation: Conversation) {
+    private fun deleteConversation(conversation: Conversation) {
         conversationDatabaseReference
             .child(conversation.id)
             .removeValue()

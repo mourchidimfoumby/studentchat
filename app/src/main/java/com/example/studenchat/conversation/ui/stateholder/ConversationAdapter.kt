@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studenchat.R
+import com.example.studenchat.chat.domain.ConvertTimestampMessageUseCase
 import com.example.studenchat.conversation.data.Conversation
 
 class ConversationAdapter(
@@ -15,6 +16,7 @@ class ConversationAdapter(
     private val clickListener: (Conversation) -> Unit
 ) :
     RecyclerView.Adapter<ConversationAdapter.ConversationViewHolder>() {
+    private val convertTimestampMessageUseCase = ConvertTimestampMessageUseCase()
     inner class ConversationViewHolder(view: View, clickAtPosition: (Int) -> Unit) :
         RecyclerView.ViewHolder(view) {
         init {
@@ -36,13 +38,16 @@ class ConversationAdapter(
     override fun onBindViewHolder(holder: ConversationViewHolder, position: Int) {
         holder.itemView.apply {
             val conversation = conversationList[position]
+            conversation.lastMessage?.apply {
+                convertTimestampMessageUseCase(this)
+            }
             val title = findViewById<TextView>(R.id.txt_view_title_conversation)
             val lastMessage = findViewById<TextView>(R.id.txt_view_message_conversation)
             val hourConversation = findViewById<TextView>(R.id.txt_view_hour_conversation)
             val imgAvatar = findViewById<ImageView>(R.id.img_view_avatar_user_conversation)
 
-            lastMessage.text = conversation.lastMessage?.let { it.text }?: "Message supprimé"
-            hourConversation.text = "19:00"
+            lastMessage.text = conversation.lastMessage?.text ?: "Message supprimé"
+            hourConversation.text = conversation.lastMessage?.dateTime
             title.text = conversation.otherUser().toString()
             imgAvatar.setImageResource(conversation.picture)
         }

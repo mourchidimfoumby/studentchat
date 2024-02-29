@@ -11,7 +11,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_conversation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"/>
 
         <TextView
             android:id="@+id/txt_view_empty_conversation"
@@ -34,7 +35,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:backgroundTint="@color/primary_color"
-            android:contentDescription="Floating button to add conversation"
+            android:contentDescription="@string/fl_button_conversation_desc"
             android:src="@drawable/ic_message"
             app:borderWidth="0dp"
             app:tint="@color/white" />

@@ -30,12 +30,13 @@ class UserConversationRepositoryImpl: UserConversationRepository {
         awaitClose {}
     }
 
-    override fun closeListener(){
+    override fun removeListener() {
         valueEventListener?.let {
             userConversationsDatabaseReference.removeEventListener(it)
         }
     }
-//    override suspend fun getAllIdsConversations(): Flow<List<String>> = callbackFlow {
+
+    //    override suspend fun getAllIdsConversations(): Flow<List<String>> = callbackFlow {
 //        val listener = userConversationsDatabaseReference.child(userId).addValueEventListener(object: ValueEventListener{
 //            override fun onDataChange(snapshot: DataSnapshot) {
 //                val userConversationIds = snapshot.children.map { it.key }.toList()

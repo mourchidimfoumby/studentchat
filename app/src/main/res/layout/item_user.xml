@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
+    android:paddingVertical="5dp"
     android:background="?android:attr/selectableItemBackground"
     android:focusable="true"
     android:clickable="true"
@@ -27,7 +27,7 @@
             android:layout_marginStart="5dp"
             android:textSize="20sp"
             android:textStyle="bold"
-            tools:text="User 1" />
+            tools:text="Pierre Dupont" />
 
 
 </RelativeLayout>
