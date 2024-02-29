@@ -59,7 +59,7 @@ class ChatViewModel : ViewModel() {
             val timestamp = zoneDateTime.toInstant().epochSecond
             currentUser?.let {
                 val message = Message(
-                    currentUser.toString(),
+                    currentUser.uid,
                     messageText,
                     timestamp.toString()
                 )

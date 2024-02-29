@@ -28,8 +28,8 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var toolbarChat: Toolbar
     private lateinit var txtViewUserName: TextView
     private lateinit var imgViewUserAvatar: ImageView
+    private lateinit var chatAdapter: ChatAdapter
     private var allMessage = listOf<Message>()
-    private val chatAdapter = ChatAdapter(allMessage)
     private val chatViewModel: ChatViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,12 +47,13 @@ class ChatActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         chatViewModel(conversation!!)
+        chatAdapter = ChatAdapter(allMessage, conversation)
 
         editTxtChat = binding.editTxtChat
         floatingButtonChat = binding.flButtonChat
         recyclerViewChat = binding.rvChat
         txtViewUserName = toolbarChat.findViewById(R.id.txt_view_user_name_chat)
-        imgViewUserAvatar = toolbarChat.findViewById(R.id.img_view_avatar_user_chat)
+        imgViewUserAvatar = toolbarChat.findViewById(R.id.img_view_avatar_user_chat_toolbar)
         val interlocutor = conversation.otherUser()
 
         txtViewUserName.text = interlocutor.toString()
