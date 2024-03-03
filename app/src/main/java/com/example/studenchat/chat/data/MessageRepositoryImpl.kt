@@ -18,13 +18,12 @@ class MessageRepositoryImpl: MessageRepository {
     override suspend fun getAllMessage(conversation: Conversation): Flow<List<Message>?> = callbackFlow {
         messageDatabaseReference
             .child(conversation.id)
-            .addValueEventListener(object : ValueEventListener {
+            .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val messageList = mutableListOf<Message>()
                     snapshot.children.forEach { values ->
                         val message = values.getValue(Message::class.java)
                         message?.let {
-                            it.dateTime = values.key.toString()
                             messageList.add(it)
                         }
                     }
@@ -47,9 +46,6 @@ class MessageRepositoryImpl: MessageRepository {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
                         val message = snapshot.children.first().getValue(Message::class.java)
-                        message?.let {
-                            it.dateTime = snapshot.children.first().key.toString()
-                        }
                         trySend(message)
                     } else trySend(null)
                 }
@@ -68,20 +64,22 @@ class MessageRepositoryImpl: MessageRepository {
     }
 
     override suspend fun getMessage(conversationId: String, messageId: String): Message? {
-        val message = messageDatabaseReference
-            .child(conversationId)
-            .child(messageId)
-            .getValue(Message::class.java)
-        message?.let {
-            it.dateTime = messageId
-            return it
-        }?: return null
+        return try {
+            val message = messageDatabaseReference
+                .child(conversationId)
+                .child(messageId)
+                .getValue(Message::class.java)
+            message ?: return null
+        } catch (e: Exception){
+            Log.e(javaClass.name, "", e)
+            null
+        }
     }
 
     override suspend fun deleteMessage(conversation: Conversation, message: Message) {
         messageDatabaseReference
             .child(conversation.id)
-            .child(message.dateTime)
+            .child(message.datetime.toString())
             .removeValue()
             .addOnFailureListener {
                 Log.e(javaClass.name, "Failed to delete $message", it)
@@ -91,7 +89,7 @@ class MessageRepositoryImpl: MessageRepository {
     override suspend fun createMessage(conversation: Conversation, message: Message) {
         messageDatabaseReference
             .child(conversation.id)
-            .child(message.dateTime)
+            .child(message.datetime.toString())
             .setValue(message)
     }
 

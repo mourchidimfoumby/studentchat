@@ -9,17 +9,13 @@ import kotlinx.coroutines.withContext
 
 class GetLastMessageUseCase(
     private val messageRepository: MessageRepository,
-    private val getCurrentUserUseCase: GetCurrentUserUseCase
 ) {
-    private val convertTimestampMessageUseCase = ConvertTimestampMessageUseCase()
     suspend operator fun invoke(conversation: Conversation, callback: (Message?) -> Unit) {
         messageRepository.getLastMessage(conversation).collect { message ->
             if (message != null) {
                 withContext(Dispatchers.IO) {
-                    val currentUser = getCurrentUserUseCase()
                     message.apply {
-                        convertTimestampMessageUseCase(this)
-                        if (author == currentUser.toString()) {
+                        if (author == conversation.currentUser().toString()) {
                             author = "Moi"
                         }
                     }

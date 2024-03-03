@@ -1,6 +1,7 @@
 package com.example.studenchat.user.data
 
 import com.example.studenchat.Repository
+import com.example.studenchat.user.data.User
 
 interface UserRepository: Repository {
     suspend fun getAllUser(): List<User>?

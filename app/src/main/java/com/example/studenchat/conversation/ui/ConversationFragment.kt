@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studenchat.R
 import com.example.studenchat.chat.ui.ChatActivity
+import com.example.studenchat.chat.ui.ERROR_OPEN_CHAT
 import com.example.studenchat.conversation.data.Conversation
 import com.example.studenchat.conversation.ui.stateholder.ConversationAdapter
 import com.example.studenchat.conversation.ui.stateholder.ConversationViewModel
@@ -37,7 +38,7 @@ class ConversationFragment: Fragment(R.layout.fragment_conversation){
 
         binding = FragmentConversationBinding.bind(view)
         resultLauncher = registerForActivityResult(StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_CANCELED) {
+            if (result.resultCode == ERROR_OPEN_CHAT) {
                 requireContext().messageToast("Erreur: Impossible d'ouvrir le chat")
             }
         }

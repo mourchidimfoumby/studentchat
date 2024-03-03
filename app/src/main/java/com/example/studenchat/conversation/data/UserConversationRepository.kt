@@ -1,6 +1,7 @@
 package com.example.studenchat.conversation.data
 
 import com.example.studenchat.Repository
+import com.example.studenchat.conversation.data.Conversation
 import kotlinx.coroutines.flow.Flow
 
 interface UserConversationRepository: Repository {

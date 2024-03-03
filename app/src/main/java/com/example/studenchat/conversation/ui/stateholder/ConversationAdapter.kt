@@ -8,15 +8,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studenchat.R
-import com.example.studenchat.chat.domain.ConvertTimestampMessageUseCase
+import com.example.studenchat.chat.domain.FormatTimestampUseCase
 import com.example.studenchat.conversation.data.Conversation
+import com.example.studenchat.utils.UNIT
+import org.koin.java.KoinJavaComponent
 
 class ConversationAdapter(
     private var conversationList: List<Conversation>,
     private val clickListener: (Conversation) -> Unit
 ) :
     RecyclerView.Adapter<ConversationAdapter.ConversationViewHolder>() {
-    private val convertTimestampMessageUseCase = ConvertTimestampMessageUseCase()
+    private val formatTimestampUseCase:
+            FormatTimestampUseCase by KoinJavaComponent.inject(FormatTimestampUseCase::class.java)
     inner class ConversationViewHolder(view: View, clickAtPosition: (Int) -> Unit) :
         RecyclerView.ViewHolder(view) {
         init {
@@ -38,16 +41,15 @@ class ConversationAdapter(
     override fun onBindViewHolder(holder: ConversationViewHolder, position: Int) {
         holder.itemView.apply {
             val conversation = conversationList[position]
-            conversation.lastMessage?.apply {
-                convertTimestampMessageUseCase(this)
-            }
             val title = findViewById<TextView>(R.id.txt_view_title_conversation)
             val lastMessage = findViewById<TextView>(R.id.txt_view_message_conversation)
             val hourConversation = findViewById<TextView>(R.id.txt_view_hour_conversation)
             val imgAvatar = findViewById<ImageView>(R.id.img_view_avatar_user_conversation)
 
             lastMessage.text = conversation.lastMessage?.text ?: "Message supprimé"
-            hourConversation.text = conversation.lastMessage?.dateTime
+            hourConversation.text = conversation.lastMessage?.datetime?.let {
+                formatTimestampUseCase(it, UNIT.HOUR_MINUTE)
+            }
             title.text = conversation.otherUser().toString()
             imgAvatar.setImageResource(conversation.picture)
         }

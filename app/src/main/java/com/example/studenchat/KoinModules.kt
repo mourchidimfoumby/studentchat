@@ -1,7 +1,10 @@
 package com.example.studenchat
 
+import com.example.studenchat.authentication.domain.LogOutUseCase
 import com.example.studenchat.chat.data.MessageRepository
 import com.example.studenchat.chat.data.MessageRepositoryImpl
+import com.example.studenchat.chat.domain.FormatTimestampUseCase
+import com.example.studenchat.chat.domain.TimestampToLocalDate
 import com.example.studenchat.chat.domain.GetAllMessageUseCase
 import com.example.studenchat.chat.domain.GetLastMessageUseCase
 import com.example.studenchat.chat.domain.SendMessageUseCase
@@ -40,6 +43,7 @@ val appModule = module {
     factoryOf(::CreateConversationUseCase)
     factoryOf(::DeleteConversationUseCase)
     factoryOf(::ConvertConversationDTOUseCase)
+    factoryOf(::RemoveListenerUseCase)
 
     factoryOf(::GetUserWithUidUseCase)
     factoryOf(::GetCurrentUserUseCase)
@@ -50,8 +54,11 @@ val appModule = module {
     factoryOf(::SendMessageUseCase)
     factoryOf(::GetAllMessageUseCase)
     factoryOf(::GetLastMessageUseCase)
+    factoryOf(::TimestampToLocalDate)
+    factoryOf(::FormatTimestampUseCase)
 
     factoryOf(::RemoveListenerUseCase)
+    factoryOf(::LogOutUseCase)
 
     factoryOf(::ConversationViewModel)
     factoryOf(::FriendsViewModel)
