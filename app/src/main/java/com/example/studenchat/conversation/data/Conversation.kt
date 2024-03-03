@@ -25,6 +25,11 @@ data class Conversation(
         } else User()
     }
 
+    @Exclude
+    fun currentUser(): User {
+        return if (interlocutors!!.first.uid == Firebase.auth.uid) interlocutors.first
+        else interlocutors.second
+    }
     override fun equals(other: Any?): Boolean {
         other as Conversation
         return this.picture == other.picture &&

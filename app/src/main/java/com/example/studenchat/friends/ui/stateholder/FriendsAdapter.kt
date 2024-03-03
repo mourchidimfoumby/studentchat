@@ -21,7 +21,7 @@ class FriendsAdapter(private var friendsList: List<User>, private val clickListe
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_friends, parent, false)
         return FriendsViewHolder(view){
             clickListener(friendsList[it])
         }
@@ -32,8 +32,8 @@ class FriendsAdapter(private var friendsList: List<User>, private val clickListe
     override fun onBindViewHolder(holder: FriendsViewHolder, position: Int) {
         holder.itemView.apply {
             val friend = friendsList[position]
-            val profilePicture = findViewById<ImageView>(R.id.img_view_avatar_user)
-            val friendsName = findViewById<TextView>(R.id.txt_view_user_name)
+            val profilePicture = findViewById<ImageView>(R.id.img_view_avatar_user_friends)
+            val friendsName = findViewById<TextView>(R.id.txt_view_username_friends)
 
             profilePicture.setImageResource(friend.picture)
             friendsName.text = friend.toString()

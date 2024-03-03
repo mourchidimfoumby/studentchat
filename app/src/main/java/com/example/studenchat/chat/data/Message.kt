@@ -6,14 +6,14 @@ import java.io.Serializable
 data class Message(
     var author: String = "",
     val text: String = "",
-    var dateTime: String = "",
+    var datetime: Long = 0,
 ): Serializable {
     @Exclude
     override fun equals(other: Any?): Boolean {
         other as Message
         return this.author == other.author &&
                 this.text == other.text &&
-                this.dateTime == other.dateTime
+                this.datetime == other.datetime
     }
 
     override fun toString(): String = text

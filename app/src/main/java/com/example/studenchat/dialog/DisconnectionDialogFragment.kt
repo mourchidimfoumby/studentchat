@@ -7,15 +7,17 @@ import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.example.studenchat.authentication.AuthenticationActivity
 import com.example.studenchat.authentication.domain.LogOutUseCase
+import org.koin.java.KoinJavaComponent.inject
 
 class DisconnectionDialogFragment: DialogFragment() {
+    private val logOutUseCase: LogOutUseCase by inject(LogOutUseCase::class.java)
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let { activity ->
             val builder = AlertDialog.Builder(activity)
             builder.setMessage("Voulez-vous vraiment vous déconnecter ?")
                 .setPositiveButton("Se déconnecter"){ _, _ ->
                     Intent(context, AuthenticationActivity::class.java).also{
-                        LogOutUseCase().invoke()
+                        logOutUseCase()
                         startActivity(it)
                         activity.finish()
                     }
