@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.studenchat"
+    namespace = "com.example.studentchat"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.studenchat"
+        applicationId = "com.example.studentchat"
         minSdk = 30
         targetSdk = 34
         versionCode = 1
