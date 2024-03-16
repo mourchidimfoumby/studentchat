@@ -15,6 +15,7 @@ import kotlin.coroutines.suspendCoroutine
 class UserRepositoryImpl: UserRepository {
     private val userDatabaseReference = firebaseDatabase.child(TABLE_USERS)
     private var valueEventListener: ValueEventListener? = null
+
     override suspend fun createUser(user: User) {
         userDatabaseReference.child(userId).setValue(user).addOnFailureListener {
             Log.e(javaClass.name, "Failed to create user : $user", it)
@@ -67,6 +68,7 @@ class UserRepositoryImpl: UserRepository {
         return if(userList.isNotEmpty()) userList
         else null
     }
+    
     override suspend fun getCurrentUser(): User? {
         val user = getUser(userId)
         user?.let{

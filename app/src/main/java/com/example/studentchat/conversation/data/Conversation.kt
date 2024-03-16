@@ -37,28 +37,3 @@ data class Conversation(
                 this.interlocutors == other.interlocutors
     }
 }
-
-data class ConversationGroup(
-    val listInterlocutors: MutableList<User>
-){
-    var id: String? = null
-    var messages: List<Message>? = null
-    var title: String = defaultTitle()
-    var picture: Int = R.drawable.ic_group
-
-    @Exclude
-    private fun defaultTitle(): String{
-        val fullTitle = ""
-        listInterlocutors.forEach {
-            fullTitle.plus("$it, ")
-        }
-        fullTitle.dropLast(2)
-        return fullTitle
-    }
-}
-
-data class ConversationDTO(
-    val interlocutors: List<Map<String, Boolean>>? = null,
-    var id: String = "",
-    var lastMessage: String? = null
-)

@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:945529664435:android:1867f9551010f2fb9b11c6",
         "android_client_info": {
-          "package_name": "com.example.studenchat"
+          "package_name": "com.example.studentchat"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "945529664435-1ljc6mr1plrpskukavblul0mnpvko97d.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.studenchat",
+            "package_name": "com.example.studentchat",
             "certificate_hash": "9e9c647d0f158ff2f069db2ea7f636ed29da3aa2"
           }
         },

@@ -42,21 +42,26 @@ class FriendsFragment: Fragment(R.layout.fragment_friends) {
         recyclerViewFriends.layoutManager = LinearLayoutManager(context)
 
         friendsViewModel.friends.observe(viewLifecycleOwner){ friendsList ->
-            progressBar.isVisible = false
             friendsAdapter.updateFriendsList(friendsList)
-            if(friendsAdapter.itemCount == 0){
-                txtViewEmptyFriends.isVisible = true
-                recyclerViewFriends.isVisible = false
-            }
-            else{
-                txtViewEmptyFriends.isVisible = false
-                recyclerViewFriends.isVisible = true
-            }
+            updateRecyclerViewFriends(friendsAdapter)
         }
+        progressBar.isVisible = false
+        updateRecyclerViewFriends(friendsAdapter)
 //        floatingButtonFriends.setOnClickListener {
 //            Intent(requireContext(), AddFriendsActivity::class.java).also {
 //                startActivity(it)
 //            }
 //        }
+    }
+
+    private fun updateRecyclerViewFriends(friendsAdapter: FriendsAdapter){
+        if (friendsAdapter.itemCount == 0) {
+            txtViewEmptyFriends.isVisible = true
+            recyclerViewFriends.isVisible = false
+        }
+        else{
+            txtViewEmptyFriends.isVisible = false
+            recyclerViewFriends.isVisible = true
+        }
     }
 }
