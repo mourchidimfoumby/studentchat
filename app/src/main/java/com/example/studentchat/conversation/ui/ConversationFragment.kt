@@ -54,17 +54,10 @@ class ConversationFragment: Fragment(R.layout.fragment_conversation){
 
         viewModel.conversations.observe(viewLifecycleOwner) { conversationsList ->
             conversationAdapter.updateConversationList(conversationsList)
-            progressBar.isVisible = false
-            if (conversationAdapter.itemCount == 0) {
-                txtViewEmptyConversation.isVisible = true
-                recyclerViewConversation.isVisible = false
-            }
-            else{
-                txtViewEmptyConversation.isVisible = false
-                recyclerViewConversation.isVisible = true
-            }
+            updateRecyclerViewConversation(conversationAdapter)
         }
-
+        progressBar.isVisible = false
+        updateRecyclerViewConversation(conversationAdapter)
 //        floatingButtonConversation.setOnClickListener {
 //            Intent(requireContext(), AddConversationActivity::class.java).also {
 //                startActivity(it)
@@ -76,6 +69,17 @@ class ConversationFragment: Fragment(R.layout.fragment_conversation){
         Intent(requireContext(), ChatActivity::class.java).also {
             it.putExtra("conversation", conversation)
             resultLauncher.launch(it)
+        }
+    }
+
+    private fun updateRecyclerViewConversation(conversationAdapter: ConversationAdapter){
+        if (conversationAdapter.itemCount == 0) {
+            txtViewEmptyConversation.isVisible = true
+            recyclerViewConversation.isVisible = false
+        }
+        else{
+            txtViewEmptyConversation.isVisible = false
+            recyclerViewConversation.isVisible = true
         }
     }
 }

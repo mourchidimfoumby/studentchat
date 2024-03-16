@@ -13,7 +13,10 @@ class GetAllConversationUseCase(
 ) {
     suspend operator fun invoke(callback: (List<Conversation>?) -> Unit) =
         userConversationRepository.getAllIdsConversations().collect { conversationIds ->
-            if (conversationIds == null) return@collect
+            if (conversationIds == null) {
+                callback(null)
+                return@collect
+            }
             withContext(Dispatchers.IO) {
                 val conversationDTOList =
                     conversationRepositoryImpl.getConversation(conversationIds)
