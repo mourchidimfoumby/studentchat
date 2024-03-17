@@ -6,11 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.studentchat.RemoveListenerUseCase
 import com.example.studentchat.conversation.data.Conversation
-import com.example.studentchat.conversation.data.ConversationRepositoryImpl
-import com.example.studentchat.conversation.data.UserConversationRepositoryImpl
+import com.example.studentchat.conversation.data.ConversationApiImpl
+import com.example.studentchat.conversation.data.ConversationRepository
 import com.example.studentchat.conversation.domain.CreateConversationUseCase
 import com.example.studentchat.conversation.domain.DeleteConversationUseCase
-import com.example.studentchat.conversation.domain.GetAllConversationUseCase
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 
@@ -21,32 +20,34 @@ class ConversationViewModel: ViewModel() {
         CreateConversationUseCase::class.java)
     private val deleteConversationUseCase : DeleteConversationUseCase by inject(
         DeleteConversationUseCase::class.java)
-    private val getAllConversationUseCase: GetAllConversationUseCase by inject(
-        GetAllConversationUseCase::class.java)
-    private val removeListenerUseCase = RemoveListenerUseCase()
+    private val removeListenerUseCase: RemoveListenerUseCase by inject(
+        RemoveListenerUseCase::class.java)
+    private val conversationRepository: ConversationRepository by inject(
+        ConversationRepository::class.java)
+
     init {
         initializeConversationListener()
     }
 
     override fun onCleared() {
         super.onCleared()
-        removeListenerUseCase(ConversationRepositoryImpl())
-        removeListenerUseCase(UserConversationRepositoryImpl())
+        removeListenerUseCase(ConversationApiImpl())
     }
+
     private fun initializeConversationListener(){
         viewModelScope.launch {
-            getAllConversationUseCase { conversationList ->
-                conversationList?.let {
-                    _conversations.value = it
-                }
+            conversationRepository.conversations.collect {
+                _conversations.value = it
             }
         }
     }
+
     fun createConversation(conversation: Conversation) {
         viewModelScope.launch {
             createConversationUseCase(conversation)
         }
     }
+
     fun deleteConversation(conversation: Conversation) {
         viewModelScope.launch {
             deleteConversationUseCase(conversation)

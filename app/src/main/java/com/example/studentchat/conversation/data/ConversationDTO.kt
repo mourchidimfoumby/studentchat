@@ -1,7 +1,7 @@
 package com.example.studentchat.conversation.data
 
 data class ConversationDTO(
-    val interlocutors: List<Map<String, Boolean>>? = null,
+    val interlocutors: Map<String, Boolean> = mapOf(),
     var id: String = "",
-    var lastMessage: String? = null
+    var lastMessage: Long = 0
 )

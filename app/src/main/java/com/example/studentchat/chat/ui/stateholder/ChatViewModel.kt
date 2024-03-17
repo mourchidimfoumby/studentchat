@@ -46,7 +46,6 @@ class ChatViewModel : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        removeListenerUseCase(MessageRepositoryImpl())
     }
 
     fun sendMessage(messageText: String) {

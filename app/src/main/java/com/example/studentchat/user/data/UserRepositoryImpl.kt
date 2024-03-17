@@ -86,7 +86,7 @@ class UserRepositoryImpl: UserRepository {
         }
     }
 
-    override fun removeListener() {
+    fun removeListener() {
         valueEventListener?.let {
             userDatabaseReference.removeEventListener(it)
         }

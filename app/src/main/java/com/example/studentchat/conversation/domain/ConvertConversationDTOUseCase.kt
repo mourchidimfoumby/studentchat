@@ -15,12 +15,10 @@ class ConvertConversationDTOUseCase(
     suspend operator fun invoke(conversationDTO: ConversationDTO): Conversation? {
         return withContext(Dispatchers.IO) {
             try {
-                val first = userRepository.getUser(conversationDTO.interlocutors!![0].keys.first())
-                val second = userRepository.getUser(conversationDTO.interlocutors[1].keys.first())
+                val first = userRepository.getUser(conversationDTO.interlocutors.keys.first())
+                val second = userRepository.getUser(conversationDTO.interlocutors.keys.last())
                 val interlocutors = Pair(first!!, second!!)
-                val lastMessage = conversationDTO.lastMessage?.let {
-                    messageRepository.getMessage(conversationDTO.id, it)
-                }
+                val lastMessage = messageRepository.getMessage(conversationDTO.id, conversationDTO.lastMessage)
                 return@withContext Conversation(interlocutors, conversationDTO.id, lastMessage)
             } catch (e: Exception) {
                 Log.e(javaClass.name, "Failed to convert conversation", e)
@@ -33,18 +31,10 @@ class ConvertConversationDTOUseCase(
             val conversationList = mutableListOf<Conversation>()
             try {
                 conversationsDTOList.forEach { conversationDTO ->
-                    val first = conversationDTO.interlocutors?.get(0)?.keys?.let {
-                        userRepository.getUser(it.first())
-                    }
-                    val second = conversationDTO.interlocutors?.get(1)?.keys?.let {
-                        userRepository.getUser(
-                            it.first()
-                        )
-                    }
+                    val first = userRepository.getUser(conversationDTO.interlocutors.keys.first())
+                    val second = userRepository.getUser(conversationDTO.interlocutors.keys.last())
                     val interlocutors = Pair(first!!, second!!)
-                    val lastMessage = conversationDTO.lastMessage?.let {
-                        messageRepository.getMessage(conversationDTO.id, it)
-                    }
+                    val lastMessage = messageRepository.getMessage(conversationDTO.id, conversationDTO.lastMessage)
                     conversationList.add(
                         Conversation(
                             interlocutors,

@@ -15,7 +15,8 @@ import kotlinx.coroutines.flow.callbackFlow
 class MessageRepositoryImpl: MessageRepository {
     private val messageDatabaseReference = firebaseDatabase.child(TABLE_MESSAGES)
     private var valueEventListener: ValueEventListener? = null
-    override suspend fun getAllMessage(conversation: Conversation): Flow<List<Message>?> = callbackFlow {
+
+    override suspend fun getAllMessage(conversation: Conversation): Flow<List<Message>> = callbackFlow {
         messageDatabaseReference
             .child(conversation.id)
             .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -27,7 +28,7 @@ class MessageRepositoryImpl: MessageRepository {
                             messageList.add(it)
                         }
                     }
-                    trySend(messageList.ifEmpty { null })
+                    trySend(messageList)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -37,17 +38,15 @@ class MessageRepositoryImpl: MessageRepository {
         awaitClose {}
     }
 
-    override suspend fun getLastMessage(conversation: Conversation): Flow<Message?> = callbackFlow {
+    override suspend fun getLastMessage(conversation: Conversation): Flow<Message> = callbackFlow {
         valueEventListener = messageDatabaseReference
             .child(conversation.id)
             .orderByKey()
             .limitToLast(1)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        val message = snapshot.children.first().getValue(Message::class.java)
-                        trySend(message)
-                    } else trySend(null)
+                    val message = snapshot.children.first().getValue(Message::class.java)
+                    trySend(message!!)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -57,23 +56,18 @@ class MessageRepositoryImpl: MessageRepository {
         awaitClose {}
     }
 
-    override fun removeListener() {
+    fun removeListener() {
         valueEventListener?.let {
             messageDatabaseReference.removeEventListener(it)
         }
     }
 
-    override suspend fun getMessage(conversationId: String, messageId: String): Message? {
-        return try {
-            val message = messageDatabaseReference
+    override suspend fun getMessage(conversationId: String, messageTimestamp: Long): Message {
+        val message = messageDatabaseReference
                 .child(conversationId)
-                .child(messageId)
+                .child(messageTimestamp.toString())
                 .getValue(Message::class.java)
-            message ?: return null
-        } catch (e: Exception){
-            Log.e(javaClass.name, "", e)
-            null
-        }
+        return message ?: Message()
     }
 
     override suspend fun deleteMessage(conversation: Conversation, message: Message) {

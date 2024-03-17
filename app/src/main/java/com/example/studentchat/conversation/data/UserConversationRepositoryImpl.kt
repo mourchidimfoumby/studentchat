@@ -30,7 +30,7 @@ class UserConversationRepositoryImpl: UserConversationRepository {
         awaitClose {}
     }
 
-    override fun removeListener() {
+    fun removeListener() {
         valueEventListener?.let {
             userConversationsDatabaseReference.removeEventListener(it)
         }
