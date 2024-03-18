@@ -3,11 +3,11 @@ package com.example.studentchat.user.data
 import android.util.Log
 import com.example.studentchat.utils.TABLE_USERS
 import com.example.studentchat.utils.firebaseDatabase
-import com.example.studentchat.utils.getValue
 import com.example.studentchat.utils.userId
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -47,7 +47,10 @@ class UserRepositoryImpl: UserRepository {
 
     override suspend fun getUser(uid: String): User? {
         return try {
-            val user = userDatabaseReference.child(uid).getValue(User::class.java)
+            val user = userDatabaseReference.child(uid)
+                .get()
+                .await()
+                .getValue(User::class.java)
             user?.let{
                 it.uid = uid
                 return user

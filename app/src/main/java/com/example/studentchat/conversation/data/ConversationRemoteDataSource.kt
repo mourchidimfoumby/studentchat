@@ -7,8 +7,8 @@ import kotlinx.coroutines.withContext
 
 class ConversationRemoteDataSource(
     private val conversationApi: ConversationApi,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
     fun getAllConversations(): Flow<List<Conversation>> =
         conversationApi.getAllConversations()
 

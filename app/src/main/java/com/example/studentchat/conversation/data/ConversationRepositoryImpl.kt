@@ -7,7 +7,8 @@ class ConversationRepositoryImpl(
     private val conversationRemoteDataSource: ConversationRemoteDataSource
 ): ConversationRepository {
 
-    override val conversations: Flow<List<Conversation>> = conversationRemoteDataSource.getAllConversations()
+    override val conversations: Flow<List<Conversation>> =
+        conversationRemoteDataSource.getAllConversations()
     override suspend fun createConversation(conversation: Conversation) {
         conversationRemoteDataSource.insertConversation(conversation)
     }

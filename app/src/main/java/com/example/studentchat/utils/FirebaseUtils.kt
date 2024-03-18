@@ -21,17 +21,3 @@ val userId = Firebase.auth.uid ?: run {
     Log.w("Firebase", "userId is null")
     ""
 }
-
-suspend fun <T> DatabaseReference.getValue(type: Class<T>): T? = suspendCoroutine { continuation ->
-    get().addOnSuccessListener { snapshot ->
-        val value = snapshot.getValue(type)
-        value?.let {
-            continuation.resume(value)
-        }?: run {
-            Log.e(javaClass.name, "Values is null at ${snapshot.ref}")
-            null
-        }
-    }.addOnFailureListener { error ->
-        continuation.resumeWithException(Exception(type.name, error))
-    }
-}
