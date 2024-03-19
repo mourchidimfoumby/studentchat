@@ -12,7 +12,7 @@ class ConversationRemoteDataSource(
     fun getAllConversations(): Flow<List<Conversation>> =
         conversationApi.getAllConversations()
 
-    suspend fun getConversation(id: String): Conversation =
+    suspend fun getConversation(id: String): Conversation? =
         withContext(ioDispatcher) {
             conversationApi.getConversation(id)
         }
