@@ -4,18 +4,20 @@ import com.example.studentchat.authentication.domain.LogOutUseCase
 import com.example.studentchat.chat.data.MessageRepository
 import com.example.studentchat.chat.data.MessageRepositoryImpl
 import com.example.studentchat.chat.domain.FormatTimestampUseCase
-import com.example.studentchat.chat.domain.TimestampToLocalDate
 import com.example.studentchat.chat.domain.GetAllMessageUseCase
 import com.example.studentchat.chat.domain.GetLastMessageUseCase
 import com.example.studentchat.chat.domain.SendMessageUseCase
+import com.example.studentchat.chat.domain.TimestampToLocalDate
 import com.example.studentchat.chat.ui.stateholder.ChatViewModel
+import com.example.studentchat.conversation.data.ConversationApi
+import com.example.studentchat.conversation.data.ConversationApiImpl
+import com.example.studentchat.conversation.data.ConversationRemoteDataSource
+import com.example.studentchat.conversation.data.ConversationRepository
 import com.example.studentchat.conversation.data.ConversationRepositoryImpl
-import com.example.studentchat.conversation.data.UserConversationRepository
-import com.example.studentchat.conversation.data.UserConversationRepositoryImpl
-import com.example.studentchat.conversation.domain.ConvertConversationDTOUseCase
+import com.example.studentchat.conversation.domain.ConvertConversationUseCase
 import com.example.studentchat.conversation.domain.CreateConversationUseCase
 import com.example.studentchat.conversation.domain.DeleteConversationUseCase
-import com.example.studentchat.conversation.domain.GetAllConversationUseCase
+import com.example.studentchat.conversation.domain.GetAllConversationsUseCase
 import com.example.studentchat.conversation.ui.stateholder.ConversationViewModel
 import com.example.studentchat.friends.data.FriendsRepository
 import com.example.studentchat.friends.data.FriendsRepositoryImpl
@@ -33,17 +35,19 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val appModule = module {
-    singleOf(::UserConversationRepositoryImpl) { bind<UserConversationRepository>() }
     singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
     singleOf(::FriendsRepositoryImpl) { bind<FriendsRepository>() }
     singleOf(::MessageRepositoryImpl) { bind<MessageRepository>() }
-    factoryOf(::ConversationRepositoryImpl)
+    singleOf(::ConversationRepositoryImpl) { bind<ConversationRepository>()}
 
-    factoryOf(::GetAllConversationUseCase)
-    factoryOf(::CreateConversationUseCase)
-    factoryOf(::DeleteConversationUseCase)
-    factoryOf(::ConvertConversationDTOUseCase)
-    factoryOf(::RemoveListenerUseCase)
+    singleOf(::ConversationApiImpl) { bind<ConversationApi>() }
+    singleOf(::ConversationRemoteDataSource)
+
+    singleOf(::GetAllConversationsUseCase)
+    singleOf(::ConvertConversationUseCase)
+    singleOf(::CreateConversationUseCase)
+    singleOf(::DeleteConversationUseCase)
+    singleOf(::RemoveListenerUseCase)
 
     factoryOf(::GetUserWithUidUseCase)
     factoryOf(::GetCurrentUserUseCase)
@@ -57,8 +61,8 @@ val appModule = module {
     factoryOf(::TimestampToLocalDate)
     factoryOf(::FormatTimestampUseCase)
 
-    factoryOf(::RemoveListenerUseCase)
-    factoryOf(::LogOutUseCase)
+    singleOf(::RemoveListenerUseCase)
+    singleOf(::LogOutUseCase)
 
     factoryOf(::ConversationViewModel)
     factoryOf(::FriendsViewModel)

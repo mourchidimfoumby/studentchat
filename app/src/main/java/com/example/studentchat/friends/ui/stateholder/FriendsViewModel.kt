@@ -43,9 +43,4 @@ class FriendsViewModel : ViewModel() {
              }
          }
      }
-    override fun onCleared() {
-        super.onCleared()
-        removeListenerUseCase(UserRepositoryImpl())
-        removeListenerUseCase(FriendsRepositoryImpl())
-    }
 }

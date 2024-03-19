@@ -1,7 +1,13 @@
 package com.example.studentchat.conversation.data
 
+import com.google.firebase.database.Exclude
+
 data class ConversationDTO(
-    val interlocutors: List<Map<String, Boolean>>? = null,
     var id: String = "",
-    var lastMessage: String? = null
-)
+    val interlocutors: Map<String, Boolean> = mapOf(),
+    var lastMessage: String = ""
+) {
+    @Exclude
+    fun isNotActive(): Boolean = interlocutors.values.all { !it }
+
+}

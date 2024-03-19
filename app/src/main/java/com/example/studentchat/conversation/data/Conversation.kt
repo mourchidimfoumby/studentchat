@@ -9,20 +9,19 @@ import com.google.firebase.database.Exclude
 import java.io.Serializable
 
 data class Conversation(
-    val interlocutors: Pair<User, User>? = null,
+    val interlocutors: Pair<User, User> = Pair(User(), User()),
     var id: String = "",
-    var lastMessage: Message? = null
+    var lastMessage: Message = Message()
 ): Serializable {
+
     @get:Exclude
     @set:Exclude
     var picture: Int = R.drawable.ic_avatar
 
     @Exclude
     fun otherUser(): User {
-        return if (interlocutors != null) {
-            if (interlocutors.first.uid == Firebase.auth.uid) interlocutors.second
-            else interlocutors.first
-        } else User()
+        return if (interlocutors.first.uid == Firebase.auth.uid) interlocutors.second
+        else interlocutors.first
     }
 
     @Exclude

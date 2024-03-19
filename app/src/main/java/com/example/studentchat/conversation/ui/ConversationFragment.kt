@@ -53,11 +53,10 @@ class ConversationFragment: Fragment(R.layout.fragment_conversation){
         recyclerViewConversation.layoutManager = LinearLayoutManager(context)
 
         viewModel.conversations.observe(viewLifecycleOwner) { conversationsList ->
+            progressBar.isVisible = false
             conversationAdapter.updateConversationList(conversationsList)
             updateRecyclerViewConversation(conversationAdapter)
         }
-        progressBar.isVisible = false
-        updateRecyclerViewConversation(conversationAdapter)
 //        floatingButtonConversation.setOnClickListener {
 //            Intent(requireContext(), AddConversationActivity::class.java).also {
 //                startActivity(it)
