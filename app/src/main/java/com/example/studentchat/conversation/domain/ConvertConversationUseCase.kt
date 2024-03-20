@@ -64,7 +64,7 @@ class ConvertConversationUseCase(
                     conversation.interlocutors.first.uid to true,
                     conversation.interlocutors.second.uid to true
                 ),
-                conversation.lastMessage.datetime.toString()
+                conversation.lastMessage.timestamp.toString()
             )
         }
 }

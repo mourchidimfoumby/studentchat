@@ -82,19 +82,19 @@ class ChatAdapter(
                 else{
                     val layout = findViewById<ConstraintLayout>(R.id.constraint_layout)
                     val txtViewDividerChat = layout.findViewById<TextView>(R.id.txt_view_divider_day_chat)
-                    txtViewDividerChat.text = formatTimestampUseCase(currentMessage.datetime, UNIT.DAY_MONTH_YEAR)
+                    txtViewDividerChat.text = formatTimestampUseCase(currentMessage.timestamp, UNIT.DAY_MONTH_YEAR)
                     txtViewDividerChat.isVisible = true
                 }
             }?: run {
                 val layout = findViewById<ConstraintLayout>(R.id.constraint_layout)
                 val txtViewDividerChat = layout.findViewById<TextView>(R.id.txt_view_divider_day_chat)
-                txtViewDividerChat.text = formatTimestampUseCase(currentMessage.datetime, UNIT.DAY_MONTH_YEAR)
+                txtViewDividerChat.text = formatTimestampUseCase(currentMessage.timestamp, UNIT.DAY_MONTH_YEAR)
                 txtViewDividerChat.isVisible = true
             }
 
             picture?.setImageResource(R.drawable.ic_avatar)
             text.text = currentMessage.text
-            hour.text = formatTimestampUseCase(currentMessage.datetime, UNIT.HOUR_MINUTE)
+            hour.text = formatTimestampUseCase(currentMessage.timestamp, UNIT.HOUR_MINUTE)
         }
     }
 
@@ -138,15 +138,15 @@ class ChatAdapter(
         layout.layoutParams = params
     }
     private fun isSentAtSameTime(previousMessage: Message, currentMessage: Message): Boolean {
-        val previousMessageInstant = Instant.ofEpochSecond(previousMessage.datetime)
-        val currentMessageInstant = Instant.ofEpochSecond(currentMessage.datetime)
+        val previousMessageInstant = Instant.ofEpochSecond(previousMessage.timestamp)
+        val currentMessageInstant = Instant.ofEpochSecond(currentMessage.timestamp)
         val duration = Duration.between(currentMessageInstant, previousMessageInstant).abs()
         return duration.toMinutes() <= 1
     }
 
     private fun isSentAtSameDate(previousMessage: Message, currentMessage: Message): Boolean {
-        val previousMessageDate = timestampToLocalDate(previousMessage.datetime)
-        val currentMessageDate = timestampToLocalDate(currentMessage.datetime)
+        val previousMessageDate = timestampToLocalDate(previousMessage.timestamp)
+        val currentMessageDate = timestampToLocalDate(currentMessage.timestamp)
         return currentMessageDate.isEqual(previousMessageDate)
     }
 }
