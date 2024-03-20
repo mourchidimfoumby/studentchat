@@ -1,6 +1,9 @@
 package com.example.studentchat
 
 import com.example.studentchat.authentication.domain.LogOutUseCase
+import com.example.studentchat.chat.data.MessageApi
+import com.example.studentchat.chat.data.MessageApiImpl
+import com.example.studentchat.chat.data.MessageRemoteDataSource
 import com.example.studentchat.chat.data.MessageRepository
 import com.example.studentchat.chat.data.MessageRepositoryImpl
 import com.example.studentchat.chat.domain.FormatTimestampUseCase
@@ -41,7 +44,9 @@ val appModule = module {
     singleOf(::ConversationRepositoryImpl) { bind<ConversationRepository>()}
 
     singleOf(::ConversationApiImpl) { bind<ConversationApi>() }
+    singleOf(::MessageApiImpl) { bind<MessageApi>() }
     singleOf(::ConversationRemoteDataSource)
+    singleOf(::MessageRemoteDataSource)
 
     singleOf(::GetAllConversationsUseCase)
     singleOf(::ConvertConversationUseCase)

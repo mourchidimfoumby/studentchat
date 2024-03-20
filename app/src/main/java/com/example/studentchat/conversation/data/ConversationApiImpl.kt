@@ -52,7 +52,7 @@ class ConversationApiImpl : ConversationApi, FirebaseApi {
                     close(error.toException())
                 }
             })
-        awaitClose {}
+        awaitClose()
     }
 
     override suspend fun getConversation(conversationId: String): Conversation? {
@@ -84,8 +84,8 @@ class ConversationApiImpl : ConversationApi, FirebaseApi {
             .await()
             .getValue(ConversationDTO::class.java)
         conversationDTO?.let {
-            if (it.isNotActive()) conversationDatabaseReference.child(conversation.id)
-                .removeValue()
+            if (it.isNotActive())
+                conversationDatabaseReference.child(conversation.id).removeValue()
         }
     }
 
