@@ -1,5 +1,7 @@
 package com.example.studentchat.chat.data
 
+import com.example.studentchat.FirebaseApi
+import com.example.studentchat.utils.TABLE_MESSAGES
 import com.example.studentchat.utils.firebaseDatabase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -9,10 +11,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 
-class MessageApiImpl: MessageApi {
+class MessageApiImpl : MessageApi, FirebaseApi {
+    private val messageDatabaseReference = firebaseDatabase.child(TABLE_MESSAGES)
     private var valueEventListener: ValueEventListener? = null
     override fun getAllMessage(conversationId: String): Flow<List<Message>> = callbackFlow {
-        firebaseDatabase.child(conversationId)
+        messageDatabaseReference.child(conversationId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val messageList = snapshot.children.mapNotNull { it.getValue(Message::class.java) }
@@ -27,7 +30,7 @@ class MessageApiImpl: MessageApi {
     }
 
     override fun getLastMessage(conversationId: String): Flow<Message> = callbackFlow {
-        valueEventListener = firebaseDatabase.child(conversationId)
+        valueEventListener = messageDatabaseReference.child(conversationId)
             .orderByChild("timestamp")
             .limitToLast(1)
             .addValueEventListener(object : ValueEventListener {
@@ -46,7 +49,7 @@ class MessageApiImpl: MessageApi {
     }
 
     override suspend fun getMessage(conversationId: String, timestamp: Long): Message? {
-        return firebaseDatabase.child(conversationId)
+        return messageDatabaseReference.child(conversationId)
             .child(timestamp.toString())
             .get()
             .await()
@@ -54,11 +57,18 @@ class MessageApiImpl: MessageApi {
     }
 
     override suspend fun insertMessage(conversationId: String, message: Message) {
-        firebaseDatabase.child(conversationId).setValue(message)
+        messageDatabaseReference.child(conversationId).setValue(message)
     }
 
     override suspend fun deleteMessage(conversationId: String, message: Message) {
-        firebaseDatabase.child(conversationId).child(message.timestamp.toString()).removeValue()
+        messageDatabaseReference.child(conversationId).child(message.timestamp.toString())
+            .removeValue()
+    }
+
+    override fun removeListener() {
+        valueEventListener?.let {
+            messageDatabaseReference.removeEventListener(it)
+        }
     }
 
 }

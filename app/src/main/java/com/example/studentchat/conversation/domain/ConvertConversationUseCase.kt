@@ -22,7 +22,7 @@ class ConvertConversationUseCase(
                     conversationDTO.id,
                     conversationDTO.lastMessage.toLong()
                 )
-                return@withContext Conversation(interlocutors, conversationDTO.id, lastMessage)
+                return@withContext Conversation(interlocutors, conversationDTO.id, lastMessage!!)
             } catch (e: Exception) {
                 Log.e(javaClass.name, "Failed to convert conversation", e)
                 return@withContext null
@@ -45,7 +45,7 @@ class ConvertConversationUseCase(
                         Conversation(
                             interlocutors,
                             conversationDTO.id,
-                            lastMessage
+                            lastMessage!!
                         )
                     )
                 }
