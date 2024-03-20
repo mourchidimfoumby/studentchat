@@ -5,7 +5,7 @@ import com.google.firebase.ktx.Firebase
 
 class LogOutUseCase {
     private val auth = Firebase.auth
-    operator fun invoke(){
+    operator fun invoke() {
         auth.signOut()
     }
 }

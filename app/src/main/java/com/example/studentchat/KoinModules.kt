@@ -28,6 +28,7 @@ import com.example.studentchat.friends.domain.AddFriendsUseCase
 import com.example.studentchat.friends.domain.GetAllFriendsUseCase
 import com.example.studentchat.friends.domain.GetAllNotFriendsUseCase
 import com.example.studentchat.friends.ui.stateholder.FriendsViewModel
+import com.example.studentchat.user.data.UserRemoteDataSource
 import com.example.studentchat.user.data.UserRepository
 import com.example.studentchat.user.data.UserRepositoryImpl
 import com.example.studentchat.user.domain.GetCurrentUserUseCase
@@ -45,8 +46,11 @@ val appModule = module {
 
     singleOf(::ConversationApiImpl) { bind<ConversationApi>() }
     singleOf(::MessageApiImpl) { bind<MessageApi>() }
+    singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
+
     singleOf(::ConversationRemoteDataSource)
     singleOf(::MessageRemoteDataSource)
+    singleOf(::UserRemoteDataSource)
 
     singleOf(::GetAllConversationsUseCase)
     singleOf(::ConvertConversationUseCase)

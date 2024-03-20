@@ -5,7 +5,5 @@ import com.google.firebase.ktx.Firebase
 
 class IsLoggedInUseCase {
     private val auth = Firebase.auth
-    operator fun invoke(): Boolean{
-        return auth.currentUser != null
-    }
+    operator fun invoke(): Boolean = auth.currentUser != null
 }
