@@ -4,9 +4,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserApi {
     fun getAllUser(): Flow<List<User>>
-    fun getCurrentUser(): Flow<User>
+    fun getCurrentUser(): Flow<UserApiModel>
     suspend fun getUser(uid: String): User?
-    suspend fun insertUser(user: User)
-    suspend fun updateUser(user: User)
+    suspend fun insertUser(userApiModel: UserApiModel)
+    suspend fun updateUser(userApiModel: UserApiModel)
     suspend fun deleteCurrentUser()
 }

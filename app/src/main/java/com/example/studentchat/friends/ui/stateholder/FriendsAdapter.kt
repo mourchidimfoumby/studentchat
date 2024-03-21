@@ -8,10 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studentchat.R
-import com.example.studentchat.user.data.User
+import com.example.studentchat.friends.data.Friends
 
-class FriendsAdapter(private var friendsList: List<User>, private val clickListener: (User) -> Unit):
-    RecyclerView.Adapter<FriendsAdapter.FriendsViewHolder>(){
+class FriendsAdapter(
+    private var friendsList: List<Friends>,
+    private val clickListener: (Friends) -> Unit
+) : RecyclerView.Adapter<FriendsAdapter.FriendsViewHolder>() {
     inner class FriendsViewHolder(view: View, clickAtPosition: (Int) -> Unit): RecyclerView.ViewHolder(view){
         init {
             view.setOnClickListener {
@@ -35,13 +37,13 @@ class FriendsAdapter(private var friendsList: List<User>, private val clickListe
             val profilePicture = findViewById<ImageView>(R.id.img_view_avatar_user_friends)
             val friendsName = findViewById<TextView>(R.id.txt_view_username_friends)
 
-            profilePicture.setImageResource(friend.picture)
+            profilePicture.setImageResource(R.drawable.ic_avatar)
             friendsName.text = friend.toString()
         }
     }
 
-    fun updateFriendsList(newFriendsList: List<User>){
-        val diffResult = DiffUtil.calculateDiff(UserDiffCallback(friendsList, newFriendsList))
+    fun updateFriendsList(newFriendsList: List<Friends>) {
+        val diffResult = DiffUtil.calculateDiff(FriendsDiffCallback(friendsList, newFriendsList))
         friendsList = newFriendsList
         diffResult.dispatchUpdatesTo(this)
     }

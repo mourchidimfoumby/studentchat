@@ -22,6 +22,7 @@ import com.example.studentchat.conversation.domain.CreateConversationUseCase
 import com.example.studentchat.conversation.domain.DeleteConversationUseCase
 import com.example.studentchat.conversation.domain.GetAllConversationsUseCase
 import com.example.studentchat.conversation.ui.stateholder.ConversationViewModel
+import com.example.studentchat.friends.data.FriendsRemoteDataSource
 import com.example.studentchat.friends.data.FriendsRepository
 import com.example.studentchat.friends.data.FriendsRepositoryImpl
 import com.example.studentchat.friends.domain.AddFriendsUseCase
@@ -32,25 +33,27 @@ import com.example.studentchat.user.data.UserRemoteDataSource
 import com.example.studentchat.user.data.UserRepository
 import com.example.studentchat.user.data.UserRepositoryImpl
 import com.example.studentchat.user.domain.GetCurrentUserUseCase
-import com.example.studentchat.user.domain.GetUserWithUidUseCase
+import com.example.studentchat.user.domain.GetUserUseCase
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val appModule = module {
+    singleOf(::ConversationRepositoryImpl) { bind<ConversationRepository>() }
+    singleOf(::MessageRepositoryImpl) { bind<MessageRepository>() }
     singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
     singleOf(::FriendsRepositoryImpl) { bind<FriendsRepository>() }
-    singleOf(::MessageRepositoryImpl) { bind<MessageRepository>() }
-    singleOf(::ConversationRepositoryImpl) { bind<ConversationRepository>()}
 
     singleOf(::ConversationApiImpl) { bind<ConversationApi>() }
     singleOf(::MessageApiImpl) { bind<MessageApi>() }
     singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
+    singleOf(::FriendsRepositoryImpl) { bind<FriendsRepository>() }
 
     singleOf(::ConversationRemoteDataSource)
     singleOf(::MessageRemoteDataSource)
     singleOf(::UserRemoteDataSource)
+    singleOf(::FriendsRemoteDataSource)
 
     singleOf(::GetAllConversationsUseCase)
     singleOf(::ConvertConversationUseCase)
@@ -58,7 +61,7 @@ val appModule = module {
     singleOf(::DeleteConversationUseCase)
     singleOf(::RemoveListenerUseCase)
 
-    factoryOf(::GetUserWithUidUseCase)
+    factoryOf(::GetUserUseCase)
     factoryOf(::GetCurrentUserUseCase)
     factoryOf(::AddFriendsUseCase)
     factoryOf(::GetAllFriendsUseCase)
