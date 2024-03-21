@@ -1,11 +1,11 @@
 package com.example.studentchat.friends.ui.stateholder
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.studentchat.user.data.User
+import com.example.studentchat.friends.data.Friends
 
-class UserDiffCallback(
-    private val oldList: List<User>,
-    private val newList: List<User>
+class FriendsDiffCallback(
+    private val oldList: List<Friends>,
+    private val newList: List<Friends>
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {

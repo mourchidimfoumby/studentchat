@@ -5,12 +5,10 @@ import com.google.firebase.database.Exclude
 import java.io.Serializable
 
 data class User(
-    var uid: String = "",
+    val uid: String = "",
     val name: String = "",
     val firstname: String = "",
     val mail: String = "",
-    val password: String = "",
-    val birthday: String = "",
     @get:Exclude
     val picture: Int = R.drawable.ic_avatar,
 ): Serializable {

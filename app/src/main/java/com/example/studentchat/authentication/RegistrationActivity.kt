@@ -2,7 +2,6 @@ package com.example.studentchat.authentication
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -11,11 +10,12 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.example.studentchat.MainActivity
 import com.example.studentchat.R
 import com.example.studentchat.databinding.ActivityRegistrationBinding
-import com.example.studentchat.MainActivity
-import com.example.studentchat.user.data.User
+import com.example.studentchat.user.data.UserApiModel
 import com.example.studentchat.utils.PATTERN_DAY_MONTH_YEAR
 import com.example.studentchat.utils.convertDateToString
 import com.example.studentchat.utils.inputIsEmpty
@@ -31,7 +31,7 @@ class RegistrationActivity : AppCompatActivity() {
     private lateinit var inputPassword: TextInputEditText
     private lateinit var txtViewError: TextView
     private lateinit var btnRgistration: Button
-    private lateinit var user: User
+    private lateinit var user: UserApiModel
     private lateinit var inputFirstName: TextInputEditText
     private lateinit var inputName: TextInputEditText
     private lateinit var inputBirthday: TextInputEditText
@@ -71,7 +71,7 @@ class RegistrationActivity : AppCompatActivity() {
                 txtViewError.text = getString(R.string.error_short_password)
             }
             else{
-                user = User(
+                user = UserApiModel(
                     name = inputName.text.toString(),
                     firstname = inputFirstName.text.toString(),
                     mail = inputMail.text.toString(),
@@ -86,10 +86,10 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
-    private fun registration(user: User) {
+    private fun registration(userApiModel: UserApiModel) {
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                authenticationViewModel.signUpWithEmailPassword(user)
+                authenticationViewModel.signUpWithEmailPassword(userApiModel)
                 Intent(this@RegistrationActivity, MainActivity::class.java).also {
                     startActivity(it)
                     finish()

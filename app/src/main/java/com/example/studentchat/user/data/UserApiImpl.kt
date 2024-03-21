@@ -21,6 +21,7 @@ class UserApiImpl : UserApi, FirebaseApi {
             userDatabaseReference.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val userList = snapshot.children.mapNotNull { it.getValue(User::class.java) }
+                    userList.filterNot { it.uid == userId }
                     trySend(userList)
                 }
 
@@ -31,11 +32,11 @@ class UserApiImpl : UserApi, FirebaseApi {
         awaitClose()
     }
 
-    override fun getCurrentUser(): Flow<User> = callbackFlow {
+    override fun getCurrentUser(): Flow<UserApiModel> = callbackFlow {
         currentUserValueEventListener =
             userDatabaseReference.child(userId).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val currentUser = snapshot.getValue(User::class.java)
+                    val currentUser = snapshot.getValue(UserApiModel::class.java)
                     currentUser?.let {
                         trySend(it)
                     }
@@ -55,12 +56,12 @@ class UserApiImpl : UserApi, FirebaseApi {
             .getValue(User::class.java)
     }
 
-    override suspend fun insertUser(user: User) {
-        userDatabaseReference.child(user.uid).setValue(user)
+    override suspend fun insertUser(userApiModel: UserApiModel) {
+        userDatabaseReference.child(userApiModel.uid).setValue(userApiModel)
     }
 
-    override suspend fun updateUser(user: User) {
-        userDatabaseReference.child(user.uid).setValue(user)
+    override suspend fun updateUser(userApiModel: UserApiModel) {
+        userDatabaseReference.child(userApiModel.uid).setValue(userApiModel)
     }
 
     override suspend fun deleteCurrentUser() {

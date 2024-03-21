@@ -32,7 +32,7 @@ package com.example.studentchat.friends.ui.stateholder
 //    }
 //
 //    fun updateUserList(newUserList: List<User>){
-//        val diffResult = DiffUtil.calculateDiff(UserDiffCallback(userList, newUserList))
+//        val diffResult = DiffUtil.calculateDiff(FriendsDiffCallback(userList, newUserList))
 //        userList = newUserList
 //        diffResult.dispatchUpdatesTo(this)
 //    }
