@@ -1,21 +1,21 @@
 package com.example.studentchat.authentication
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
-import androidx.core.view.isVisible
-import com.example.studentchat.R
-import com.example.studentchat.databinding.ActivityAuthenticationBinding
-import com.google.android.material.textfield.TextInputEditText
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.example.studentchat.MainActivity
+import com.example.studentchat.R
+import com.example.studentchat.authentication.domain.IsLoggedInUseCase
+import com.example.studentchat.databinding.ActivityAuthenticationBinding
 import com.example.studentchat.utils.inputIsEmpty
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.google.android.material.textfield.TextInputEditText
+import org.koin.java.KoinJavaComponent.inject
+
 class AuthenticationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthenticationBinding
     private lateinit var btnConnection: Button
@@ -24,6 +24,9 @@ class AuthenticationActivity : AppCompatActivity() {
     private lateinit var inputMail: TextInputEditText
     private lateinit var inputPassword: TextInputEditText
     private lateinit var progressBar: ProgressBar
+    private val isLoggedInUseCase: IsLoggedInUseCase by inject(
+        IsLoggedInUseCase::class.java
+    )
     private val authenticationViewModel : AuthenticationViewModel by viewModels()
     private val TAG = AuthenticationActivity::class.java.name
 
@@ -33,14 +36,13 @@ class AuthenticationActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar!!.hide()
 
-        authenticationViewModel.logged.observe(this){isLoggedIn ->
-            if(isLoggedIn){
-                Intent(this, MainActivity::class.java).also {
-                    startActivity(it)
-                    finish()
-                }
+        if (isLoggedInUseCase()) {
+            Intent(this, MainActivity::class.java).also {
+                startActivity(it)
+                finish()
             }
         }
+
         btnConnection = binding.buttonLogin
         btnRegistration = binding.buttonRegistration
         inputMail = binding.inputTextMailLogin
@@ -63,17 +65,16 @@ class AuthenticationActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun signIn(mail: String, password: String){
         progressBar.isVisible = true
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                txtViewConnectError.isVisible = false
-                authenticationViewModel.logInWithEmailPassword(mail, password)
-            } catch (e: Exception) {
-                progressBar.isVisible = false
-                txtViewConnectError.text = getString(R.string.error_connection)
-                txtViewConnectError.isVisible = true
-            }
+        try {
+            txtViewConnectError.isVisible = false
+            authenticationViewModel.logInWithEmailPassword(mail, password)
+        } catch (e: Exception) {
+            progressBar.isVisible = false
+            txtViewConnectError.text = getString(R.string.error_connection)
+            txtViewConnectError.isVisible = true
         }
     }
 }

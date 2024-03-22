@@ -1,6 +1,10 @@
 package com.example.studentchat
 
+import com.example.studentchat.authentication.AuthenticationManager
+import com.example.studentchat.authentication.domain.IsLoggedInUseCase
+import com.example.studentchat.authentication.domain.LogInWithEmailPasswordUseCase
 import com.example.studentchat.authentication.domain.LogOutUseCase
+import com.example.studentchat.authentication.domain.SignUpWithEmailPasswordUseCase
 import com.example.studentchat.chat.data.MessageApi
 import com.example.studentchat.chat.data.MessageApiImpl
 import com.example.studentchat.chat.data.MessageRemoteDataSource
@@ -35,7 +39,6 @@ import com.example.studentchat.user.data.UserRepositoryImpl
 import com.example.studentchat.user.domain.GetCurrentUserUseCase
 import com.example.studentchat.user.domain.GetUserUseCase
 import org.koin.core.module.dsl.bind
-import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
@@ -61,22 +64,27 @@ val appModule = module {
     singleOf(::DeleteConversationUseCase)
     singleOf(::RemoveListenerUseCase)
 
-    factoryOf(::GetUserUseCase)
-    factoryOf(::GetCurrentUserUseCase)
-    factoryOf(::AddFriendsUseCase)
-    factoryOf(::GetAllFriendsUseCase)
-    factoryOf(::GetAllNotFriendsUseCase)
+    singleOf(::GetUserUseCase)
+    singleOf(::GetCurrentUserUseCase)
+    singleOf(::AddFriendsUseCase)
+    singleOf(::GetAllFriendsUseCase)
+    singleOf(::GetAllNotFriendsUseCase)
 
-    factoryOf(::SendMessageUseCase)
-    factoryOf(::GetAllMessageUseCase)
-    factoryOf(::GetLastMessageUseCase)
-    factoryOf(::TimestampToLocalDate)
-    factoryOf(::FormatTimestampUseCase)
+    singleOf(::SendMessageUseCase)
+    singleOf(::GetAllMessageUseCase)
+    singleOf(::GetLastMessageUseCase)
+    singleOf(::TimestampToLocalDate)
+    singleOf(::FormatTimestampUseCase)
+
+    singleOf(::IsLoggedInUseCase)
+    singleOf(::LogOutUseCase)
+    singleOf(::LogInWithEmailPasswordUseCase)
+    singleOf(::SignUpWithEmailPasswordUseCase)
+    singleOf(::AuthenticationManager)
 
     singleOf(::RemoveListenerUseCase)
-    singleOf(::LogOutUseCase)
 
-    factoryOf(::ConversationViewModel)
-    factoryOf(::FriendsViewModel)
-    factoryOf(::ChatViewModel)
+    singleOf(::ConversationViewModel)
+    singleOf(::FriendsViewModel)
+    singleOf(::ChatViewModel)
 }

@@ -1,12 +1,13 @@
 package com.example.studentchat.authentication.domain
 
-import com.example.studentchat.authentication.AuthenticationRepository
+import com.example.studentchat.authentication.AuthenticationManager
 
-class LogInWithEmailPasswordUseCase {
-    private val authenticationRepository = AuthenticationRepository()
-    suspend operator fun invoke(mail: String, password: String){
+class LogInWithEmailPasswordUseCase(
+    private val authenticationManager: AuthenticationManager
+) {
+    operator fun invoke(mail: String, password: String) {
         if(mail.isBlank() || password.isBlank()) throw IllegalArgumentException("Fields is blank")
-        else authenticationRepository.logInWithEmailPassword(mail, password)
+        else authenticationManager.logInWithEmailPassword(mail, password)
     }
 
 }
