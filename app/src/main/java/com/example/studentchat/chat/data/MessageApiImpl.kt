@@ -18,7 +18,11 @@ class MessageApiImpl : MessageApi, FirebaseApi {
         messageDatabaseReference.child(conversationId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val messageList = snapshot.children.mapNotNull { it.getValue(Message::class.java) }
+                    val messageList = snapshot.children.mapNotNull {
+                        it.getValue(Message::class.java).apply {
+                            this?.timestamp = it.key?.toLong() ?: 0
+                        }
+                    }
                     trySend(messageList)
                 }
 
@@ -37,6 +41,7 @@ class MessageApiImpl : MessageApi, FirebaseApi {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val message = snapshot.children.firstOrNull()?.getValue(Message::class.java)
                     message?.let {
+                        it.timestamp = snapshot.children.first().key?.toLong() ?: 0
                         trySend(message)
                     }
                 }
@@ -54,6 +59,7 @@ class MessageApiImpl : MessageApi, FirebaseApi {
             .get()
             .await()
             .getValue(Message::class.java)
+            .apply { this?.timestamp = timestamp }
     }
 
     override suspend fun insertMessage(conversationId: String, message: Message) {
