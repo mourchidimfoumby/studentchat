@@ -1,39 +1,56 @@
 package com.example.studentchat.authentication
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.studentchat.AuthenticationState
 import com.example.studentchat.authentication.domain.LogInWithEmailPasswordUseCase
-import com.example.studentchat.authentication.domain.SignUpUseCase
+import com.example.studentchat.authentication.domain.SignUpWithEmailPasswordUseCase
 import com.example.studentchat.user.data.UserApiModel
-import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 
 class AuthenticationViewModel: ViewModel() {
-    private val _logged = MutableLiveData<Boolean>()
-    val logged : LiveData<Boolean> = _logged
-    private val logInWithEmailPasswordUseCase = LogInWithEmailPasswordUseCase()
-    private val signUp: SignUpUseCase by inject(SignUpUseCase::class.java)
-    private val mAuth = FirebaseAuth.getInstance()
-    private val authStateListener: FirebaseAuth.AuthStateListener =
-        FirebaseAuth.AuthStateListener { firebaseAuth ->
-            val user = firebaseAuth.currentUser
-            _logged.value = user != null
+    private val _authenticationState: MutableStateFlow<AuthenticationState> =
+        MutableStateFlow(AuthenticationState.UNAUTHENTICATED)
+    val authenticationState: StateFlow<AuthenticationState> = _authenticationState
+    private val logInWithEmailPasswordUseCase: LogInWithEmailPasswordUseCase by inject(
+        LogInWithEmailPasswordUseCase::class.java
+    )
+    private val signUpWithEmailPasswordUseCase: SignUpWithEmailPasswordUseCase by inject(
+        SignUpWithEmailPasswordUseCase::class.java
+    )
+
+    fun logInWithEmailPassword(mail: String, password: String) {
+        logInWithEmailPasswordUseCase(mail, password) {
+            it.fold(
+                onSuccess = { authState ->
+                    _authenticationState.value = authState
+                },
+                onFailure = { error ->
+                    _authenticationState.value = AuthenticationState.ERROR_AUTHENTICATION
+                    Log.e(javaClass.name, "Error authentication: ${error.message}")
+                }
+            )
         }
-
-    init {
-        mAuth.addAuthStateListener(authStateListener)
-    }
-    suspend fun logInWithEmailPassword(mail: String, password: String){
-        logInWithEmailPasswordUseCase(mail, password)
     }
 
-    suspend fun signUpWithEmailPassword(userApiModel: UserApiModel) {
-        signUp(userApiModel)
+    fun signUpWithEmailPassword(userApiModel: UserApiModel) {
+        viewModelScope.launch {
+            signUpWithEmailPasswordUseCase(userApiModel).collectLatest {
+                it.fold(
+                    onSuccess = { authState ->
+                        _authenticationState.value = authState
+                    },
+                    onFailure = { error ->
+                        _authenticationState.value = AuthenticationState.ERROR_AUTHENTICATION
+                        Log.e(javaClass.name, "Error authentication: ${error.message}")
+                    }
+                )
+            }
+        }
     }
-    override fun onCleared() {
-        super.onCleared()
-        mAuth.removeAuthStateListener(authStateListener)
-    }
-
 }

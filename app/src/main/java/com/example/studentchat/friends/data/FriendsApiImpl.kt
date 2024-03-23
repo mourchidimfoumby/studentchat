@@ -1,5 +1,6 @@
 package com.example.studentchat.friends.data
 
+import android.util.Log
 import com.example.studentchat.FirebaseApi
 import com.example.studentchat.user.data.User
 import com.example.studentchat.user.data.UserApi
@@ -9,10 +10,14 @@ import com.example.studentchat.utils.userId
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 class FriendsApiImpl(private val userApi: UserApi) : FriendsApi, FirebaseApi {
@@ -22,13 +27,28 @@ class FriendsApiImpl(private val userApi: UserApi) : FriendsApi, FirebaseApi {
         allFriendsEventListener = friendsDatabaseReference.child(userId)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val friendsList =
-                        snapshot.children.mapNotNull { it.getValue(Friends::class.java) }
-                    trySend(friendsList)
+                    val friendsIdsList = snapshot.children.mapNotNull { it.key }
+                    val jobs = friendsIdsList.map { friendsId ->
+                        async {
+                            val user = userApi.getUser(friendsId)
+                            user?.let {
+                                Friends(
+                                    uid = it.uid,
+                                    name = it.name,
+                                    firstname = it.firstname,
+                                    mail = it.mail
+                                )
+                            }
+                        }
+                    }
+                    CoroutineScope(Dispatchers.IO).launch {
+                        trySend(jobs.mapNotNull { it.await() })
+                    }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    close(error.toException())
+                    Log.e(javaClass.name, "Error getting friends", error.toException())
+                    close()
                 }
             })
         awaitClose()
