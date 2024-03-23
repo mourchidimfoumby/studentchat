@@ -2,10 +2,8 @@ package com.example.studentchat.dialog
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
-import com.example.studentchat.authentication.AuthenticationActivity
 import com.example.studentchat.authentication.domain.LogOutUseCase
 import org.koin.java.KoinJavaComponent.inject
 
@@ -16,11 +14,7 @@ class DisconnectionDialogFragment: DialogFragment() {
             val builder = AlertDialog.Builder(activity)
             builder.setMessage("Voulez-vous vraiment vous déconnecter ?")
                 .setPositiveButton("Se déconnecter"){ _, _ ->
-                    Intent(context, AuthenticationActivity::class.java).also{
-                        logOutUseCase()
-                        startActivity(it)
-                        activity.finish()
-                    }
+                    logOutUseCase()
                 }
                 .setNegativeButton("Annuler"){ dialog, _ ->
                     dialog.cancel()

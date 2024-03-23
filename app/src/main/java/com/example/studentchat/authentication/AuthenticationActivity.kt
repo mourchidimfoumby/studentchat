@@ -8,12 +8,15 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import com.example.studentchat.AuthenticationState
 import com.example.studentchat.MainActivity
 import com.example.studentchat.R
 import com.example.studentchat.authentication.domain.IsLoggedInUseCase
 import com.example.studentchat.databinding.ActivityAuthenticationBinding
 import com.example.studentchat.utils.inputIsEmpty
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 
 class AuthenticationActivity : AppCompatActivity() {
@@ -43,6 +46,22 @@ class AuthenticationActivity : AppCompatActivity() {
             }
         }
 
+        lifecycleScope.launch {
+            authenticationViewModel.authenticationState.collect { state ->
+                if (state == AuthenticationState.AUTHENTICATED) {
+                    progressBar.isVisible = false
+                    Intent(this@AuthenticationActivity, MainActivity::class.java).also {
+                        startActivity(it)
+                        finish()
+                    }
+                } else if (state == AuthenticationState.ERROR_AUTHENTICATION) {
+                    progressBar.isVisible = false
+                    txtViewConnectError.text = getString(R.string.error_connection)
+                    txtViewConnectError.isVisible = true
+                }
+            }
+        }
+
         btnConnection = binding.buttonLogin
         btnRegistration = binding.buttonRegistration
         inputMail = binding.inputTextMailLogin
@@ -68,13 +87,7 @@ class AuthenticationActivity : AppCompatActivity() {
 
     private fun signIn(mail: String, password: String){
         progressBar.isVisible = true
-        try {
-            txtViewConnectError.isVisible = false
-            authenticationViewModel.logInWithEmailPassword(mail, password)
-        } catch (e: Exception) {
-            progressBar.isVisible = false
-            txtViewConnectError.text = getString(R.string.error_connection)
-            txtViewConnectError.isVisible = true
-        }
+        txtViewConnectError.isVisible = false
+        authenticationViewModel.logInWithEmailPassword(mail, password)
     }
 }

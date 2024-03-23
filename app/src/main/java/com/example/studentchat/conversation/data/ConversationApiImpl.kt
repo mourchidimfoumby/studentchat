@@ -1,5 +1,6 @@
 package com.example.studentchat.conversation.data
 
+import android.util.Log
 import com.example.studentchat.FirebaseApi
 import com.example.studentchat.conversation.domain.ConvertConversationUseCase
 import com.example.studentchat.utils.TABLE_CONVERSATIONS
@@ -49,7 +50,8 @@ class ConversationApiImpl : ConversationApi, FirebaseApi {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    close(error.toException())
+                    Log.e(javaClass.name, "Error getting conversations", error.toException())
+                    close()
                 }
             })
         awaitClose()
