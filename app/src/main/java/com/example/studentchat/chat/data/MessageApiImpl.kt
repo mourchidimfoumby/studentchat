@@ -59,7 +59,6 @@ class MessageApiImpl : MessageApi, FirebaseApi {
             .get()
             .await()
             .getValue(Message::class.java)
-            .apply { this?.timestamp = timestamp }
     }
 
     override suspend fun insertMessage(conversationId: String, message: Message) {

@@ -6,6 +6,7 @@ import com.example.studentchat.conversation.data.Conversation
 import com.example.studentchat.conversation.data.ConversationDTO
 import com.example.studentchat.user.data.UserRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 
 class ConvertConversationUseCase(
@@ -15,13 +16,22 @@ class ConvertConversationUseCase(
     suspend fun toConversation(conversationDTO: ConversationDTO): Conversation? =
         withContext(Dispatchers.IO) {
             try {
-                val first = userRepository.getUser(conversationDTO.interlocutors.keys.first())
-                val second = userRepository.getUser(conversationDTO.interlocutors.keys.last())
+                val firstDeffered = async {
+                    userRepository.getUser(conversationDTO.interlocutors.keys.first())
+                }
+                val secondDeffered = async {
+                    userRepository.getUser(conversationDTO.interlocutors.keys.last())
+                }
+                val lastMessageDeffered = async {
+                    messageRepository.getMessage(
+                        conversationDTO.id,
+                        conversationDTO.lastMessage.toLong()
+                    )
+                }
+                val first = firstDeffered.await()
+                val second = secondDeffered.await()
                 val interlocutors = Pair(first!!, second!!)
-                val lastMessage = messageRepository.getMessage(
-                    conversationDTO.id,
-                    conversationDTO.lastMessage.toLong()
-                )
+                val lastMessage = lastMessageDeffered.await()
                 return@withContext Conversation(interlocutors, conversationDTO.id, lastMessage!!)
             } catch (e: Exception) {
                 Log.e(javaClass.name, "Failed to convert conversation", e)
@@ -64,7 +74,7 @@ class ConvertConversationUseCase(
                     conversation.interlocutors.first.uid to true,
                     conversation.interlocutors.second.uid to true
                 ),
-                conversation.lastMessage.timestamp.toString()
+                conversation.lastMessage!!.timestamp.toString()
             )
         }
 }

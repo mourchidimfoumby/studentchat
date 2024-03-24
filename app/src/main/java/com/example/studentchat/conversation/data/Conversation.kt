@@ -11,7 +11,7 @@ import java.io.Serializable
 data class Conversation(
     val interlocutors: Pair<User, User> = Pair(User(), User()),
     var id: String = "",
-    var lastMessage: Message = Message()
+    var lastMessage: Message? = null
 ): Serializable {
 
     @get:Exclude
