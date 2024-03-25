@@ -46,10 +46,9 @@ class ConversationAdapter(
             val hourConversation = findViewById<TextView>(R.id.txt_view_hour_conversation)
             val imgAvatar = findViewById<ImageView>(R.id.img_view_avatar_user_conversation)
 
-            lastMessage.text = conversation.lastMessage.text ?: "Message supprimé"
-            hourConversation.text = conversation.lastMessage.timestamp.let {
-                formatTimestampUseCase(it, UNIT.HOUR_MINUTE)
-            }
+            lastMessage.text = conversation.lastMessage!!.text
+            hourConversation.text =
+                formatTimestampUseCase(conversation.lastMessage!!.timestamp, UNIT.HOUR_MINUTE)
             title.text = conversation.otherUser().toString()
             imgAvatar.setImageResource(conversation.picture)
         }
