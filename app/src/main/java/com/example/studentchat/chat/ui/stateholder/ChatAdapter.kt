@@ -116,7 +116,7 @@ class ChatAdapter(
                 it.findViewById<ImageView>(R.id.img_view_avatar_user_chat)
             previousPictureMessage.visibility = View.GONE
         }
-        val marginTopInDp = 2
+        val marginTopInDp = 3
         val marginTopInPx =
             (marginTopInDp * resources.displayMetrics.density).toInt()
         val layout = findViewById<ConstraintLayout>(R.id.constraint_layout)
@@ -126,7 +126,7 @@ class ChatAdapter(
     }
 
     private fun View.formatSameTimeMessage(){
-        val marginTopInDp = 2
+        val marginTopInDp = 3
         val marginTopInPx =
             (marginTopInDp * resources.displayMetrics.density).toInt()
         val layout = findViewById<ConstraintLayout>(R.id.constraint_layout)

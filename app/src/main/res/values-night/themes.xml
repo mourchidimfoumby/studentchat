@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Base.Theme.StudentChat" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/secondary_color</item>
+        <item name="colorSecondary">@color/third_color</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="toolbarStyle">@style/toolbar</item>
+        <item name="bottomNavigationStyle">@style/bottom_navigation_view</item>
+    </style>
+    <style name="Theme.StudentChat" parent="Base.Theme.StudentChat" />
+
+    <style name="h2">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/h2</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="h3">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/h3</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="txt_view_name_user">
+        <item name="android:textSize">@dimen/medium</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="information">
+        <item name="android:textSize">@dimen/large</item>
+        <item name="android:textColor">@color/grey</item>
+    </style>
+    <style name="toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">?android:colorBackground</item>
+    </style>
+    <style name="bottom_navigation_view" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:background">#111111</item>
+    </style>
+</resources>

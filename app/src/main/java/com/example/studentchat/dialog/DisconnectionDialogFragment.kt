@@ -13,7 +13,7 @@ class DisconnectionDialogFragment: DialogFragment() {
         return activity?.let { activity ->
             val builder = AlertDialog.Builder(activity)
             builder.setMessage("Voulez-vous vraiment vous déconnecter ?")
-                .setPositiveButton("Se déconnecter"){ _, _ ->
+                .setPositiveButton("Oui") { _, _ ->
                     logOutUseCase()
                 }
                 .setNegativeButton("Annuler"){ dialog, _ ->

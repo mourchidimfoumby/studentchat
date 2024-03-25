@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.StudenChat" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="Base.Theme.StudentChat" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/primary_color</item>
         <item name="colorPrimaryVariant">@color/secondary_color</item>
@@ -9,10 +9,10 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="Theme.StudenChat" parent="Base.Theme.StudenChat" />
+    <style name="Theme.StudentChat" parent="Base.Theme.StudentChat" />
 
     <style name="h1">
-        <item name="android:textColor">@color/primary_color</item>
+        <item name="android:textColor">@color/color_element</item>
         <item name="android:textSize">@dimen/h1</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -48,7 +48,7 @@
         <item name="popupMenuBackground">@color/white</item>
     </style>
 
-    <style name="ChatToolbar" parent="Base.Theme.StudenChat">
+    <style name="ChatToolbar" parent="Base.Theme.StudentChat">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:textColorSecondary">@color/white</item>
