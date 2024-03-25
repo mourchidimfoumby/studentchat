@@ -44,7 +44,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:indeterminateTint="@color/primary_color"
+            android:indeterminateTint="@color/color_element"
             android:layout_centerInParent="true"
             android:visibility="gone"/>
 
