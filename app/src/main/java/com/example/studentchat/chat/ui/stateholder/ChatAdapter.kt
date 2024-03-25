@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.studentchat.R
@@ -21,7 +20,7 @@ import java.time.Duration
 import java.time.Instant
 
 class ChatAdapter(
-    private var messageList: List<Message>,
+    private var messageList: MutableList<Message>,
     private val conversation: Conversation,
     private val recyclerView: RecyclerView
 ) : RecyclerView.Adapter<ViewHolder>() {
@@ -50,10 +49,8 @@ class ChatAdapter(
     override fun getItemCount(): Int = messageList.size
 
     override fun getItemViewType(position: Int): Int {
-        return if (
-            messageList[position].author ==
-            conversation.otherUser().toString()
-            ) ITEM_RECEIVER
+        return if (messageList[position].author == conversation.otherUser().toString())
+            ITEM_RECEIVER
         else ITEM_SENDER
     }
 
@@ -70,13 +67,13 @@ class ChatAdapter(
             val hour = findViewById<TextView>(R.id.txt_view_hour_chat)
 
             previousMessage?.let { msg ->
-                if(isSentAtSameDate(previousMessage, currentMessage))
+                if (isSentAtSameDate(msg, currentMessage))
                 {
                     if (isSentAtSameTime(msg, currentMessage)) {
-                        formatSameTimeMessage()
-                        if (holder.itemViewType == ITEM_RECEIVER) {
-                            formatSameTimeMessageReceive(position - 1)
-                        }
+                        if (holder.itemViewType == ITEM_RECEIVER) formatSameTimeMessageReceive(
+                            position - 1
+                        )
+                        else formatSameTimeMessage()
                     }
                 }
                 else{
@@ -98,15 +95,8 @@ class ChatAdapter(
         }
     }
 
-    fun updateList(newMessageList: List<Message>) {
-        val diffResult = DiffUtil.calculateDiff(
-            ChatDiffCallback(
-                messageList,
-                newMessageList
-            )
-        )
-        messageList = newMessageList
-        diffResult.dispatchUpdatesTo(this)
+    fun addMessage(message: Message) {
+        messageList.add(message)
     }
 
     private fun View.formatSameTimeMessageReceive(position: Int) {
@@ -124,12 +114,9 @@ class ChatAdapter(
 
             val previousPictureMessage =
                 it.findViewById<ImageView>(R.id.img_view_avatar_user_chat)
-            previousPictureMessage.isVisible = false
+            previousPictureMessage.visibility = View.GONE
         }
-    }
-
-    private fun View.formatSameTimeMessage(){
-        val marginTopInDp = 4
+        val marginTopInDp = 2
         val marginTopInPx =
             (marginTopInDp * resources.displayMetrics.density).toInt()
         val layout = findViewById<ConstraintLayout>(R.id.constraint_layout)
@@ -137,16 +124,23 @@ class ChatAdapter(
         params.topMargin = marginTopInPx
         layout.layoutParams = params
     }
-    private fun isSentAtSameTime(previousMessage: Message, currentMessage: Message): Boolean {
-        val previousMessageInstant = Instant.ofEpochSecond(previousMessage.timestamp)
-        val currentMessageInstant = Instant.ofEpochSecond(currentMessage.timestamp)
-        val duration = Duration.between(currentMessageInstant, previousMessageInstant).abs()
-        return duration.toMinutes() <= 1
+
+    private fun View.formatSameTimeMessage(){
+        val marginTopInDp = 2
+        val marginTopInPx =
+            (marginTopInDp * resources.displayMetrics.density).toInt()
+        val layout = findViewById<ConstraintLayout>(R.id.constraint_layout)
+        val params = layout.layoutParams as ViewGroup.MarginLayoutParams
+        params.topMargin = marginTopInPx
+        layout.layoutParams = params
     }
 
-    private fun isSentAtSameDate(previousMessage: Message, currentMessage: Message): Boolean {
-        val previousMessageDate = timestampToLocalDate(previousMessage.timestamp)
-        val currentMessageDate = timestampToLocalDate(currentMessage.timestamp)
-        return currentMessageDate.isEqual(previousMessageDate)
-    }
+    private fun isSentAtSameTime(previousMessage: Message, currentMessage: Message): Boolean =
+        Duration.between(
+            Instant.ofEpochSecond(currentMessage.timestamp),
+            Instant.ofEpochSecond(previousMessage.timestamp)
+        ).abs().toMinutes() <= 1
+
+    private fun isSentAtSameDate(previousMessage: Message, currentMessage: Message): Boolean =
+        timestampToLocalDate(previousMessage.timestamp) == timestampToLocalDate(currentMessage.timestamp)
 }

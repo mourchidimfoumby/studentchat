@@ -1,8 +1,10 @@
 package com.example.studentchat.chat.data
 
+import android.util.Log
 import com.example.studentchat.FirebaseApi
 import com.example.studentchat.utils.TABLE_MESSAGES
 import com.example.studentchat.utils.firebaseDatabase
+import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -14,41 +16,29 @@ import kotlinx.coroutines.tasks.await
 class MessageApiImpl : MessageApi, FirebaseApi {
     private val messageDatabaseReference = firebaseDatabase.child(TABLE_MESSAGES)
     private var valueEventListener: ValueEventListener? = null
-    override fun getAllMessage(conversationId: String): Flow<List<Message>> = callbackFlow {
-        messageDatabaseReference.child(conversationId)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val messageList = snapshot.children.mapNotNull {
-                        it.getValue(Message::class.java).apply {
-                            this?.timestamp = it.key?.toLong() ?: 0
-                        }
-                    }
-                    trySend(messageList)
-                }
+    private var childEventListener: ChildEventListener? = null
 
-                override fun onCancelled(error: DatabaseError) {
-                    close(error.toException())
-                }
-            })
-        awaitClose()
-    }
-
-    override fun getLastMessage(conversationId: String): Flow<Message> = callbackFlow {
-        valueEventListener = messageDatabaseReference.child(conversationId)
-            .orderByChild("timestamp")
-            .limitToLast(1)
-            .addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val message = snapshot.children.firstOrNull()?.getValue(Message::class.java)
+    override fun getAllMessage(conversationId: String): Flow<Message> = callbackFlow {
+        childEventListener = messageDatabaseReference.child(conversationId)
+            .addChildEventListener(object : ChildEventListener {
+                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                    val message = snapshot.getValue(Message::class.java)
                     message?.let {
-                        it.timestamp = snapshot.children.first().key?.toLong() ?: 0
-                        trySend(message)
+                        it.timestamp = snapshot.key?.toLong() ?: 0
+                        trySend(it)
                     }
                 }
 
+                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+
+                override fun onChildRemoved(snapshot: DataSnapshot) {}
+
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+
                 override fun onCancelled(error: DatabaseError) {
-                    close(error.toException())
+                    Log.e(javaClass.name, "OnCancelled", error.toException())
                 }
+
             })
         awaitClose()
     }
@@ -62,16 +52,22 @@ class MessageApiImpl : MessageApi, FirebaseApi {
     }
 
     override suspend fun insertMessage(conversationId: String, message: Message) {
-        messageDatabaseReference.child(conversationId).setValue(message)
+        messageDatabaseReference.child(conversationId)
+            .child(message.timestamp.toString())
+            .setValue(message)
     }
 
     override suspend fun deleteMessage(conversationId: String, message: Message) {
-        messageDatabaseReference.child(conversationId).child(message.timestamp.toString())
+        messageDatabaseReference.child(conversationId)
+            .child(message.timestamp.toString())
             .removeValue()
     }
 
     override fun removeListener() {
         valueEventListener?.let {
+            messageDatabaseReference.removeEventListener(it)
+        }
+        childEventListener?.let {
             messageDatabaseReference.removeEventListener(it)
         }
     }

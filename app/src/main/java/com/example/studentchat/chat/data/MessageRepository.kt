@@ -4,8 +4,7 @@ import com.example.studentchat.conversation.data.Conversation
 import kotlinx.coroutines.flow.Flow
 
 interface MessageRepository {
-    fun getAllMessage(conversation: Conversation): Flow<List<Message>>
-    fun getLastMessage(conversation: Conversation): Flow<Message>
+    fun getAllMessage(conversation: Conversation): Flow<Message>
     suspend fun getMessage(conversationId: String, timestamp: Long): Message?
     suspend fun createMessage(conversation: Conversation, message: Message)
     suspend fun deleteMessage(conversation: Conversation, message: Message)

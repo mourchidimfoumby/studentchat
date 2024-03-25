@@ -8,16 +8,17 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studentchat.MainActivity
 import com.example.studentchat.R
-import com.example.studentchat.chat.data.Message
 import com.example.studentchat.chat.ui.stateholder.ChatAdapter
 import com.example.studentchat.chat.ui.stateholder.ChatViewModel
 import com.example.studentchat.conversation.data.Conversation
 import com.example.studentchat.databinding.ActivityChatBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.launch
 
 const val ERROR_OPEN_CHAT = 1000;
 class ChatActivity : AppCompatActivity() {
@@ -30,18 +31,19 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var imgViewUserAvatar: ImageView
     private lateinit var chatAdapter: ChatAdapter
     private lateinit var conversation: Conversation
-    private var allMessage = listOf<Message>()
     private val chatViewModel: ChatViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBinding.inflate(layoutInflater)
         val testConversation = intent.getSerializableExtra("conversation") as Conversation?
-        if (testConversation == null) {
+        testConversation?.let {
+            conversation = it
+        } ?: run {
             Intent(this, MainActivity::class.java).also {
                 setResult(ERROR_OPEN_CHAT, it)
                 finish()
             }
-        } else conversation = testConversation
+        }
 
         setContentView(binding.root)
         toolbarChat = binding.layoutToolbarChat.findViewById(R.id.toolbar_chat)
@@ -56,18 +58,20 @@ class ChatActivity : AppCompatActivity() {
         txtViewUserName = toolbarChat.findViewById(R.id.txt_view_user_name_chat)
         imgViewUserAvatar = toolbarChat.findViewById(R.id.img_view_avatar_user_chat_toolbar)
         val interlocutor = conversation.otherUser()
-
         txtViewUserName.text = interlocutor.toString()
         imgViewUserAvatar.setImageResource(interlocutor.picture)
-        chatAdapter = ChatAdapter(allMessage, conversation, recyclerViewChat)
-        recyclerViewChat.layoutManager = LinearLayoutManager(this)
+        recyclerViewChat.layoutManager = LinearLayoutManager(this@ChatActivity)
+        chatAdapter = ChatAdapter(mutableListOf(), conversation, recyclerViewChat)
         recyclerViewChat.adapter = chatAdapter
 
-        chatViewModel.allMessages.observe(this) { messageList ->
-            allMessage = messageList
-            chatAdapter.updateList(allMessage)
-            recyclerViewChat.post {
-                recyclerViewChat.scrollToPosition(chatAdapter.itemCount - 1)
+        lifecycleScope.launch {
+            chatViewModel.message.collect { message ->
+                message?.let {
+                    chatAdapter.addMessage(it)
+                    recyclerViewChat.post {
+                        recyclerViewChat.scrollToPosition(chatAdapter.itemCount - 1)
+                    }
+                }
             }
         }
 
