@@ -42,9 +42,9 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun setCurrentFragment(fragment: Fragment){
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frame_layout_main, fragment)
-            commit()
+        supportFragmentManager.beginTransaction().also {
+            it.replace(R.id.frame_layout_main, fragment)
+            it.commit()
         }
     }
 
