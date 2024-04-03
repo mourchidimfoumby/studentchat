@@ -2,7 +2,7 @@ package com.example.studentchat.conversation.data
 
 import com.example.studentchat.R
 import com.example.studentchat.chat.data.Message
-import com.example.studentchat.user.data.User
+import com.example.data.model.User
 import com.google.firebase.database.Exclude
 
 data class ConversationGroup(

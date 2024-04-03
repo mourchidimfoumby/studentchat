@@ -1,6 +1,6 @@
 package com.example.studentchat.friends.data
 
-import com.example.studentchat.user.data.User
+import com.example.data.model.User
 import kotlinx.coroutines.flow.Flow
 
 interface FriendsApi {

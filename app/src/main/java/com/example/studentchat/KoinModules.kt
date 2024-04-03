@@ -35,11 +35,11 @@ import com.example.studentchat.friends.domain.AddFriendsUseCase
 import com.example.studentchat.friends.domain.GetAllFriendsUseCase
 import com.example.studentchat.friends.domain.GetAllNotFriendsUseCase
 import com.example.studentchat.friends.ui.stateholder.FriendsViewModel
-import com.example.studentchat.user.data.UserApi
-import com.example.studentchat.user.data.UserApiImpl
-import com.example.studentchat.user.data.UserRemoteDataSource
-import com.example.studentchat.user.data.UserRepository
-import com.example.studentchat.user.data.UserRepositoryImpl
+import com.example.data.remote.api.UserApi
+import com.example.data.remote.api.UserApiImpl
+import com.example.data.remote.UserRemoteDataSource
+import com.example.data.repository.UserRepository
+import com.example.data.repository.UserRepositoryImpl
 import com.example.studentchat.user.domain.GetCurrentUserUseCase
 import com.example.studentchat.user.domain.GetUserUseCase
 import org.koin.core.module.dsl.bind

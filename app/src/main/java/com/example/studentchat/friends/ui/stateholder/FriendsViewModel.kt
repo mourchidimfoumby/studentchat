@@ -9,7 +9,7 @@ import com.example.studentchat.friends.data.Friends
 import com.example.studentchat.friends.data.FriendsApiImpl
 import com.example.studentchat.friends.domain.GetAllFriendsUseCase
 import com.example.studentchat.friends.domain.GetAllNotFriendsUseCase
-import com.example.studentchat.user.data.User
+import com.example.data.model.User
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 

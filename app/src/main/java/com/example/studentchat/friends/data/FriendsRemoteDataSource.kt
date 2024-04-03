@@ -1,6 +1,6 @@
 package com.example.studentchat.friends.data
 
-import com.example.studentchat.user.data.User
+import com.example.data.model.User
 
 class FriendsRemoteDataSource(
     private val friendsApi: FriendsApi

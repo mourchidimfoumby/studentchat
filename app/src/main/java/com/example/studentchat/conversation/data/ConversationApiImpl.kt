@@ -1,12 +1,12 @@
 package com.example.studentchat.conversation.data
 
 import android.util.Log
-import com.example.studentchat.FirebaseApi
+import com.example.data.remote.api.FirebaseApi
 import com.example.studentchat.conversation.domain.ConvertConversationUseCase
-import com.example.studentchat.utils.TABLE_CONVERSATIONS
-import com.example.studentchat.utils.TABLE_USER_CONVERSATIONS
-import com.example.studentchat.utils.firebaseDatabase
-import com.example.studentchat.utils.userId
+import com.example.data.TABLE_CONVERSATIONS
+import com.example.data.TABLE_USER_CONVERSATIONS
+import com.example.data.firebaseDatabase
+import com.example.data.userId
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

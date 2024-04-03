@@ -1,9 +1,9 @@
-package com.example.studentchat.user.data
+package com.example.data.remote.api
 
-import com.example.studentchat.FirebaseApi
-import com.example.studentchat.utils.TABLE_USERS
-import com.example.studentchat.utils.firebaseDatabase
-import com.example.studentchat.utils.userId
+import com.example.data.TABLE_USERS
+import com.example.data.firebaseDatabase
+import com.example.data.remote.model.UserRemote
+import com.example.data.userId
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -16,11 +16,11 @@ class UserApiImpl : UserApi, FirebaseApi {
     private var allUserValueEventListener: ValueEventListener? = null
     private var currentUserValueEventListener: ValueEventListener? = null
     private val userDatabaseReference = firebaseDatabase.child(TABLE_USERS)
-    override fun getAllUser(): Flow<List<User>> = callbackFlow {
+    override fun getAllUser(): Flow<List<UserRemote>> = callbackFlow {
         allUserValueEventListener =
             userDatabaseReference.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val userList = snapshot.children.mapNotNull { it.getValue(User::class.java) }
+                    val userList = snapshot.children.mapNotNull { it.getValue(UserRemote::class.java) }
                     userList.filterNot { it.uid == userId }
                     trySend(userList)
                 }
@@ -32,11 +32,11 @@ class UserApiImpl : UserApi, FirebaseApi {
         awaitClose()
     }
 
-    override fun getCurrentUser(): Flow<UserApiModel> = callbackFlow {
+    override fun getCurrentUser(): Flow<UserRemote> = callbackFlow {
         currentUserValueEventListener =
             userDatabaseReference.child(userId).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val currentUser = snapshot.getValue(UserApiModel::class.java)
+                    val currentUser = snapshot.getValue(UserRemote::class.java)
                     currentUser?.let {
                         trySend(it)
                     }
@@ -49,18 +49,17 @@ class UserApiImpl : UserApi, FirebaseApi {
         awaitClose()
     }
 
-    override suspend fun getUser(uid: String): User? {
-        return userDatabaseReference.child(uid)
+    override suspend fun getUser(uid: String): UserRemote? =
+        userDatabaseReference.child(uid)
             .get()
             .await()
-            .getValue(User::class.java)
-    }
+            .getValue(UserRemote::class.java)
 
-    override suspend fun insertUser(userApiModel: UserApiModel) {
+    override suspend fun insertUser(userApiModel: UserRemote) {
         userDatabaseReference.child(userApiModel.uid).setValue(userApiModel)
     }
 
-    override suspend fun updateUser(userApiModel: UserApiModel) {
+    override suspend fun updateUser(userApiModel: UserRemote) {
         userDatabaseReference.child(userApiModel.uid).setValue(userApiModel)
     }
 

@@ -1,9 +1,9 @@
 package com.example.studentchat.chat.data
 
 import android.util.Log
-import com.example.studentchat.FirebaseApi
-import com.example.studentchat.utils.TABLE_MESSAGES
-import com.example.studentchat.utils.firebaseDatabase
+import com.example.data.remote.api.FirebaseApi
+import com.example.data.TABLE_MESSAGES
+import com.example.data.firebaseDatabase
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

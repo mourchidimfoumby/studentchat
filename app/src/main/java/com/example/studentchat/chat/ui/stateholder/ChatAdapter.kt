@@ -1,4 +1,4 @@
-package com.example.studentchat.chat.ui.stateholder
+package chat.ui.stateholder
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.studentchat.R
+import com.example.ui.R.*
 import com.example.studentchat.chat.data.Message
 import com.example.studentchat.chat.domain.FormatTimestampUseCase
 import com.example.studentchat.chat.domain.TimestampToLocalDate
@@ -89,7 +90,7 @@ class ChatAdapter(
                 txtViewDividerChat.isVisible = true
             }
 
-            picture?.setImageResource(R.drawable.ic_avatar)
+            picture?.setImageResource(drawable.ic_avatar)
             text.text = currentMessage.text
             hour.text = formatTimestampUseCase(currentMessage.timestamp, UNIT.HOUR_MINUTE)
         }
