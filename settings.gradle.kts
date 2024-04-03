@@ -15,3 +15,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "StudentChat"
 include(":app")
+include(":domain")
+include(":ui")
+include(":data")
