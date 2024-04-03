@@ -2,8 +2,8 @@ package com.example.studentchat.authentication.domain
 
 import com.example.studentchat.AuthenticationState
 import com.example.studentchat.authentication.AuthenticationManager
-import com.example.studentchat.user.data.UserApiModel
-import com.example.studentchat.user.data.UserRepository
+import com.example.data.remote.model.UserRemote
+import com.example.data.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
@@ -11,9 +11,9 @@ class SignUpWithEmailPasswordUseCase(
     private val authenticationRepository: AuthenticationManager,
     private val userRepository: UserRepository,
 ) {
-    suspend operator fun invoke(userApiModel: UserApiModel): Flow<Result<AuthenticationState>> =
+    suspend operator fun invoke(userRemote: UserRemote): Flow<Result<AuthenticationState>> =
         callbackFlow {
-            if (userApiModel.mail.isBlank() || userApiModel.password.isBlank()) trySend(
+            if (userRemote.mail.isBlank() || userRemote.password.isBlank()) trySend(
                 Result.failure(
                     Exception("Mail or password is empty")
                 )
@@ -23,16 +23,16 @@ class SignUpWithEmailPasswordUseCase(
                     trySend(it)
                 }
             authenticationRepository.signUpWithEmailPassword(
-                userApiModel.mail,
-                userApiModel.password,
+                userRemote.mail,
+                userRemote.password,
                 callback
             )
             authenticationRepository.logInWithEmailPassword(
-                userApiModel.mail,
-                userApiModel.password,
+                userRemote.mail,
+                userRemote.password,
                 callback
             )
-            userRepository.createUser(userApiModel)
+            userRepository.createUser(userRemote)
         }
     }
 }

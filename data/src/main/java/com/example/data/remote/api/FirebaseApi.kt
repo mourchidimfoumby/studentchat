@@ -1,4 +1,4 @@
-package com.example.studentchat
+package com.example.data.remote.api
 
 import com.google.firebase.database.ChildEventListener
 

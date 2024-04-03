@@ -98,5 +98,5 @@ fun DependencyHandler.domain(){
     implementation(project(":domain"))
 }
 fun DependencyHandler.ui(){
-    implementation(project(":domain"))
+    implementation(project(":ui"))
 }

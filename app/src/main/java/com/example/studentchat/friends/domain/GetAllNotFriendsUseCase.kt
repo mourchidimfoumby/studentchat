@@ -1,7 +1,7 @@
 package com.example.studentchat.friends.domain
 
 import com.example.studentchat.friends.data.FriendsRepository
-import com.example.studentchat.user.data.User
+import com.example.data.model.User
 import kotlinx.coroutines.flow.Flow
 
 class GetAllNotFriendsUseCase(

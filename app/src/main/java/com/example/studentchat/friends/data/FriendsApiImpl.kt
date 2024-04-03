@@ -1,12 +1,12 @@
 package com.example.studentchat.friends.data
 
 import android.util.Log
-import com.example.studentchat.FirebaseApi
-import com.example.studentchat.user.data.User
-import com.example.studentchat.user.data.UserApi
-import com.example.studentchat.utils.TABLE_USER_FRIENDS
-import com.example.studentchat.utils.firebaseDatabase
-import com.example.studentchat.utils.userId
+import com.example.data.remote.api.FirebaseApi
+import com.example.data.model.User
+import com.example.data.remote.api.UserApi
+import com.example.data.TABLE_USER_FRIENDS
+import com.example.data.firebaseDatabase
+import com.example.data.userId
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -34,8 +34,8 @@ class FriendsApiImpl(private val userApi: UserApi) : FriendsApi, FirebaseApi {
                             user?.let {
                                 Friends(
                                     uid = it.uid,
-                                    name = it.name,
-                                    firstname = it.firstname,
+                                    name = it.lastName,
+                                    firstname = it.firstName,
                                     mail = it.mail
                                 )
                             }

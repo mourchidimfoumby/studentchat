@@ -15,7 +15,7 @@ import androidx.core.view.isVisible
 import com.example.studentchat.MainActivity
 import com.example.studentchat.R
 import com.example.studentchat.databinding.ActivityRegistrationBinding
-import com.example.studentchat.user.data.UserApiModel
+import com.example.data.remote.model.UserRemote
 import com.example.studentchat.utils.PATTERN_DAY_MONTH_YEAR
 import com.example.studentchat.utils.convertDateToString
 import com.example.studentchat.utils.inputIsEmpty
@@ -31,7 +31,7 @@ class RegistrationActivity : AppCompatActivity() {
     private lateinit var inputPassword: TextInputEditText
     private lateinit var txtViewError: TextView
     private lateinit var btnRgistration: Button
-    private lateinit var user: UserApiModel
+    private lateinit var user: UserRemote
     private lateinit var inputFirstName: TextInputEditText
     private lateinit var inputName: TextInputEditText
     private lateinit var inputBirthday: TextInputEditText
@@ -71,9 +71,9 @@ class RegistrationActivity : AppCompatActivity() {
                 txtViewError.text = getString(R.string.error_short_password)
             }
             else{
-                user = UserApiModel(
-                    name = inputName.text.toString(),
-                    firstname = inputFirstName.text.toString(),
+                user = UserRemote(
+                    lastName = inputName.text.toString(),
+                    firstName = inputFirstName.text.toString(),
                     mail = inputMail.text.toString(),
                     password = inputPassword.text.toString(),
                     birthday = inputBirthday.text.toString(),
@@ -86,10 +86,10 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
-    private fun registration(userApiModel: UserApiModel) {
+    private fun registration(userRemote: UserRemote) {
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                authenticationViewModel.signUpWithEmailPassword(userApiModel)
+                authenticationViewModel.signUpWithEmailPassword(userRemote)
                 Intent(this@RegistrationActivity, MainActivity::class.java).also {
                     startActivity(it)
                     finish()
