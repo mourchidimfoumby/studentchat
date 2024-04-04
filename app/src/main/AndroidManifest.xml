@@ -16,7 +16,7 @@
         android:theme="@style/Theme.StudentChat"
         tools:targetApi="31">
         <activity
-            android:name=".chat.ui.ChatActivity"
+            android:name="com.example.ui.chat.ChatActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"

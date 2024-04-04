@@ -1,4 +1,4 @@
-package chat.ui.stateholder
+package com.example.ui.chat.stateholder
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +10,11 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.data.model.Conversation
-import com.example.studentchat.R
 import com.example.data.model.Message
+import com.example.domain.DateUnit
 import com.example.domain.chat.FormatTimestampUseCase
 import com.example.domain.chat.TimestampToLocalDateUseCase
-import com.example.domain.DateUnit
+import com.example.ui.R
 import com.example.ui.R.drawable
 import org.koin.java.KoinJavaComponent.inject
 import java.time.Duration
@@ -102,7 +102,7 @@ class ChatAdapter(
 
     private fun View.formatSameTimeMessageReceive(position: Int) {
         val previousItem =
-            recyclerView.findViewHolderForLayoutPosition(position) as? ChatAdapter.ChatReceiverViewHolder
+            recyclerView.findViewHolderForLayoutPosition(position) as? ChatReceiverViewHolder
         previousItem?.itemView?.let {
             val marginStartInDp = 40
             val marginStartInPx =
