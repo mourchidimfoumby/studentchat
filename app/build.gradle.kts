@@ -50,24 +50,17 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    appCompat()
-    constraintLayout()
-    material()
     fragment()
-    recyclerView()
-    viewModel()
-    liveData()
     viewPager2()
     drawerLayout()
-
-    firebase()
-    firebaseAuth()
-    coroutines()
+    material()
+    constraintLayout()
+    appCompat()
+    recyclerView()
 
     koin()
-    room()
-
     ui()
     domain()
     data()
+    authentication()
 }

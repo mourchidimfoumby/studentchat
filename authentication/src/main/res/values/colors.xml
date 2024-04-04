@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#1E1E1E</color>
+    <color name="light_black">#282828</color>
+    <color name="white">#E6E6E6</color>
+    <color name="primary_color">#63013C</color>
+    <color name="secondary_color">#2B011A</color>
+    <color name="third_color">#323E48</color>
+    <color name="color_element">#63013C</color>
+    <color name="grey">#878787</color>
+    <color name="divider_chat">#969696</color>
+    <color name="lightgrey">#DCDCDC</color>
+    <color name="darkgrey">#646464</color>
+</resources>

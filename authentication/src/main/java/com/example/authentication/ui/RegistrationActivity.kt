@@ -1,4 +1,4 @@
-package com.example.studentchat.authentication
+package com.example.authentication.ui
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -12,13 +12,13 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.example.authentication.R
+import com.example.authentication.inputIsEmpty
 import com.example.studentchat.MainActivity
-import com.example.studentchat.R
 import com.example.studentchat.databinding.ActivityRegistrationBinding
 import com.example.studentchat.user.data.UserApiModel
 import com.example.studentchat.utils.PATTERN_DAY_MONTH_YEAR
 import com.example.studentchat.utils.convertDateToString
-import com.example.studentchat.utils.inputIsEmpty
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

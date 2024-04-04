@@ -1,4 +1,4 @@
-package com.example.studentchat.authentication
+package com.example.authentication.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,15 +9,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.example.studentchat.AuthenticationState
-import com.example.studentchat.MainActivity
-import com.example.studentchat.R
-import com.example.studentchat.authentication.domain.IsLoggedInUseCase
-import com.example.studentchat.databinding.ActivityAuthenticationBinding
-import com.example.studentchat.utils.inputIsEmpty
+import com.example.authentication.AuthenticationState
+import com.example.authentication.R
+import com.example.authentication.databinding.ActivityAuthenticationBinding
+import com.example.authentication.inputIsEmpty
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
-import org.koin.java.KoinJavaComponent.inject
 
 class AuthenticationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthenticationBinding
@@ -27,11 +24,7 @@ class AuthenticationActivity : AppCompatActivity() {
     private lateinit var inputMail: TextInputEditText
     private lateinit var inputPassword: TextInputEditText
     private lateinit var progressBar: ProgressBar
-    private val isLoggedInUseCase: IsLoggedInUseCase by inject(
-        IsLoggedInUseCase::class.java
-    )
     private val authenticationViewModel : AuthenticationViewModel by viewModels()
-    private val TAG = AuthenticationActivity::class.java.name
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,21 +32,10 @@ class AuthenticationActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar!!.hide()
 
-        if (isLoggedInUseCase()) {
-            Intent(this, MainActivity::class.java).also {
-                startActivity(it)
-                finish()
-            }
-        }
-
         lifecycleScope.launch {
             authenticationViewModel.authenticationState.collect { state ->
                 if (state == AuthenticationState.AUTHENTICATED) {
                     progressBar.isVisible = false
-                    Intent(this@AuthenticationActivity, MainActivity::class.java).also {
-                        startActivity(it)
-                        finish()
-                    }
                 } else if (state == AuthenticationState.ERROR_AUTHENTICATION) {
                     progressBar.isVisible = false
                     txtViewConnectError.text = getString(R.string.error_connection)

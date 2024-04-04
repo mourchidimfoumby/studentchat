@@ -1,4 +1,4 @@
-package com.example.studentchat.utils
+package com.example.authentication
 
 import com.google.android.material.textfield.TextInputEditText
 
