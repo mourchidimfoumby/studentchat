@@ -14,8 +14,8 @@ internal class FriendsRepositoryImpl(
     override suspend fun getFriends(uid: String): FriendsRemote? =
         friendsRemoteDataSource.getFriends(uid)
 
-    override suspend fun addFriends(userRemote: UserRemote) {
-        friendsRemoteDataSource.addFriends(userRemote)
+    override suspend fun addFriends(friendsRemote: FriendsRemote) {
+        friendsRemoteDataSource.addFriends(friendsRemote)
     }
 
     override suspend fun deleteFriends(friendsRemote: FriendsRemote) {

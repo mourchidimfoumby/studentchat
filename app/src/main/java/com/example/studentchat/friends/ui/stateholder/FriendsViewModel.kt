@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.studentchat.RemoveListenerUseCase
 import com.example.data.model.Friends
 import com.example.data.remote.api.FriendsApiImpl
-import com.example.studentchat.friends.domain.GetAllFriendsUseCase
-import com.example.studentchat.friends.domain.GetAllNotFriendsUseCase
+import com.example.domain.friends.GetAllFriendsUseCase
+import com.example.domain.friends.GetAllNotFriendsUseCase
 import com.example.data.model.User
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
