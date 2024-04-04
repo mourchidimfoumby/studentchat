@@ -1,12 +1,13 @@
-package com.example.studentchat.conversation.domain
+package com.example.domain.conversation
 
 import com.example.data.model.Conversation
 import com.example.data.repository.ConversationRepository
+import com.example.data.toRemote
 
-class CreateConversationUseCase (
+class DeleteConversationUseCase(
     private val conversationRepository: ConversationRepository
 ) {
     suspend operator fun invoke(conversation: Conversation) {
-        conversationRepository.createConversation(conversation)
+        conversationRepository.deleteConversation(conversation.toRemote())
     }
 }

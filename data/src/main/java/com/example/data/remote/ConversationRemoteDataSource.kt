@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
-class ConversationRemoteDataSource(
+internal class ConversationRemoteDataSource(
     private val conversationApi: ConversationApi,
 ) {
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO

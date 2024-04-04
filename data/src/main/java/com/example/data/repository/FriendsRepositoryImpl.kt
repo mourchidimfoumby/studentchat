@@ -5,7 +5,7 @@ import com.example.data.remote.model.FriendsRemote
 import com.example.data.remote.model.UserRemote
 import kotlinx.coroutines.flow.Flow
 
-class FriendsRepositoryImpl(
+internal class FriendsRepositoryImpl(
     private val friendsRemoteDataSource: FriendsRemoteDataSource
 ) : FriendsRepository {
     override val friends: Flow<List<FriendsRemote>> = friendsRemoteDataSource.getAllFriends()

@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-class FriendsApiImpl(private val userApi: UserApi) : FriendsApi, FirebaseApi {
+internal class FriendsApiImpl(private val userApi: UserApi) : FriendsApi, FirebaseApi {
     private val friendsDatabaseReference = firebaseDatabase.child(TABLE_USER_FRIENDS)
     private var allFriendsEventListener: ValueEventListener? = null
     override fun getAllFriends(): Flow<List<FriendsRemote>> = callbackFlow {

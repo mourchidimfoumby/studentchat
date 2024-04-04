@@ -1,11 +1,10 @@
 package com.example.data.remote
 
-import com.example.data.model.User
-import com.example.data.remote.model.UserRemote
 import com.example.data.remote.api.UserApi
+import com.example.data.remote.model.UserRemote
 import kotlinx.coroutines.flow.Flow
 
-class UserRemoteDataSource(
+internal class UserRemoteDataSource(
     private val userApi: UserApi
 ) {
     fun getAllUser(): Flow<List<UserRemote>> = userApi.getAllUser()

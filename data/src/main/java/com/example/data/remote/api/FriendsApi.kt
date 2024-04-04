@@ -4,7 +4,7 @@ import com.example.data.remote.model.FriendsRemote
 import com.example.data.remote.model.UserRemote
 import kotlinx.coroutines.flow.Flow
 
-interface FriendsApi {
+internal interface FriendsApi {
     fun getAllFriends(): Flow<List<FriendsRemote>>
     fun getAllNotFriends(): Flow<List<UserRemote>>
     suspend fun getFriends(uid: String): FriendsRemote?

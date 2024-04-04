@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 
-class UserApiImpl : UserApi, FirebaseApi {
+internal class UserApiImpl : UserApi, FirebaseApi {
     private var allUserValueEventListener: ValueEventListener? = null
     private var currentUserValueEventListener: ValueEventListener? = null
     private val userDatabaseReference = firebaseDatabase.child(TABLE_USERS)

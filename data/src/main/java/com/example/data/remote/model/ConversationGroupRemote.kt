@@ -1,5 +1,6 @@
 package com.example.data.remote.model
 
+import com.example.data.model.Message
 import com.example.data.model.User
 
 data class ConversationGroupRemote(

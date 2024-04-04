@@ -18,18 +18,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import org.koin.java.KoinJavaComponent.inject
 
-class ConversationApiImpl : ConversationApi, FirebaseApi {
+internal class ConversationApiImpl : ConversationApi, FirebaseApi {
     private var childEventListener: ChildEventListener? = null
     private var valueEventListener: ValueEventListener? = null
     private val conversationDatabaseReference =
         firebaseDatabase.child(TABLE_CONVERSATIONS)
     private val userConversationDatabaseReference =
         firebaseDatabase.child(TABLE_USER_CONVERSATIONS).child(userId)
-    private val convertConversationUseCase: ConvertConversationUseCase by inject(
-        ConvertConversationUseCase::class.java
-    )
 
     override fun getAllConversations(): Flow<List<ConversationRemote>> = callbackFlow {
         valueEventListener = userConversationDatabaseReference
@@ -57,25 +53,22 @@ class ConversationApiImpl : ConversationApi, FirebaseApi {
     }
 
     override suspend fun getConversation(conversationId: String): ConversationRemote? {
-        val conversationDTO = conversationDatabaseReference.child(conversationId)
+        val conversationRemote = conversationDatabaseReference.child(conversationId)
             .get()
             .await()
             .getValue(ConversationRemote::class.java)
-        return conversationDTO?.let {
-            it.id = conversationId
-            convertConversationUseCase.toConversation(it)
+        return conversationRemote?.apply {
+            this.id = conversationId
         }
     }
 
     override suspend fun insertConversation(conversationRemote: ConversationRemote) {
-        val conversationDTO = convertConversationUseCase.toConversationDTO(conversationRemote)
-        conversationDatabaseReference.child(conversationRemote.id).setValue(conversationDTO)
+        conversationDatabaseReference.child(conversationRemote.id).setValue(conversationRemote)
         userConversationDatabaseReference.child(userId).child(conversationRemote.id).setValue(true)
     }
 
     override suspend fun updateConversation(conversationRemote: ConversationRemote) {
-        val conversationDTO = convertConversationUseCase.toConversationDTO(conversationRemote)
-        conversationDatabaseReference.child(conversationRemote.id).setValue(conversationDTO)
+        conversationDatabaseReference.child(conversationRemote.id).setValue(conversationRemote)
     }
 
     override suspend fun deleteConversation(conversationRemote: ConversationRemote) {
