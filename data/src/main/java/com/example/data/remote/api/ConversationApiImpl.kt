@@ -6,7 +6,6 @@ import com.example.data.TABLE_USER_CONVERSATIONS
 import com.example.data.firebaseDatabase
 import com.example.data.remote.model.ConversationRemote
 import com.example.data.userId
-import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -19,16 +18,14 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-internal class ConversationApiImpl : ConversationApi, FirebaseApi {
-    private var childEventListener: ChildEventListener? = null
-    private var valueEventListener: ValueEventListener? = null
+internal class ConversationApiImpl : ConversationApi {
     private val conversationDatabaseReference =
         firebaseDatabase.child(TABLE_CONVERSATIONS)
     private val userConversationDatabaseReference =
         firebaseDatabase.child(TABLE_USER_CONVERSATIONS).child(userId)
 
     override fun getAllConversations(): Flow<List<ConversationRemote>> = callbackFlow {
-        valueEventListener = userConversationDatabaseReference
+        userConversationDatabaseReference
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val jobs = snapshot.children.mapNotNull { child ->
@@ -80,17 +77,6 @@ internal class ConversationApiImpl : ConversationApi, FirebaseApi {
         conversation?.let {
             if (it.isNotActive())
                 conversationDatabaseReference.child(conversationRemote.id).removeValue()
-        }
-    }
-
-    override fun removeListener() {
-        childEventListener?.let {
-            conversationDatabaseReference.removeEventListener(it)
-            userConversationDatabaseReference.removeEventListener(it)
-        }
-        valueEventListener?.let {
-            conversationDatabaseReference.removeEventListener(it)
-            userConversationDatabaseReference.removeEventListener(it)
         }
     }
 }

@@ -4,12 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.studentchat.RemoveListenerUseCase
 import com.example.data.model.Friends
-import com.example.data.remote.api.FriendsApiImpl
+import com.example.data.model.User
 import com.example.domain.friends.GetAllFriendsUseCase
 import com.example.domain.friends.GetAllNotFriendsUseCase
-import com.example.data.model.User
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 
@@ -20,8 +18,6 @@ class FriendsViewModel : ViewModel() {
     val notFriends: LiveData<List<User>> = _notFriends
     private val getAllFriendsUseCase: GetAllFriendsUseCase by inject(GetAllFriendsUseCase::class.java)
     private val getAllNotFriendsUseCase: GetAllNotFriendsUseCase by inject(GetAllNotFriendsUseCase::class.java)
-    private val removeListenerUseCase: RemoveListenerUseCase by inject(RemoveListenerUseCase::class.java)
-    private val friendsApiImpl: FriendsApiImpl by inject(FriendsApiImpl::class.java)
     init {
         initializeFriendsListener()
         initializeNotFriends()
@@ -43,9 +39,4 @@ class FriendsViewModel : ViewModel() {
              }
          }
      }
-
-    override fun onCleared() {
-        super.onCleared()
-        removeListenerUseCase(friendsApiImpl)
-    }
 }

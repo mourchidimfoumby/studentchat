@@ -3,9 +3,7 @@ package com.example.studentchat.chat.ui.stateholder
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.model.Conversation
-import com.example.studentchat.RemoveListenerUseCase
 import com.example.data.model.Message
-import com.example.data.remote.api.MessageApiImpl
 import com.example.domain.chat.GetAllMessageUseCase
 import com.example.domain.chat.SendMessageUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +17,6 @@ class ChatViewModel : ViewModel() {
     val message: StateFlow<Message?> = _message
     private val getAllMessageUseCase: GetAllMessageUseCase by inject(GetAllMessageUseCase::class.java)
     private val sendMessageUseCase: SendMessageUseCase by inject(SendMessageUseCase::class.java)
-    private val removeListenerUseCase: RemoveListenerUseCase by inject(RemoveListenerUseCase::class.java)
     private lateinit var conversation: Conversation
 
     operator fun invoke(conversation: Conversation) {
@@ -29,11 +26,6 @@ class ChatViewModel : ViewModel() {
                 _message.value = it
             }
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        removeListenerUseCase(MessageApiImpl())
     }
 
     fun sendMessage(messageText: String) {

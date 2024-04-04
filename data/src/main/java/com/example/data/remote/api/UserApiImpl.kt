@@ -12,13 +12,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 
-internal class UserApiImpl : UserApi, FirebaseApi {
-    private var allUserValueEventListener: ValueEventListener? = null
-    private var currentUserValueEventListener: ValueEventListener? = null
+internal class UserApiImpl : UserApi {
     private val userDatabaseReference = firebaseDatabase.child(TABLE_USERS)
     override fun getAllUser(): Flow<List<UserRemote>> = callbackFlow {
-        allUserValueEventListener =
-            userDatabaseReference.addValueEventListener(object : ValueEventListener {
+        userDatabaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val userList = snapshot.children.mapNotNull { it.getValue(UserRemote::class.java) }
                     userList.filterNot { it.uid == userId }
@@ -33,8 +30,8 @@ internal class UserApiImpl : UserApi, FirebaseApi {
     }
 
     override fun getCurrentUser(): Flow<UserRemote> = callbackFlow {
-        currentUserValueEventListener =
-            userDatabaseReference.child(userId).addValueEventListener(object : ValueEventListener {
+        userDatabaseReference.child(userId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val currentUser = snapshot.getValue(UserRemote::class.java)
                     currentUser?.let {
@@ -65,15 +62,6 @@ internal class UserApiImpl : UserApi, FirebaseApi {
 
     override suspend fun deleteCurrentUser() {
         userDatabaseReference.child(userId).removeValue()
-    }
-
-    override fun removeListener() {
-        allUserValueEventListener?.let {
-            userDatabaseReference.removeEventListener(it)
-        }
-        currentUserValueEventListener?.let {
-            userDatabaseReference.removeEventListener(it)
-        }
     }
 
 }

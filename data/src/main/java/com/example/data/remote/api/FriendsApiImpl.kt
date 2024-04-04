@@ -19,12 +19,11 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-internal class FriendsApiImpl(private val userApi: UserApi) : FriendsApi, FirebaseApi {
+internal class FriendsApiImpl(private val userApi: UserApi) : FriendsApi {
     private val friendsDatabaseReference = firebaseDatabase.child(TABLE_USER_FRIENDS)
-    private var allFriendsEventListener: ValueEventListener? = null
     override fun getAllFriends(): Flow<List<FriendsRemote>> = callbackFlow {
-        allFriendsEventListener = friendsDatabaseReference.child(userId)
-            .addValueEventListener(object : ValueEventListener {
+        friendsDatabaseReference.child(userId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val friendsIdsList = snapshot.children.mapNotNull { it.key }
                     val jobs = friendsIdsList.map { friendsId ->
@@ -80,11 +79,5 @@ internal class FriendsApiImpl(private val userApi: UserApi) : FriendsApi, Fireba
         friendsDatabaseReference.child(userId)
             .child(friendsRemote.uid)
             .removeValue()
-    }
-
-    override fun removeListener() {
-        allFriendsEventListener?.let {
-            friendsDatabaseReference.removeEventListener(it)
-        }
     }
 }

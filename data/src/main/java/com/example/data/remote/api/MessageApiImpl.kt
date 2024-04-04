@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 
-internal class MessageApiImpl : MessageApi, FirebaseApi {
+internal class MessageApiImpl : MessageApi {
     private val messageDatabaseReference = firebaseDatabase.child(TABLE_MESSAGES)
     private var valueEventListener: ValueEventListener? = null
     private var childEventListener: ChildEventListener? = null
@@ -61,15 +61,6 @@ internal class MessageApiImpl : MessageApi, FirebaseApi {
         messageDatabaseReference.child(conversationId)
             .child(messageRemote.timestamp.toString())
             .removeValue()
-    }
-
-    override fun removeListener() {
-        valueEventListener?.let {
-            messageDatabaseReference.removeEventListener(it)
-        }
-        childEventListener?.let {
-            messageDatabaseReference.removeEventListener(it)
-        }
     }
 
 }
