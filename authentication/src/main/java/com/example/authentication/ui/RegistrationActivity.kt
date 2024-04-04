@@ -1,7 +1,6 @@
 package com.example.authentication.ui
 
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -12,13 +11,11 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.example.authentication.PATTERN_DAY_MONTH_YEAR
 import com.example.authentication.R
+import com.example.authentication.convertDateToString
+import com.example.authentication.databinding.ActivityRegistrationBinding
 import com.example.authentication.inputIsEmpty
-import com.example.studentchat.MainActivity
-import com.example.studentchat.databinding.ActivityRegistrationBinding
-import com.example.studentchat.user.data.UserApiModel
-import com.example.studentchat.utils.PATTERN_DAY_MONTH_YEAR
-import com.example.studentchat.utils.convertDateToString
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +28,6 @@ class RegistrationActivity : AppCompatActivity() {
     private lateinit var inputPassword: TextInputEditText
     private lateinit var txtViewError: TextView
     private lateinit var btnRgistration: Button
-    private lateinit var user: UserApiModel
     private lateinit var inputFirstName: TextInputEditText
     private lateinit var inputName: TextInputEditText
     private lateinit var inputBirthday: TextInputEditText
@@ -71,14 +67,7 @@ class RegistrationActivity : AppCompatActivity() {
                 txtViewError.text = getString(R.string.error_short_password)
             }
             else{
-                user = UserApiModel(
-                    name = inputName.text.toString(),
-                    firstname = inputFirstName.text.toString(),
-                    mail = inputMail.text.toString(),
-                    password = inputPassword.text.toString(),
-                    birthday = inputBirthday.text.toString(),
-                    )
-                registration(user)
+                registration(inputMail.text.toString(), inputPassword.text.toString())
             }
         }
         inputBirthday.setOnClickListener {
@@ -86,14 +75,10 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
-    private fun registration(userApiModel: UserApiModel) {
+    private fun registration(mail: String, password: String) {
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                authenticationViewModel.signUpWithEmailPassword(userApiModel)
-                Intent(this@RegistrationActivity, MainActivity::class.java).also {
-                    startActivity(it)
-                    finish()
-                }
+                authenticationViewModel.signUpWithEmailPassword(mail, password)
             } catch (e: Exception) {
                 Log.e(javaClass.name, e.cause!!.message.toString())
                 Toast.makeText(
