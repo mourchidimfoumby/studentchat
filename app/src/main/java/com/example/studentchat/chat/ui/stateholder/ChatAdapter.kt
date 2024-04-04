@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.data.model.Conversation
 import com.example.studentchat.R
 import com.example.data.model.Message
-import com.example.studentchat.chat.domain.FormatTimestampUseCase
-import com.example.studentchat.chat.domain.TimestampToLocalDate
-import com.example.studentchat.utils.UNIT
+import com.example.domain.chat.FormatTimestampUseCase
+import com.example.domain.chat.TimestampToLocalDateUseCase
+import com.example.domain.DateUnit
 import com.example.ui.R.drawable
 import org.koin.java.KoinJavaComponent.inject
 import java.time.Duration
@@ -28,8 +28,8 @@ class ChatAdapter(
 
     private val ITEM_SENDER = 1
     private val ITEM_RECEIVER = 2
-    private val timestampToLocalDate:
-            TimestampToLocalDate by inject(TimestampToLocalDate::class.java)
+    private val timestampToLocalDateUseCase:
+            TimestampToLocalDateUseCase by inject(TimestampToLocalDateUseCase::class.java)
     private val formatTimestampUseCase:
             FormatTimestampUseCase by inject(FormatTimestampUseCase::class.java)
     inner class ChatSenderViewHolder(itemView: View) : ViewHolder(itemView)
@@ -80,19 +80,19 @@ class ChatAdapter(
                 else{
                     val layout = findViewById<ConstraintLayout>(R.id.constraint_layout)
                     val txtViewDividerChat = layout.findViewById<TextView>(R.id.txt_view_divider_day_chat)
-                    txtViewDividerChat.text = formatTimestampUseCase(currentMessage.timestamp, UNIT.DAY_MONTH_YEAR)
+                    txtViewDividerChat.text = formatTimestampUseCase(currentMessage.timestamp, DateUnit.DAY_MONTH_YEAR)
                     txtViewDividerChat.isVisible = true
                 }
             }?: run {
                 val layout = findViewById<ConstraintLayout>(R.id.constraint_layout)
                 val txtViewDividerChat = layout.findViewById<TextView>(R.id.txt_view_divider_day_chat)
-                txtViewDividerChat.text = formatTimestampUseCase(currentMessage.timestamp, UNIT.DAY_MONTH_YEAR)
+                txtViewDividerChat.text = formatTimestampUseCase(currentMessage.timestamp, DateUnit.DAY_MONTH_YEAR)
                 txtViewDividerChat.isVisible = true
             }
 
             picture?.setImageResource(drawable.ic_avatar)
             text.text = currentMessage.text
-            hour.text = formatTimestampUseCase(currentMessage.timestamp, UNIT.HOUR_MINUTE)
+            hour.text = formatTimestampUseCase(currentMessage.timestamp, DateUnit.HOUR_MINUTE)
         }
     }
 
@@ -143,5 +143,5 @@ class ChatAdapter(
         ).abs().toMinutes() <= 1
 
     private fun isSentAtSameDate(previousMessage: Message, currentMessage: Message): Boolean =
-        timestampToLocalDate(previousMessage.timestamp) == timestampToLocalDate(currentMessage.timestamp)
+        timestampToLocalDateUseCase(previousMessage.timestamp) == timestampToLocalDateUseCase(currentMessage.timestamp)
 }

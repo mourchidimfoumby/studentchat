@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.data.model.Conversation
 import com.example.studentchat.R
-import com.example.studentchat.chat.domain.FormatTimestampUseCase
-import com.example.studentchat.utils.UNIT
+import com.example.domain.chat.FormatTimestampUseCase
+import com.example.domain.DateUnit
 import org.koin.java.KoinJavaComponent
 
 class ConversationAdapter(
@@ -48,7 +48,7 @@ class ConversationAdapter(
 
             lastMessage.text = conversation.lastMessage!!.text
             hourConversation.text =
-                formatTimestampUseCase(conversation.lastMessage!!.timestamp, UNIT.HOUR_MINUTE)
+                formatTimestampUseCase(conversation.lastMessage!!.timestamp, DateUnit.HOUR_MINUTE)
             title.text = conversation.otherUser().toString()
             imgAvatar.setImageResource(conversation.picture)
         }

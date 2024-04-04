@@ -1,4 +1,4 @@
-package com.example.studentchat.chat.domain
+package com.example.domain.chat
 
 import com.example.data.model.Conversation
 import com.example.data.repository.MessageRepository
