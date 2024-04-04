@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studentchat.R
-import com.example.studentchat.friends.data.Friends
+import com.example.data.model.Friends
 
 class FriendsAdapter(
     private var friendsList: List<Friends>,
