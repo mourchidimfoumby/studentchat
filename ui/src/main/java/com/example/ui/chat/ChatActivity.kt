@@ -1,4 +1,4 @@
-package com.example.studentchat.chat.ui
+package com.example.ui.chat
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,13 +11,11 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import chat.ui.stateholder.ChatAdapter
 import com.example.data.model.Conversation
-import com.example.studentchat.MainActivity
-import com.example.studentchat.R
-import com.example.studentchat.chat.ui.stateholder.ChatAdapter
-import com.example.studentchat.chat.ui.stateholder.ChatViewModel
-import com.example.studentchat.databinding.ActivityChatBinding
+import com.example.ui.R
+import com.example.ui.chat.stateholder.ChatAdapter
+import com.example.ui.chat.stateholder.ChatViewModel
+import com.example.ui.databinding.ActivityChatBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
 
@@ -40,7 +38,7 @@ class ChatActivity : AppCompatActivity() {
         testConversation?.let {
             conversation = it
         } ?: run {
-            Intent(this, MainActivity::class.java).also {
+            Intent(this, callingActivity!!.javaClass).also {
                 setResult(ERROR_OPEN_CHAT, it)
                 finish()
             }

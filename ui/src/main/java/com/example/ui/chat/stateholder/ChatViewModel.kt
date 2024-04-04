@@ -1,4 +1,4 @@
-package com.example.studentchat.chat.ui.stateholder
+package com.example.ui.chat.stateholder
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
