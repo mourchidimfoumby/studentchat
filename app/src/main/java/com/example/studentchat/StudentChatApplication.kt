@@ -16,7 +16,6 @@ class StudentChatApplication: Application() {
             androidLogger()
             androidContext(this@StudentChatApplication)
             modules(
-                appModule,
                 authenticationModule,
                 dataModule,
                 domainModule,

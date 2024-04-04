@@ -22,7 +22,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/ChatToolbar"/>
         <activity
-            android:name=".friends.ui.AddFriendsActivity"
+            android:name="com.example.ui.friends.AddFriendsActivity"
             android:parentActivityName=".MainActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
