@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studentchat.R
 import com.example.studentchat.databinding.FragmentFriendsBinding
-import com.example.studentchat.friends.ui.stateholder.FriendsViewModel
 import com.example.studentchat.friends.ui.stateholder.FriendsAdapter
-import com.example.studentchat.utils.clickToast
+import com.example.studentchat.friends.ui.stateholder.FriendsViewModel
+import com.example.ui.clickToast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 

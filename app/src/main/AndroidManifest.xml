@@ -27,7 +27,7 @@
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".conversation.ui.AddConversationActivity"
+            android:name="com.example.ui.conversation.AddConversationActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"/>

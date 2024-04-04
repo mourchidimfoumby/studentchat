@@ -1,33 +1,3 @@
 <resources>
     <string name="app_name">StudentChat</string>
-    <string name="mail_suffix">\@universite-paris-saclay.fr</string>
-    <string name="mail">Adresse email</string>
-    <string name="desc_logo_upsaclay">Logo de l\'universite</string>
-    <string name="name">Nom</string>
-    <string name="firstname">Prénom</string>
-    <string name="birthday">Date de naissance</string>
-    <string name="user_image_description">User profile picture</string>
-    <string name="friends">Amis</string>
-    <string name="conversation">Conversation</string>
-    <string name="apps">Applications</string>
-    <string name="empty_conversation">Aucune conversation</string>
-    <string name="empty_apps">Aucune application</string>
-    <string name="empty_friends">Auncun amis</string>
-    <string name="new_conversation">Nouvelle conversation</string>
-    <string name="username">Nom d\'utilisateur</string>
-    <string name="search">Rechercher</string>
-    <string name="create_conversation">Créer conversation</string>
-    <string name="enter_message">Entrer un message</string>
-    <string name="string_self_author">Moi</string>
-    <string name="select_users">Selectionner un ou plusieurs utilisateurs</string>
-    <string name="cancel">Annuler</string>
-    <string name="create">Créer</string>
-    <string name="messages">Messages</string>
-    <string name="nav_open">Nav open</string>
-    <string name="nav_close">Nav close</string>
-    <string name="settings">Paramètres</string>
-    <string name="account">Compte</string>
-    <string name="logout">Se déconnecter</string>
-    <string name="fl_button_friends_desc">Floating button to add friends</string>
-    <string name="fl_button_conversation_desc">Floating button to add conversation</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.studentchat.conversation.ui.stateholder
+package com.example.ui.conversation.stateholder
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.data.model.Conversation
@@ -11,7 +11,6 @@ class ConversationDiffCallback (
     override fun getOldListSize(): Int = oldList.size
 
     override fun getNewListSize(): Int = newList.size
-
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return oldList[oldItemPosition].id == newList[newItemPosition].id
