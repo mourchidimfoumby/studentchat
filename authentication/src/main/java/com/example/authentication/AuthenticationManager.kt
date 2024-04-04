@@ -1,7 +1,6 @@
-package com.example.studentchat.authentication
+package com.example.authentication
 
 import android.util.Log
-import com.example.studentchat.AuthenticationState
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 

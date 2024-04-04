@@ -1,4 +1,4 @@
-package com.example.studentchat.authentication.domain
+package com.example.authentication.domain
 
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase

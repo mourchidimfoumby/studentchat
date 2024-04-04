@@ -1,11 +1,11 @@
-package com.example.studentchat.authentication
+package com.example.authentication.ui
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.studentchat.AuthenticationState
-import com.example.studentchat.authentication.domain.LogInWithEmailPasswordUseCase
-import com.example.studentchat.authentication.domain.SignUpWithEmailPasswordUseCase
+import com.example.authentication.AuthenticationState
+import com.example.authentication.domain.LogInWithEmailPasswordUseCase
+import com.example.authentication.domain.SignUpWithEmailPasswordUseCase
 import com.example.studentchat.user.data.UserApiModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -1,11 +1,11 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("com.google.gms.google-services")
+    id("kotlin-kapt")
 }
 
 android {
-    namespace = "com.example.domain"
+    namespace = "com.example.authentication"
     compileSdk = 34
 
     defaultConfig {
@@ -13,6 +13,10 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+    }
+
+    buildFeatures {
+        dataBinding = true
     }
 
     buildTypes {
@@ -34,7 +38,19 @@ android {
 }
 
 dependencies {
+
+    implementation("androidx.core:core-ktx:1.12.0")
     testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    appCompat()
+    material()
+    viewModel()
+    liveData()
+    constraintLayout()
+    koin()
+    firebase()
     firebaseAuth()
     coroutines()
 }

@@ -1,4 +1,4 @@
-package com.example.studentchat
+package com.example.authentication
 
 enum class AuthenticationState {
     AUTHENTICATED,

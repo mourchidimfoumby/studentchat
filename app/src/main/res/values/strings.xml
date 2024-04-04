@@ -1,19 +1,11 @@
 <resources>
     <string name="app_name">StudentChat</string>
-    <string name="connect">Se connecter</string>
     <string name="mail_suffix">\@universite-paris-saclay.fr</string>
-    <string name="register">S\'inscrire</string>
-    <string name="password">Mot de passe</string>
-    <string name="forget_password">Mot de passe oublié ?</string>
     <string name="mail">Adresse email</string>
-    <string name="signature">From\nMourchidi Mfoumby</string>
     <string name="desc_logo_upsaclay">Logo de l\'universite</string>
-    <string name="error_input_not_empty">Veuillez remplir tous les champs</string>
-    <string name="error_connection">Adresse mail ou mot de passe incorrect</string>
     <string name="name">Nom</string>
     <string name="firstname">Prénom</string>
     <string name="birthday">Date de naissance</string>
-    <string name="error_short_password">Le mot de passe doit faire plus de 6 caractères</string>
     <string name="user_image_description">User profile picture</string>
     <string name="friends">Amis</string>
     <string name="conversation">Conversation</string>

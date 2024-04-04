@@ -4,7 +4,7 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
-import com.example.studentchat.authentication.domain.LogOutUseCase
+import com.example.authentication.domain.LogOutUseCase
 import org.koin.java.KoinJavaComponent.inject
 
 class DisconnectionDialogFragment: DialogFragment() {
