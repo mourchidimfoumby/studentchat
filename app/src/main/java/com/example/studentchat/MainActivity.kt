@@ -5,10 +5,9 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.studentchat.conversation.ui.ConversationFragment
 import com.example.studentchat.databinding.ActivityMainBinding
-import com.example.studentchat.dialog.DisconnectionDialogFragment
-import com.example.studentchat.friends.ui.FriendsFragment
+import com.example.ui.friends.FriendsFragment
+import com.example.ui.conversation.ConversationFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(){

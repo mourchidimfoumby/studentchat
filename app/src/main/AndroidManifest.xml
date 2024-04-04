@@ -16,18 +16,18 @@
         android:theme="@style/Theme.StudentChat"
         tools:targetApi="31">
         <activity
-            android:name=".chat.ui.ChatActivity"
+            android:name="com.example.ui.chat.ChatActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ChatToolbar"/>
         <activity
-            android:name=".friends.ui.AddFriendsActivity"
+            android:name="com.example.ui.friends.AddFriendsActivity"
             android:parentActivityName=".MainActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".conversation.ui.AddConversationActivity"
+            android:name="com.example.ui.conversation.AddConversationActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"/>

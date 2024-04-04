@@ -53,4 +53,7 @@ dependencies {
     drawerLayout()
     fragment()
     recyclerView()
+    koin()
+    data()
+    domain()
 }
