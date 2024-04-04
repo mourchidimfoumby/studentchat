@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.model.Conversation
 import com.example.studentchat.RemoveListenerUseCase
-import com.example.studentchat.chat.data.Message
-import com.example.studentchat.chat.data.MessageApiImpl
+import com.example.data.model.Message
+import com.example.data.remote.api.MessageApiImpl
 import com.example.studentchat.chat.domain.GetAllMessageUseCase
 import com.example.studentchat.chat.domain.SendMessageUseCase
 import kotlinx.coroutines.flow.MutableStateFlow

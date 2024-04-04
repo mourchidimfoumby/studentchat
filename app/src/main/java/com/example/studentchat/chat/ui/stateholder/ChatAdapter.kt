@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.data.model.Conversation
 import com.example.studentchat.R
-import com.example.studentchat.chat.data.Message
+import com.example.data.model.Message
 import com.example.studentchat.chat.domain.FormatTimestampUseCase
 import com.example.studentchat.chat.domain.TimestampToLocalDate
 import com.example.studentchat.utils.UNIT

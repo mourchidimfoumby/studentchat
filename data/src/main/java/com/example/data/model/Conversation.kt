@@ -27,4 +27,7 @@ data class Conversation(
                 this.lastMessage == other.lastMessage &&
                 this.interlocutors == other.interlocutors
     }
+
+    override fun hashCode(): Int = id.hashCode()
+
 }

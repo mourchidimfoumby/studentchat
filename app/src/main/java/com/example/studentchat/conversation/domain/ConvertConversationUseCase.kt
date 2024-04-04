@@ -4,7 +4,7 @@ import android.util.Log
 import com.example.data.model.Conversation
 import com.example.data.remote.model.ConversationRemote
 import com.example.data.repository.UserRepository
-import com.example.studentchat.chat.data.MessageRepository
+import com.example.data.repository.MessageRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext

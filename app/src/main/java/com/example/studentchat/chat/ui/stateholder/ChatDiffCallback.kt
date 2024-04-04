@@ -1,7 +1,7 @@
 package com.example.studentchat.chat.ui.stateholder
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.studentchat.chat.data.Message
+import com.example.data.model.Message
 
 class ChatDiffCallback(
     private val oldList: List<Message>,
