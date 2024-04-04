@@ -1,8 +1,8 @@
-package com.example.studentchat.authentication.domain
+package com.example.authentication.domain
 
 import android.content.Context
 import android.content.Intent
-import com.example.studentchat.authentication.AuthenticationActivity
+import com.example.authentication.ui.AuthenticationActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 

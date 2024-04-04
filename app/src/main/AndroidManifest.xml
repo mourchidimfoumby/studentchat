@@ -42,12 +42,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".authentication.AuthenticationActivity"
+            android:name="com.example.authentication.ui.AuthenticationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".authentication.RegistrationActivity"
+            android:name="com.example.authentication.ui.RegistrationActivity"
             android:label="Inscription"
-            android:parentActivityName=".authentication.AuthenticationActivity"
+            android:parentActivityName="com.example.authentication.ui.AuthenticationActivity"
             android:screenOrientation="portrait" />
     </application>
 

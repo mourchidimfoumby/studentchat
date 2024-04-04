@@ -1,10 +1,5 @@
 package com.example.studentchat
 
-import com.example.studentchat.authentication.AuthenticationManager
-import com.example.studentchat.authentication.domain.IsLoggedInUseCase
-import com.example.studentchat.authentication.domain.LogInWithEmailPasswordUseCase
-import com.example.studentchat.authentication.domain.LogOutUseCase
-import com.example.studentchat.authentication.domain.SignUpWithEmailPasswordUseCase
 import com.example.domain.chat.FormatTimestampUseCase
 import com.example.domain.chat.GetAllMessageUseCase
 import com.example.domain.chat.GetLastMessageUseCase
@@ -44,12 +39,6 @@ val appModule = module {
     singleOf(::GetLastMessageUseCase)
     singleOf(::TimestampToLocalDateUseCase)
     singleOf(::FormatTimestampUseCase)
-
-    singleOf(::IsLoggedInUseCase)
-    singleOf(::LogOutUseCase)
-    singleOf(::LogInWithEmailPasswordUseCase)
-    singleOf(::SignUpWithEmailPasswordUseCase)
-    singleOf(::AuthenticationManager)
 
     singleOf(::RemoveListenerUseCase)
 

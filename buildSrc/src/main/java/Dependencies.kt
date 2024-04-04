@@ -100,3 +100,7 @@ fun DependencyHandler.domain(){
 fun DependencyHandler.ui(){
     implementation(project(":ui"))
 }
+
+fun DependencyHandler.authentication(){
+    implementation(project(":authentication"))
+}

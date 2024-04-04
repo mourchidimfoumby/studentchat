@@ -1,27 +1,24 @@
-
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("com.google.gms.google-services")
     id("kotlin-kapt")
 }
 
 android {
-    namespace = "com.example.studentchat"
+    namespace = "com.example.authentication"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.studentchat"
-        minSdk = 30
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = 29
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
+
     buildFeatures {
         dataBinding = true
     }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -43,24 +40,17 @@ android {
 dependencies {
 
     implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.annotation:annotation:1.7.1")
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.core:core-ktx:+")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    fragment()
-    viewPager2()
-    drawerLayout()
-    material()
-    constraintLayout()
     appCompat()
-    recyclerView()
-
+    material()
+    viewModel()
+    liveData()
+    constraintLayout()
     koin()
-    ui()
-    domain()
-    data()
-    authentication()
+    firebase()
+    firebaseAuth()
+    coroutines()
 }

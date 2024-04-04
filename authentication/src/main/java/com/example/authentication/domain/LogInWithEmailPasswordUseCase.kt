@@ -1,7 +1,7 @@
-package com.example.studentchat.authentication.domain
+package com.example.authentication.domain
 
-import com.example.studentchat.AuthenticationState
-import com.example.studentchat.authentication.AuthenticationManager
+import com.example.authentication.AuthenticationManager
+import com.example.authentication.AuthenticationState
 
 class LogInWithEmailPasswordUseCase(
     private val authenticationManager: AuthenticationManager
