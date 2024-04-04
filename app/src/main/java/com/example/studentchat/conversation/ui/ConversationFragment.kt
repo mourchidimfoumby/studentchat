@@ -12,10 +12,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.data.model.Conversation
 import com.example.studentchat.R
 import com.example.studentchat.chat.ui.ChatActivity
 import com.example.studentchat.chat.ui.ERROR_OPEN_CHAT
-import com.example.studentchat.conversation.data.Conversation
 import com.example.studentchat.conversation.ui.stateholder.ConversationAdapter
 import com.example.studentchat.conversation.ui.stateholder.ConversationViewModel
 import com.example.studentchat.databinding.FragmentConversationBinding

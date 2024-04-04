@@ -11,11 +11,12 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import chat.ui.stateholder.ChatAdapter
+import com.example.data.model.Conversation
 import com.example.studentchat.MainActivity
 import com.example.studentchat.R
 import com.example.studentchat.chat.ui.stateholder.ChatAdapter
 import com.example.studentchat.chat.ui.stateholder.ChatViewModel
-import com.example.studentchat.conversation.data.Conversation
 import com.example.studentchat.databinding.ActivityChatBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch

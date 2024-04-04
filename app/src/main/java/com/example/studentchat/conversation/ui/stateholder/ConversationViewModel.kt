@@ -4,12 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.studentchat.RemoveListenerUseCase
-import com.example.studentchat.conversation.data.Conversation
-import com.example.studentchat.conversation.data.ConversationApiImpl
-import com.example.studentchat.conversation.domain.CreateConversationUseCase
-import com.example.studentchat.conversation.domain.DeleteConversationUseCase
-import com.example.studentchat.conversation.domain.GetAllConversationsUseCase
+import com.example.data.model.Conversation
+import com.example.domain.conversation.CreateConversationUseCase
+import com.example.domain.conversation.DeleteConversationUseCase
+import com.example.domain.conversation.GetAllConversationsUseCase
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 
@@ -20,19 +18,12 @@ class ConversationViewModel: ViewModel() {
         CreateConversationUseCase::class.java)
     private val deleteConversationUseCase : DeleteConversationUseCase by inject(
         DeleteConversationUseCase::class.java)
-    private val removeListenerUseCase: RemoveListenerUseCase by inject(
-        RemoveListenerUseCase::class.java)
     private val getAllConversationsUseCase: GetAllConversationsUseCase by inject(
         GetAllConversationsUseCase::class.java
     )
 
     init {
         initializeConversationListener()
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        removeListenerUseCase(ConversationApiImpl())
     }
 
     private fun initializeConversationListener(){

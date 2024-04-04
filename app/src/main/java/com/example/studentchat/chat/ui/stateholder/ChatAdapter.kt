@@ -1,4 +1,4 @@
-package com.example.studentchat.chat.ui.stateholder
+package chat.ui.stateholder
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +9,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.data.model.Conversation
 import com.example.studentchat.R
-import com.example.studentchat.chat.data.Message
-import com.example.studentchat.chat.domain.FormatTimestampUseCase
-import com.example.studentchat.chat.domain.TimestampToLocalDate
-import com.example.studentchat.conversation.data.Conversation
-import com.example.studentchat.utils.DateUnit
+import com.example.data.model.Message
+import com.example.domain.chat.FormatTimestampUseCase
+import com.example.domain.chat.TimestampToLocalDateUseCase
+import com.example.domain.DateUnit
+import com.example.ui.R.drawable
 import org.koin.java.KoinJavaComponent.inject
 import java.time.Duration
 import java.time.Instant
@@ -27,8 +28,8 @@ class ChatAdapter(
 
     private val ITEM_SENDER = 1
     private val ITEM_RECEIVER = 2
-    private val timestampToLocalDate:
-            TimestampToLocalDate by inject(TimestampToLocalDate::class.java)
+    private val timestampToLocalDateUseCase:
+            TimestampToLocalDateUseCase by inject(TimestampToLocalDateUseCase::class.java)
     private val formatTimestampUseCase:
             FormatTimestampUseCase by inject(FormatTimestampUseCase::class.java)
     inner class ChatSenderViewHolder(itemView: View) : ViewHolder(itemView)
@@ -89,7 +90,7 @@ class ChatAdapter(
                 txtViewDividerChat.isVisible = true
             }
 
-            picture?.setImageResource(R.drawable.ic_avatar)
+            picture?.setImageResource(drawable.ic_avatar)
             text.text = currentMessage.text
             hour.text = formatTimestampUseCase(currentMessage.timestamp, DateUnit.HOUR_MINUTE)
         }
@@ -142,5 +143,5 @@ class ChatAdapter(
         ).abs().toMinutes() <= 1
 
     private fun isSentAtSameDate(previousMessage: Message, currentMessage: Message): Boolean =
-        timestampToLocalDate(previousMessage.timestamp) == timestampToLocalDate(currentMessage.timestamp)
+        timestampToLocalDateUseCase(previousMessage.timestamp) == timestampToLocalDateUseCase(currentMessage.timestamp)
 }

@@ -40,4 +40,5 @@ dependencies {
     firebaseAuth()
     coroutines()
     koin()
+    ui()
 }

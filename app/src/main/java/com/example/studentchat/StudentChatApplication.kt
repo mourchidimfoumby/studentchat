@@ -2,6 +2,7 @@ package com.example.studentchat
 
 import android.app.Application
 import com.example.authentication.authenticationModule
+import com.example.data.dataModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -14,7 +15,8 @@ class StudentChatApplication: Application() {
             androidContext(this@StudentChatApplication)
             modules(
                 appModule,
-                authenticationModule
+                authenticationModule,
+                dataModule
             )
         }
     }
