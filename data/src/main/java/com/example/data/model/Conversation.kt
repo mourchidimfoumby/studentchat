@@ -1,34 +1,26 @@
-package com.example.studentchat.conversation.data
+package com.example.data.model
 
 import com.example.ui.R
-import com.example.studentchat.chat.data.Message
-import com.example.data.model.User
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
-import com.google.firebase.database.Exclude
 import java.io.Serializable
 
 data class Conversation(
-    val interlocutors: Pair<User, User> = Pair(User(), User()),
-    var id: String = "",
-    var lastMessage: Message? = null
-): Serializable {
-
-    @get:Exclude
-    @set:Exclude
+    val id: String,
+    val interlocutors: Pair<User, User>,
+    var lastMessage: Message,
     var picture: Int = R.drawable.ic_avatar
-
-    @Exclude
+) : Serializable {
     fun otherUser(): User {
         return if (interlocutors.first.uid == Firebase.auth.uid) interlocutors.second
         else interlocutors.first
     }
 
-    @Exclude
     fun currentUser(): User {
-        return if (interlocutors!!.first.uid == Firebase.auth.uid) interlocutors.first
+        return if (interlocutors.first.uid == Firebase.auth.uid) interlocutors.first
         else interlocutors.second
     }
+
     override fun equals(other: Any?): Boolean {
         other as Conversation
         return this.picture == other.picture &&

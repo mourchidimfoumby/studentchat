@@ -1,7 +1,7 @@
 package com.example.studentchat.conversation.domain
 
-import com.example.studentchat.conversation.data.Conversation
-import com.example.studentchat.conversation.data.ConversationRepository
+import com.example.data.model.Conversation
+import com.example.data.repository.ConversationRepository
 
 class CreateConversationUseCase (
     private val conversationRepository: ConversationRepository

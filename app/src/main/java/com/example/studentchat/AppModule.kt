@@ -16,11 +16,6 @@ import com.example.studentchat.chat.domain.GetLastMessageUseCase
 import com.example.studentchat.chat.domain.SendMessageUseCase
 import com.example.studentchat.chat.domain.TimestampToLocalDate
 import com.example.studentchat.chat.ui.stateholder.ChatViewModel
-import com.example.studentchat.conversation.data.ConversationApi
-import com.example.studentchat.conversation.data.ConversationApiImpl
-import com.example.studentchat.conversation.data.ConversationRemoteDataSource
-import com.example.studentchat.conversation.data.ConversationRepository
-import com.example.studentchat.conversation.data.ConversationRepositoryImpl
 import com.example.studentchat.conversation.domain.ConvertConversationUseCase
 import com.example.studentchat.conversation.domain.CreateConversationUseCase
 import com.example.studentchat.conversation.domain.DeleteConversationUseCase
@@ -35,11 +30,6 @@ import com.example.studentchat.friends.domain.AddFriendsUseCase
 import com.example.studentchat.friends.domain.GetAllFriendsUseCase
 import com.example.studentchat.friends.domain.GetAllNotFriendsUseCase
 import com.example.studentchat.friends.ui.stateholder.FriendsViewModel
-import com.example.data.remote.api.UserApi
-import com.example.data.remote.api.UserApiImpl
-import com.example.data.remote.UserRemoteDataSource
-import com.example.data.repository.UserRepository
-import com.example.data.repository.UserRepositoryImpl
 import com.example.studentchat.user.domain.GetCurrentUserUseCase
 import com.example.studentchat.user.domain.GetUserUseCase
 import org.koin.core.module.dsl.bind
@@ -47,19 +37,13 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val appModule = module {
-    singleOf(::ConversationRepositoryImpl) { bind<ConversationRepository>() }
     singleOf(::MessageRepositoryImpl) { bind<MessageRepository>() }
-    singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
     singleOf(::FriendsRepositoryImpl) { bind<FriendsRepository>() }
 
-    singleOf(::ConversationApiImpl) { bind<ConversationApi>() }
     singleOf(::MessageApiImpl) { bind<MessageApi>() }
-    singleOf(::UserApiImpl) { bind<UserApi>() }
     singleOf(::FriendsApiImpl) { bind<FriendsApi>() }
 
-    singleOf(::ConversationRemoteDataSource)
     singleOf(::MessageRemoteDataSource)
-    singleOf(::UserRemoteDataSource)
     singleOf(::FriendsRemoteDataSource)
 
     singleOf(::GetAllConversationsUseCase)

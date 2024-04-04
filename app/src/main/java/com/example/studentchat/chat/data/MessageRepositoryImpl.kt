@@ -1,6 +1,6 @@
 package com.example.studentchat.chat.data
 
-import com.example.studentchat.conversation.data.Conversation
+import com.example.data.model.Conversation
 import kotlinx.coroutines.flow.Flow
 
 class MessageRepositoryImpl(

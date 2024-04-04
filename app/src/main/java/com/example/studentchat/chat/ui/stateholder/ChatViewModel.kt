@@ -2,12 +2,12 @@ package com.example.studentchat.chat.ui.stateholder
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.data.model.Conversation
 import com.example.studentchat.RemoveListenerUseCase
 import com.example.studentchat.chat.data.Message
 import com.example.studentchat.chat.data.MessageApiImpl
 import com.example.studentchat.chat.domain.GetAllMessageUseCase
 import com.example.studentchat.chat.domain.SendMessageUseCase
-import com.example.studentchat.conversation.data.Conversation
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
