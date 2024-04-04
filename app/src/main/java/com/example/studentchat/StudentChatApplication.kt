@@ -17,6 +17,7 @@ class StudentChatApplication: Application() {
                 appModule,
                 authenticationModule,
                 dataModule
+            )
         }
-
+    }
 }
