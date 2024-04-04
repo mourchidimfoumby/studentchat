@@ -20,8 +20,8 @@ import com.example.studentchat.friends.domain.AddFriendsUseCase
 import com.example.studentchat.friends.domain.GetAllFriendsUseCase
 import com.example.studentchat.friends.domain.GetAllNotFriendsUseCase
 import com.example.studentchat.friends.ui.stateholder.FriendsViewModel
-import com.example.studentchat.user.domain.GetCurrentUserUseCase
-import com.example.studentchat.user.domain.GetUserUseCase
+import com.example.domain.user.GetCurrentUserUseCase
+import com.example.domain.user.GetUserUseCase
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
