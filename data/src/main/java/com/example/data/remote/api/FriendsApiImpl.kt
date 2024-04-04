@@ -33,8 +33,8 @@ internal class FriendsApiImpl(private val userApi: UserApi) : FriendsApi, Fireba
                             user?.let {
                                 FriendsRemote(
                                     uid = it.uid,
-                                    name = it.lastName,
-                                    firstname = it.firstName,
+                                    lastName = it.lastName,
+                                    firstName = it.firstName,
                                     mail = it.mail
                                 )
                             }
@@ -71,9 +71,9 @@ internal class FriendsApiImpl(private val userApi: UserApi) : FriendsApi, Fireba
             .getValue(FriendsRemote::class.java)
 
 
-    override suspend fun insertFriends(userRemote: UserRemote) {
+    override suspend fun insertFriends(friendsRemote: FriendsRemote) {
         firebaseDatabase.child(userId)
-            .setValue(userRemote.uid)
+            .setValue(friendsRemote.uid)
     }
 
     override suspend fun deleteFriends(friendsRemote: FriendsRemote) {

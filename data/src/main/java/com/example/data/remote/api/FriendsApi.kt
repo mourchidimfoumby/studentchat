@@ -8,6 +8,6 @@ internal interface FriendsApi {
     fun getAllFriends(): Flow<List<FriendsRemote>>
     fun getAllNotFriends(): Flow<List<UserRemote>>
     suspend fun getFriends(uid: String): FriendsRemote?
-    suspend fun insertFriends(userRemote: UserRemote)
+    suspend fun insertFriends(friendsRemote: FriendsRemote)
     suspend fun deleteFriends(friendsRemote: FriendsRemote)
 }

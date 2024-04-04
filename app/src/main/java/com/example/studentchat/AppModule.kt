@@ -16,9 +16,9 @@ import com.example.domain.conversation.CreateConversationUseCase
 import com.example.domain.conversation.DeleteConversationUseCase
 import com.example.domain.conversation.GetAllConversationsUseCase
 import com.example.studentchat.conversation.ui.stateholder.ConversationViewModel
-import com.example.studentchat.friends.domain.AddFriendsUseCase
-import com.example.studentchat.friends.domain.GetAllFriendsUseCase
-import com.example.studentchat.friends.domain.GetAllNotFriendsUseCase
+import com.example.domain.friends.AddFriendsUseCase
+import com.example.domain.friends.GetAllFriendsUseCase
+import com.example.domain.friends.GetAllNotFriendsUseCase
 import com.example.studentchat.friends.ui.stateholder.FriendsViewModel
 import com.example.domain.user.GetCurrentUserUseCase
 import com.example.domain.user.GetUserUseCase

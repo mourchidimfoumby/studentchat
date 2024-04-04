@@ -8,6 +8,6 @@ interface FriendsRepository {
     val friends: Flow<List<FriendsRemote>>
     val notFriends: Flow<List<UserRemote>>
     suspend fun getFriends(uid: String): FriendsRemote?
-    suspend fun addFriends(userRemote: UserRemote)
+    suspend fun addFriends(friendsRemote: FriendsRemote)
     suspend fun deleteFriends(friendsRemote: FriendsRemote)
 }
