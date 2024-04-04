@@ -9,13 +9,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.data.model.Conversation
 import com.example.studentchat.R
-import com.example.ui.R.*
 import com.example.studentchat.chat.data.Message
 import com.example.studentchat.chat.domain.FormatTimestampUseCase
 import com.example.studentchat.chat.domain.TimestampToLocalDate
-import com.example.studentchat.conversation.data.Conversation
 import com.example.studentchat.utils.UNIT
+import com.example.ui.R.drawable
 import org.koin.java.KoinJavaComponent.inject
 import java.time.Duration
 import java.time.Instant

@@ -1,10 +1,10 @@
 package com.example.studentchat.conversation.domain
 
 import android.util.Log
-import com.example.studentchat.chat.data.MessageRepository
-import com.example.studentchat.conversation.data.Conversation
-import com.example.studentchat.conversation.data.ConversationDTO
+import com.example.data.model.Conversation
+import com.example.data.remote.model.ConversationRemote
 import com.example.data.repository.UserRepository
+import com.example.studentchat.chat.data.MessageRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
@@ -13,33 +13,33 @@ class ConvertConversationUseCase(
     private val userRepository: UserRepository,
     private val messageRepository: MessageRepository
 ) {
-    suspend fun toConversation(conversationDTO: ConversationDTO): Conversation? =
+    suspend fun toConversation(conversationRemote: ConversationRemote): Conversation? =
         withContext(Dispatchers.IO) {
             try {
                 val firstDeffered = async {
-                    userRepository.getUser(conversationDTO.interlocutors.keys.first())
+                    userRepository.getUser(conversationRemote.interlocutors.keys.first())
                 }
                 val secondDeffered = async {
-                    userRepository.getUser(conversationDTO.interlocutors.keys.last())
+                    userRepository.getUser(conversationRemote.interlocutors.keys.last())
                 }
                 val lastMessageDeffered = async {
                     messageRepository.getMessage(
-                        conversationDTO.id,
-                        conversationDTO.lastMessage.toLong()
+                        conversationRemote.id,
+                        conversationRemote.lastMessage.toLong()
                     )
                 }
                 val first = firstDeffered.await()
                 val second = secondDeffered.await()
                 val interlocutors = Pair(first!!, second!!)
                 val lastMessage = lastMessageDeffered.await()
-                return@withContext Conversation(interlocutors, conversationDTO.id, lastMessage!!)
+                return@withContext Conversation(interlocutors, conversationRemote.id, lastMessage!!)
             } catch (e: Exception) {
                 Log.e(javaClass.name, "Failed to convert conversation", e)
                 return@withContext null
             }
         }
 
-    suspend fun toConversations(conversationsDTOList: List<ConversationDTO>): List<Conversation>? =
+    suspend fun toConversations(conversationsDTOList: List<ConversationRemote>): List<Conversation>? =
         withContext(Dispatchers.IO) {
             val conversationList = mutableListOf<Conversation>()
             try {
@@ -66,9 +66,9 @@ class ConvertConversationUseCase(
             }
         }
 
-    suspend fun toConversationDTO(conversation: Conversation): ConversationDTO =
+    suspend fun toConversationDTO(conversation: Conversation): ConversationRemote =
         withContext(Dispatchers.IO) {
-            return@withContext ConversationDTO(
+            return@withContext ConversationRemote(
                 conversation.id,
                 mapOf(
                     conversation.interlocutors.first.uid to true,

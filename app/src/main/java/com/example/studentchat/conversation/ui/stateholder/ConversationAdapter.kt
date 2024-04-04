@@ -7,9 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.data.model.Conversation
 import com.example.studentchat.R
 import com.example.studentchat.chat.domain.FormatTimestampUseCase
-import com.example.studentchat.conversation.data.Conversation
 import com.example.studentchat.utils.UNIT
 import org.koin.java.KoinJavaComponent
 

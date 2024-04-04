@@ -2,6 +2,7 @@ package com.example.studentchat
 
 import android.app.Application
 import android.content.Intent
+import com.example.data.dataModule
 import com.example.studentchat.authentication.AuthenticationActivity
 import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.koin.androidContext
@@ -14,7 +15,10 @@ class StudentChatApplication: Application() {
         startKoin {
             androidLogger()
             androidContext(this@StudentChatApplication)
-            modules(appModule)
+            modules(
+                appModule,
+                dataModule
+            )
         }
 
         FirebaseAuth.AuthStateListener {
