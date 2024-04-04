@@ -1,6 +1,6 @@
 package com.example.studentchat.friends.domain
 
-import com.example.studentchat.friends.data.FriendsRepository
+import com.example.data.repository.FriendsRepository
 import com.example.data.model.User
 
 class AddFriendsUseCase(private val friendsRepository: FriendsRepository) {

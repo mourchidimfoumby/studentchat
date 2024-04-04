@@ -1,11 +1,10 @@
-package com.example.studentchat.friends.data
+package com.example.data.remote.api
 
 import android.util.Log
-import com.example.data.remote.api.FirebaseApi
-import com.example.data.model.User
-import com.example.data.remote.api.UserApi
 import com.example.data.TABLE_USER_FRIENDS
 import com.example.data.firebaseDatabase
+import com.example.data.remote.model.FriendsRemote
+import com.example.data.remote.model.UserRemote
 import com.example.data.userId
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -23,7 +22,7 @@ import kotlinx.coroutines.tasks.await
 class FriendsApiImpl(private val userApi: UserApi) : FriendsApi, FirebaseApi {
     private val friendsDatabaseReference = firebaseDatabase.child(TABLE_USER_FRIENDS)
     private var allFriendsEventListener: ValueEventListener? = null
-    override fun getAllFriends(): Flow<List<Friends>> = callbackFlow {
+    override fun getAllFriends(): Flow<List<FriendsRemote>> = callbackFlow {
         allFriendsEventListener = friendsDatabaseReference.child(userId)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -32,7 +31,7 @@ class FriendsApiImpl(private val userApi: UserApi) : FriendsApi, FirebaseApi {
                         async {
                             val user = userApi.getUser(friendsId)
                             user?.let {
-                                Friends(
+                                FriendsRemote(
                                     uid = it.uid,
                                     name = it.lastName,
                                     firstname = it.firstName,
@@ -54,7 +53,7 @@ class FriendsApiImpl(private val userApi: UserApi) : FriendsApi, FirebaseApi {
         awaitClose()
     }
 
-    override fun getAllNotFriends(): Flow<List<User>> = callbackFlow {
+    override fun getAllNotFriends(): Flow<List<UserRemote>> = callbackFlow {
         val friendsList = getAllFriends().first()
         val userList = userApi.getAllUser().first()
         val notFriends = userList.filterNot { user ->
@@ -64,22 +63,22 @@ class FriendsApiImpl(private val userApi: UserApi) : FriendsApi, FirebaseApi {
         awaitClose()
     }
 
-    override suspend fun getFriends(uid: String): Friends? =
+    override suspend fun getFriends(uid: String): FriendsRemote? =
         friendsDatabaseReference.child(userId)
             .child(uid)
             .get()
             .await()
-            .getValue(Friends::class.java)
+            .getValue(FriendsRemote::class.java)
 
 
-    override suspend fun insertFriends(user: User) {
+    override suspend fun insertFriends(userRemote: UserRemote) {
         firebaseDatabase.child(userId)
-            .setValue(user.uid)
+            .setValue(userRemote.uid)
     }
 
-    override suspend fun deleteFriends(friends: Friends) {
+    override suspend fun deleteFriends(friendsRemote: FriendsRemote) {
         friendsDatabaseReference.child(userId)
-            .child(friends.uid)
+            .child(friendsRemote.uid)
             .removeValue()
     }
 

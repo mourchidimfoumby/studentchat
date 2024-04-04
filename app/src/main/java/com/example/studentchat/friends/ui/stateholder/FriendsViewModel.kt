@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.studentchat.RemoveListenerUseCase
-import com.example.studentchat.friends.data.Friends
-import com.example.studentchat.friends.data.FriendsApiImpl
+import com.example.data.model.Friends
+import com.example.data.remote.api.FriendsApiImpl
 import com.example.studentchat.friends.domain.GetAllFriendsUseCase
 import com.example.studentchat.friends.domain.GetAllNotFriendsUseCase
 import com.example.data.model.User
