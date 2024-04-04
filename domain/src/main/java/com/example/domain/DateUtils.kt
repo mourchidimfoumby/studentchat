@@ -1,4 +1,4 @@
-package com.example.studentchat.utils
+package com.example.domain
 
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -8,7 +8,8 @@ fun convertDateToString(date: Date, pattern: String): String {
     val dateFormat = SimpleDateFormat(pattern, Locale.getDefault())
     return dateFormat.format(date)
 }
-enum class UNIT{
+
+enum class DateUnit {
     HOUR_MINUTE,
     DAY_MONTH_YEAR
 }

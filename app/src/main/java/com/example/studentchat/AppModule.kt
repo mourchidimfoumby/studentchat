@@ -5,11 +5,11 @@ import com.example.studentchat.authentication.domain.IsLoggedInUseCase
 import com.example.studentchat.authentication.domain.LogInWithEmailPasswordUseCase
 import com.example.studentchat.authentication.domain.LogOutUseCase
 import com.example.studentchat.authentication.domain.SignUpWithEmailPasswordUseCase
-import com.example.studentchat.chat.domain.FormatTimestampUseCase
-import com.example.studentchat.chat.domain.GetAllMessageUseCase
-import com.example.studentchat.chat.domain.GetLastMessageUseCase
-import com.example.studentchat.chat.domain.SendMessageUseCase
-import com.example.studentchat.chat.domain.TimestampToLocalDate
+import com.example.domain.chat.FormatTimestampUseCase
+import com.example.domain.chat.GetAllMessageUseCase
+import com.example.domain.chat.GetLastMessageUseCase
+import com.example.domain.chat.SendMessageUseCase
+import com.example.domain.chat.TimestampToLocalDateUseCase
 import com.example.studentchat.chat.ui.stateholder.ChatViewModel
 import com.example.domain.conversation.ConvertConversationUseCase
 import com.example.domain.conversation.CreateConversationUseCase
@@ -42,7 +42,7 @@ val appModule = module {
     singleOf(::SendMessageUseCase)
     singleOf(::GetAllMessageUseCase)
     singleOf(::GetLastMessageUseCase)
-    singleOf(::TimestampToLocalDate)
+    singleOf(::TimestampToLocalDateUseCase)
     singleOf(::FormatTimestampUseCase)
 
     singleOf(::IsLoggedInUseCase)

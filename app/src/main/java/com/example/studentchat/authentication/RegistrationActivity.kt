@@ -16,8 +16,8 @@ import com.example.studentchat.MainActivity
 import com.example.studentchat.R
 import com.example.studentchat.databinding.ActivityRegistrationBinding
 import com.example.data.remote.model.UserRemote
-import com.example.studentchat.utils.PATTERN_DAY_MONTH_YEAR
-import com.example.studentchat.utils.convertDateToString
+import com.example.domain.PATTERN_DAY_MONTH_YEAR
+import com.example.domain.convertDateToString
 import com.example.studentchat.utils.inputIsEmpty
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.CoroutineScope
