@@ -5,11 +5,6 @@ import com.example.studentchat.authentication.domain.IsLoggedInUseCase
 import com.example.studentchat.authentication.domain.LogInWithEmailPasswordUseCase
 import com.example.studentchat.authentication.domain.LogOutUseCase
 import com.example.studentchat.authentication.domain.SignUpWithEmailPasswordUseCase
-import com.example.studentchat.chat.data.MessageApi
-import com.example.studentchat.chat.data.MessageApiImpl
-import com.example.studentchat.chat.data.MessageRemoteDataSource
-import com.example.studentchat.chat.data.MessageRepository
-import com.example.studentchat.chat.data.MessageRepositoryImpl
 import com.example.studentchat.chat.domain.FormatTimestampUseCase
 import com.example.studentchat.chat.domain.GetAllMessageUseCase
 import com.example.studentchat.chat.domain.GetLastMessageUseCase
@@ -37,13 +32,8 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val appModule = module {
-    singleOf(::MessageRepositoryImpl) { bind<MessageRepository>() }
     singleOf(::FriendsRepositoryImpl) { bind<FriendsRepository>() }
-
-    singleOf(::MessageApiImpl) { bind<MessageApi>() }
     singleOf(::FriendsApiImpl) { bind<FriendsApi>() }
-
-    singleOf(::MessageRemoteDataSource)
     singleOf(::FriendsRemoteDataSource)
 
     singleOf(::GetAllConversationsUseCase)

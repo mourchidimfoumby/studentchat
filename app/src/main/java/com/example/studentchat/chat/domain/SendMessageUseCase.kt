@@ -1,8 +1,8 @@
 package com.example.studentchat.chat.domain
 
 import com.example.data.model.Conversation
-import com.example.studentchat.chat.data.Message
-import com.example.studentchat.chat.data.MessageRepository
+import com.example.data.model.Message
+import com.example.data.repository.MessageRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

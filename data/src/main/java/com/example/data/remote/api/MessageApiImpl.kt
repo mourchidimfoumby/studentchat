@@ -1,9 +1,9 @@
-package com.example.studentchat.chat.data
+package com.example.data.remote.api
 
 import android.util.Log
-import com.example.data.remote.api.FirebaseApi
 import com.example.data.TABLE_MESSAGES
 import com.example.data.firebaseDatabase
+import com.example.data.remote.model.MessageRemote
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -18,12 +18,12 @@ class MessageApiImpl : MessageApi, FirebaseApi {
     private var valueEventListener: ValueEventListener? = null
     private var childEventListener: ChildEventListener? = null
 
-    override fun getAllMessage(conversationId: String): Flow<Message> = callbackFlow {
+    override fun getAllMessage(conversationId: String): Flow<MessageRemote> = callbackFlow {
         childEventListener = messageDatabaseReference.child(conversationId)
             .addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    val message = snapshot.getValue(Message::class.java)
-                    message?.let {
+                    val messageRemote = snapshot.getValue(MessageRemote::class.java)
+                    messageRemote?.let {
                         it.timestamp = snapshot.key?.toLong() ?: 0
                         trySend(it)
                     }
@@ -43,23 +43,23 @@ class MessageApiImpl : MessageApi, FirebaseApi {
         awaitClose()
     }
 
-    override suspend fun getMessage(conversationId: String, timestamp: Long): Message? {
+    override suspend fun getMessage(conversationId: String, timestamp: Long): MessageRemote? {
         return messageDatabaseReference.child(conversationId)
             .child(timestamp.toString())
             .get()
             .await()
-            .getValue(Message::class.java)
+            .getValue(MessageRemote::class.java)
     }
 
-    override suspend fun insertMessage(conversationId: String, message: Message) {
+    override suspend fun insertMessage(conversationId: String, messageRemote: MessageRemote) {
         messageDatabaseReference.child(conversationId)
-            .child(message.timestamp.toString())
-            .setValue(message)
+            .child(messageRemote.timestamp.toString())
+            .setValue(messageRemote)
     }
 
-    override suspend fun deleteMessage(conversationId: String, message: Message) {
+    override suspend fun deleteMessage(conversationId: String, messageRemote: MessageRemote) {
         messageDatabaseReference.child(conversationId)
-            .child(message.timestamp.toString())
+            .child(messageRemote.timestamp.toString())
             .removeValue()
     }
 
