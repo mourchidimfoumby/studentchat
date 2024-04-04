@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
-class MessageRemoteDataSource(
+internal class MessageRemoteDataSource(
     private val messageApi: MessageApi
 ) {
     fun getAllMessage(conversationId: String): Flow<MessageRemote> =

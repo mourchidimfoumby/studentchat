@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 
-class MessageApiImpl : MessageApi, FirebaseApi {
+internal class MessageApiImpl : MessageApi, FirebaseApi {
     private val messageDatabaseReference = firebaseDatabase.child(TABLE_MESSAGES)
     private var valueEventListener: ValueEventListener? = null
     private var childEventListener: ChildEventListener? = null

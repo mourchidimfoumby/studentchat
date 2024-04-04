@@ -4,7 +4,7 @@ import com.example.data.remote.api.FriendsApi
 import com.example.data.remote.model.FriendsRemote
 import com.example.data.remote.model.UserRemote
 
-class FriendsRemoteDataSource(
+internal class FriendsRemoteDataSource(
     private val friendsApi: FriendsApi
 ) {
     fun getAllFriends() = friendsApi.getAllFriends()

@@ -4,7 +4,7 @@ import com.example.data.remote.ConversationRemoteDataSource
 import com.example.data.remote.model.ConversationRemote
 import kotlinx.coroutines.flow.Flow
 
-class ConversationRepositoryImpl(
+internal class ConversationRepositoryImpl(
     private val conversationRemoteDataSource: ConversationRemoteDataSource
 ): ConversationRepository {
 

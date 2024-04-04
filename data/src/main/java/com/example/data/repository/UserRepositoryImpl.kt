@@ -1,12 +1,10 @@
 package com.example.data.repository
 
-import com.example.data.model.User
 import com.example.data.remote.UserRemoteDataSource
 import com.example.data.remote.model.UserRemote
 import kotlinx.coroutines.flow.Flow
 
-
-class  UserRepositoryImpl(
+internal class  UserRepositoryImpl(
     private val userRemoteDataSource: UserRemoteDataSource
 ) : UserRepository {
     override val currentUser: Flow<UserRemote> = userRemoteDataSource.getCurrentUser()

@@ -7,9 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.data.model.Conversation
 import com.example.data.remote.api.ConversationApiImpl
 import com.example.studentchat.RemoveListenerUseCase
-import com.example.studentchat.conversation.domain.CreateConversationUseCase
-import com.example.studentchat.conversation.domain.DeleteConversationUseCase
-import com.example.studentchat.conversation.domain.GetAllConversationsUseCase
+import com.example.domain.conversation.CreateConversationUseCase
+import com.example.domain.conversation.DeleteConversationUseCase
+import com.example.domain.conversation.GetAllConversationsUseCase
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 

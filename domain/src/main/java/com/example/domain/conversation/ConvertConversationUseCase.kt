@@ -1,10 +1,12 @@
-package com.example.studentchat.conversation.domain
+package com.example.domain.conversation
 
 import android.util.Log
 import com.example.data.model.Conversation
 import com.example.data.remote.model.ConversationRemote
-import com.example.data.repository.UserRepository
 import com.example.data.repository.MessageRepository
+import com.example.data.repository.UserRepository
+import com.example.data.toMessage
+import com.example.data.toUser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
@@ -30,32 +32,38 @@ class ConvertConversationUseCase(
                 }
                 val first = firstDeffered.await()
                 val second = secondDeffered.await()
-                val interlocutors = Pair(first!!, second!!)
+                val interlocutors = Pair(first!!.toUser(), second!!.toUser())
                 val lastMessage = lastMessageDeffered.await()
-                return@withContext Conversation(interlocutors, conversationRemote.id, lastMessage!!)
+                return@withContext Conversation(
+                    conversationRemote.id,
+                    interlocutors,
+                    lastMessage!!.toMessage()
+                )
             } catch (e: Exception) {
                 Log.e(javaClass.name, "Failed to convert conversation", e)
                 return@withContext null
             }
         }
 
-    suspend fun toConversations(conversationsDTOList: List<ConversationRemote>): List<Conversation>? =
+    suspend fun toConversations(conversationsRemoteList: List<ConversationRemote>): List<Conversation>? =
         withContext(Dispatchers.IO) {
             val conversationList = mutableListOf<Conversation>()
             try {
-                conversationsDTOList.forEach { conversationDTO ->
-                    val first = userRepository.getUser(conversationDTO.interlocutors.keys.first())
-                    val second = userRepository.getUser(conversationDTO.interlocutors.keys.last())
-                    val interlocutors = Pair(first!!, second!!)
+                conversationsRemoteList.forEach { conversationRemote ->
+                    val first =
+                        userRepository.getUser(conversationRemote.interlocutors.keys.first())
+                    val second =
+                        userRepository.getUser(conversationRemote.interlocutors.keys.last())
+                    val interlocutors = Pair(first!!.toUser(), second!!.toUser())
                     val lastMessage = messageRepository.getMessage(
-                        conversationDTO.id,
-                        conversationDTO.lastMessage.toLong()
+                        conversationRemote.id,
+                        conversationRemote.lastMessage.toLong()
                     )
                     conversationList.add(
                         Conversation(
+                            conversationRemote.id,
                             interlocutors,
-                            conversationDTO.id,
-                            lastMessage!!
+                            lastMessage!!.toMessage()
                         )
                     )
                 }
@@ -64,17 +72,5 @@ class ConvertConversationUseCase(
                 Log.e(javaClass.name, "Failed to convert conversation", e)
                 return@withContext null
             }
-        }
-
-    suspend fun toConversationDTO(conversation: Conversation): ConversationRemote =
-        withContext(Dispatchers.IO) {
-            return@withContext ConversationRemote(
-                conversation.id,
-                mapOf(
-                    conversation.interlocutors.first.uid to true,
-                    conversation.interlocutors.second.uid to true
-                ),
-                conversation.lastMessage!!.timestamp.toString()
-            )
         }
 }

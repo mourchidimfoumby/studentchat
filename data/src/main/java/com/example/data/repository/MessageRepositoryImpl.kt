@@ -5,7 +5,7 @@ import com.example.data.remote.MessageRemoteDataSource
 import com.example.data.remote.model.MessageRemote
 import kotlinx.coroutines.flow.Flow
 
-class MessageRepositoryImpl(
+internal class MessageRepositoryImpl(
     private val remoteMessageDataSource: MessageRemoteDataSource
 ): MessageRepository {
 

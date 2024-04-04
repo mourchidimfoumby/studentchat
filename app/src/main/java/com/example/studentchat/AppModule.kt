@@ -11,10 +11,10 @@ import com.example.studentchat.chat.domain.GetLastMessageUseCase
 import com.example.studentchat.chat.domain.SendMessageUseCase
 import com.example.studentchat.chat.domain.TimestampToLocalDate
 import com.example.studentchat.chat.ui.stateholder.ChatViewModel
-import com.example.studentchat.conversation.domain.ConvertConversationUseCase
-import com.example.studentchat.conversation.domain.CreateConversationUseCase
-import com.example.studentchat.conversation.domain.DeleteConversationUseCase
-import com.example.studentchat.conversation.domain.GetAllConversationsUseCase
+import com.example.domain.conversation.ConvertConversationUseCase
+import com.example.domain.conversation.CreateConversationUseCase
+import com.example.domain.conversation.DeleteConversationUseCase
+import com.example.domain.conversation.GetAllConversationsUseCase
 import com.example.studentchat.conversation.ui.stateholder.ConversationViewModel
 import com.example.studentchat.friends.domain.AddFriendsUseCase
 import com.example.studentchat.friends.domain.GetAllFriendsUseCase
