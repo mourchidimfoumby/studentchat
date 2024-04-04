@@ -1,4 +1,4 @@
-package com.example.studentchat.friends.ui
+package com.example.ui.friends
 
 import android.os.Bundle
 import android.view.View
@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.studentchat.R
-import com.example.studentchat.databinding.FragmentFriendsBinding
-import com.example.studentchat.friends.ui.stateholder.FriendsAdapter
-import com.example.studentchat.friends.ui.stateholder.FriendsViewModel
+import com.example.ui.R
 import com.example.ui.clickToast
+import com.example.ui.databinding.FragmentFriendsBinding
+import com.example.ui.friends.stateholder.FriendsAdapter
+import com.example.ui.friends.stateholder.FriendsViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 

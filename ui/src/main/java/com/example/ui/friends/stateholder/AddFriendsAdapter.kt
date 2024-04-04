@@ -1,4 +1,4 @@
-package com.example.studentchat.friends.ui.stateholder
+package com.example.ui.friends.stateholder
 
 //class AddFriendsAdapter(
 //    private var userList: List<User>,

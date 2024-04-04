@@ -1,4 +1,4 @@
-package com.example.studentchat.dialog
+package com.example.studentchat
 
 import android.app.AlertDialog
 import android.app.Dialog

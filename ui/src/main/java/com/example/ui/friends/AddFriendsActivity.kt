@@ -1,4 +1,4 @@
-package com.example.studentchat.friends.ui
+package com.example.ui.friends
 
 import androidx.appcompat.app.AppCompatActivity
 

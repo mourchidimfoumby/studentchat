@@ -1,4 +1,4 @@
-package com.example.studentchat.friends.ui.stateholder
+package com.example.ui.friends.stateholder
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.data.model.Friends
-import com.example.studentchat.R
+import com.example.ui.R
 
 class FriendsAdapter(
     private var friendsList: List<Friends>,
