@@ -1,4 +1,4 @@
-package com.example.studentchat.conversation.ui
+package com.example.ui.conversation
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,13 +13,11 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.data.model.Conversation
-import com.example.studentchat.R
-import com.example.studentchat.chat.ui.ChatActivity
-import com.example.studentchat.chat.ui.ERROR_OPEN_CHAT
-import com.example.studentchat.conversation.ui.stateholder.ConversationAdapter
-import com.example.studentchat.conversation.ui.stateholder.ConversationViewModel
-import com.example.studentchat.databinding.FragmentConversationBinding
-import com.example.studentchat.utils.messageToast
+import com.example.ui.R
+import com.example.ui.conversation.stateholder.ConversationAdapter
+import com.example.ui.conversation.stateholder.ConversationViewModel
+import com.example.ui.databinding.FragmentConversationBinding
+import com.example.ui.messageToast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ConversationFragment: Fragment(R.layout.fragment_conversation){

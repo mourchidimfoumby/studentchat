@@ -1,4 +1,4 @@
-package com.example.studentchat.conversation.ui.stateholder
+package com.example.ui.conversation.stateholder
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

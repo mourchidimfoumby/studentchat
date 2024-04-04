@@ -1,4 +1,4 @@
-package com.example.studentchat.conversation.ui.stateholder
+package com.example.ui.conversation.stateholder
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.data.model.Conversation
-import com.example.studentchat.R
-import com.example.domain.chat.FormatTimestampUseCase
 import com.example.domain.DateUnit
+import com.example.domain.chat.FormatTimestampUseCase
+import com.example.ui.R
 import org.koin.java.KoinJavaComponent
 
 class ConversationAdapter(
@@ -46,9 +46,9 @@ class ConversationAdapter(
             val hourConversation = findViewById<TextView>(R.id.txt_view_hour_conversation)
             val imgAvatar = findViewById<ImageView>(R.id.img_view_avatar_user_conversation)
 
-            lastMessage.text = conversation.lastMessage!!.text
+            lastMessage.text = conversation.lastMessage.text
             hourConversation.text =
-                formatTimestampUseCase(conversation.lastMessage!!.timestamp, DateUnit.HOUR_MINUTE)
+                formatTimestampUseCase(conversation.lastMessage.timestamp, DateUnit.HOUR_MINUTE)
             title.text = conversation.otherUser().toString()
             imgAvatar.setImageResource(conversation.picture)
         }

@@ -7,8 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.studentchat.R
 import com.example.data.model.Friends
+import com.example.studentchat.R
 
 class FriendsAdapter(
     private var friendsList: List<Friends>,
@@ -37,7 +37,7 @@ class FriendsAdapter(
             val profilePicture = findViewById<ImageView>(R.id.img_view_avatar_user_friends)
             val friendsName = findViewById<TextView>(R.id.txt_view_username_friends)
 
-            profilePicture.setImageResource(R.drawable.ic_avatar)
+            profilePicture.setImageResource(friend.picture)
             friendsName.text = friend.toString()
         }
     }

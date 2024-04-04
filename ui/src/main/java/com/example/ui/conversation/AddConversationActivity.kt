@@ -1,4 +1,4 @@
-package com.example.studentchat.conversation.ui
+package com.example.ui.conversation
 
 import androidx.appcompat.app.AppCompatActivity
 
