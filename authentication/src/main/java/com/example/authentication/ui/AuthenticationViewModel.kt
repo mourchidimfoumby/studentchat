@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.authentication.AuthenticationState
 import com.example.authentication.domain.LogInWithEmailPasswordUseCase
 import com.example.authentication.domain.SignUpWithEmailPasswordUseCase
-import com.example.studentchat.user.data.UserApiModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -38,9 +37,9 @@ class AuthenticationViewModel: ViewModel() {
         }
     }
 
-    fun signUpWithEmailPassword(userApiModel: UserApiModel) {
+    fun signUpWithEmailPassword(mail: String, password: String) {
         viewModelScope.launch {
-            signUpWithEmailPasswordUseCase(userApiModel).collectLatest {
+            signUpWithEmailPasswordUseCase(mail, password).collectLatest {
                 it.fold(
                     onSuccess = { authState ->
                         _authenticationState.value = authState

@@ -14,7 +14,7 @@ import com.example.studentchat.chat.data.Message
 import com.example.studentchat.chat.domain.FormatTimestampUseCase
 import com.example.studentchat.chat.domain.TimestampToLocalDate
 import com.example.studentchat.conversation.data.Conversation
-import com.example.studentchat.utils.UNIT
+import com.example.studentchat.utils.DateUnit
 import org.koin.java.KoinJavaComponent.inject
 import java.time.Duration
 import java.time.Instant
@@ -79,19 +79,19 @@ class ChatAdapter(
                 else{
                     val layout = findViewById<ConstraintLayout>(R.id.constraint_layout)
                     val txtViewDividerChat = layout.findViewById<TextView>(R.id.txt_view_divider_day_chat)
-                    txtViewDividerChat.text = formatTimestampUseCase(currentMessage.timestamp, UNIT.DAY_MONTH_YEAR)
+                    txtViewDividerChat.text = formatTimestampUseCase(currentMessage.timestamp, DateUnit.DAY_MONTH_YEAR)
                     txtViewDividerChat.isVisible = true
                 }
             }?: run {
                 val layout = findViewById<ConstraintLayout>(R.id.constraint_layout)
                 val txtViewDividerChat = layout.findViewById<TextView>(R.id.txt_view_divider_day_chat)
-                txtViewDividerChat.text = formatTimestampUseCase(currentMessage.timestamp, UNIT.DAY_MONTH_YEAR)
+                txtViewDividerChat.text = formatTimestampUseCase(currentMessage.timestamp, DateUnit.DAY_MONTH_YEAR)
                 txtViewDividerChat.isVisible = true
             }
 
             picture?.setImageResource(R.drawable.ic_avatar)
             text.text = currentMessage.text
-            hour.text = formatTimestampUseCase(currentMessage.timestamp, UNIT.HOUR_MINUTE)
+            hour.text = formatTimestampUseCase(currentMessage.timestamp, DateUnit.HOUR_MINUTE)
         }
     }
 
