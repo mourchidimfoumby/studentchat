@@ -1,6 +1,6 @@
 package com.example.data.remote.api
 
-import com.example.data.TABLE_USERS
+import com.example.data.TABLE_USER
 import com.example.data.firebaseDatabase
 import com.example.data.remote.model.UserRemote
 import com.example.data.userId
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 
 internal class UserApiImpl : UserApi {
-    private val userDatabaseReference = firebaseDatabase.child(TABLE_USERS)
+    private val userDatabaseReference = firebaseDatabase.child(TABLE_USER)
     override fun getAllUser(): Flow<List<UserRemote>> = callbackFlow {
         userDatabaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {

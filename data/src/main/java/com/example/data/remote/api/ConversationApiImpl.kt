@@ -1,8 +1,8 @@
 package com.example.data.remote.api
 
 import android.util.Log
-import com.example.data.TABLE_CONVERSATIONS
-import com.example.data.TABLE_USER_CONVERSATIONS
+import com.example.data.TABLE_CONVERSATION
+import com.example.data.TABLE_USER_CONVERSATION
 import com.example.data.firebaseDatabase
 import com.example.data.remote.model.ConversationRemote
 import com.example.data.userId
@@ -20,9 +20,9 @@ import kotlinx.coroutines.tasks.await
 
 internal class ConversationApiImpl : ConversationApi {
     private val conversationDatabaseReference =
-        firebaseDatabase.child(TABLE_CONVERSATIONS)
+        firebaseDatabase.child(TABLE_CONVERSATION)
     private val userConversationDatabaseReference =
-        firebaseDatabase.child(TABLE_USER_CONVERSATIONS).child(userId)
+        firebaseDatabase.child(TABLE_USER_CONVERSATION).child(userId)
 
     override fun getAllConversations(): Flow<List<ConversationRemote>> = callbackFlow {
         userConversationDatabaseReference

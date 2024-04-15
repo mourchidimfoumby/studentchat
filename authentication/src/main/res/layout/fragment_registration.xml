@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -10,7 +10,8 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="16dp"
-        tools:context="com.example.authentication.ui.RegistrationActivity">
+        android:background="?android:attr/windowBackground"
+        tools:context=".ui.RegistrationFragment">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout_name_registration"
@@ -163,7 +164,5 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.1" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

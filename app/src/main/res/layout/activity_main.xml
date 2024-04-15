@@ -2,22 +2,28 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:id="@+id/progress_bar_main"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
         <FrameLayout
             android:id="@+id/frame_layout_main"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_alignParentTop="true"
+            android:layout_above="@id/btm_navigation_view"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/btm_navigation_view"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/btm_nav_menu"/>
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

@@ -1,6 +1,6 @@
 package com.example.data.model
 
-import com.example.ui.R
+import com.example.data.R
 import java.io.Serializable
 
 data class User(

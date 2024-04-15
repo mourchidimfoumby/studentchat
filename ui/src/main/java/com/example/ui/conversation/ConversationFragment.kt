@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.data.model.Conversation
 import com.example.ui.R
+import com.example.ui.chat.ChatActivity
+import com.example.ui.chat.ERROR_OPEN_CHAT
 import com.example.ui.conversation.stateholder.ConversationAdapter
 import com.example.ui.conversation.stateholder.ConversationViewModel
 import com.example.ui.databinding.FragmentConversationBinding
