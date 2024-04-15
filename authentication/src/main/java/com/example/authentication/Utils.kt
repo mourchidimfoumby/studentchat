@@ -6,7 +6,6 @@ import java.util.Date
 import java.util.Locale
 
 const val PATTERN_DAY_MONTH_YEAR = "dd/MM/yyyy"
-
 fun inputIsEmpty(inputList: List<TextInputEditText>): Boolean {
     inputList.forEach {
         if (it.text!!.isBlank()) {

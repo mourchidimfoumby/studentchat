@@ -1,75 +1,52 @@
 package com.example.authentication.ui
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
-import androidx.activity.viewModels
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
-import com.example.authentication.AuthenticationState
+import androidx.fragment.app.Fragment
 import com.example.authentication.R
 import com.example.authentication.databinding.ActivityAuthenticationBinding
-import com.example.authentication.inputIsEmpty
-import com.google.android.material.textfield.TextInputEditText
-import kotlinx.coroutines.launch
 
 class AuthenticationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthenticationBinding
-    private lateinit var btnConnection: Button
-    private lateinit var btnRegistration: Button
-    private lateinit var txtViewConnectError: TextView
-    private lateinit var inputMail: TextInputEditText
-    private lateinit var inputPassword: TextInputEditText
-    private lateinit var progressBar: ProgressBar
-    private val authenticationViewModel : AuthenticationViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthenticationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar!!.hide()
+        setCurrentFragment(ConnectionFragment())
+    }
 
-        lifecycleScope.launch {
-            authenticationViewModel.authenticationState.collect { state ->
-                if (state == AuthenticationState.AUTHENTICATED) {
-                    progressBar.isVisible = false
-                } else if (state == AuthenticationState.ERROR_AUTHENTICATION) {
-                    progressBar.isVisible = false
-                    txtViewConnectError.text = getString(R.string.error_connection)
-                    txtViewConnectError.isVisible = true
-                }
-            }
-        }
-
-        btnConnection = binding.buttonLogin
-        btnRegistration = binding.buttonRegistration
-        inputMail = binding.inputTextMailLogin
-        inputPassword = binding.inputTextPasswordLogin
-        txtViewConnectError = binding.txtViewConnectError
-        progressBar = binding.progressBarAuthentication
-
-        btnConnection.setOnClickListener {
-            if (inputIsEmpty(listOf(inputMail, inputPassword))){
-                progressBar.isVisible = false
-                txtViewConnectError.text = getString(R.string.error_input_not_empty)
-                txtViewConnectError.isVisible = true
-            }
-            else signIn(inputMail.text.toString(), inputPassword.text.toString())
-        }
-
-        btnRegistration.setOnClickListener {
-            Intent(this, RegistrationActivity::class.java).also {
-                startActivity(it)
-            }
+    private fun setCurrentFragment(fragment: Fragment){
+        supportFragmentManager.beginTransaction().also {
+            it.replace(R.id.frame_layout_authentication, fragment)
+            it.commit()
         }
     }
 
-    private fun signIn(mail: String, password: String){
-        progressBar.isVisible = true
-        txtViewConnectError.isVisible = false
-        authenticationViewModel.logInWithEmailPassword(mail, password)
+    fun addFragment(fragment: Fragment){
+        supportFragmentManager.beginTransaction().also {
+            it.add(R.id.frame_layout_authentication, fragment)
+            it.addToBackStack(null)
+            it.commit()
+        }
+    }
+
+    fun removeFragment(fragment: Fragment){
+        supportFragmentManager.beginTransaction().also {
+            it.remove(fragment)
+            it.commit()
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            android.R.id.home -> {
+                supportFragmentManager.popBackStackImmediate()
+                supportActionBar?.hide()
+            }
+        }
+        return true
     }
 }
+

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -20,21 +20,21 @@
             android:exported="false"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ChatToolbar"/>
+            android:theme="@style/ChatToolbar" />
         <activity
             android:name="com.example.ui.friends.AddFriendsActivity"
-            android:parentActivityName=".MainActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.example.ui.conversation.AddConversationActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,11 +43,6 @@
         </activity>
         <activity
             android:name="com.example.authentication.ui.AuthenticationActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.example.authentication.ui.RegistrationActivity"
-            android:label="Inscription"
-            android:parentActivityName="com.example.authentication.ui.AuthenticationActivity"
             android:screenOrientation="portrait" />
     </application>
 

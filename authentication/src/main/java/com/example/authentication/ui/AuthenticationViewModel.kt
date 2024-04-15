@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.authentication.AuthenticationState
 import com.example.authentication.domain.LogInWithEmailPasswordUseCase
 import com.example.authentication.domain.SignUpWithEmailPasswordUseCase
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -23,6 +24,10 @@ class AuthenticationViewModel: ViewModel() {
         SignUpWithEmailPasswordUseCase::class.java
     )
 
+    init {
+        if(FirebaseAuth.getInstance().currentUser != null)
+            _authenticationState.value = AuthenticationState.AUTHENTICATED
+    }
     fun logInWithEmailPassword(mail: String, password: String) {
         logInWithEmailPasswordUseCase(mail, password) {
             it.fold(
@@ -52,4 +57,5 @@ class AuthenticationViewModel: ViewModel() {
             }
         }
     }
+
 }

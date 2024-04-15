@@ -1,7 +1,7 @@
 package com.example.data.remote.api
 
 import android.util.Log
-import com.example.data.TABLE_MESSAGES
+import com.example.data.TABLE_MESSAGE
 import com.example.data.firebaseDatabase
 import com.example.data.remote.model.MessageRemote
 import com.google.firebase.database.ChildEventListener
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 
 internal class MessageApiImpl : MessageApi {
-    private val messageDatabaseReference = firebaseDatabase.child(TABLE_MESSAGES)
+    private val messageDatabaseReference = firebaseDatabase.child(TABLE_MESSAGE)
     private var valueEventListener: ValueEventListener? = null
     private var childEventListener: ChildEventListener? = null
 

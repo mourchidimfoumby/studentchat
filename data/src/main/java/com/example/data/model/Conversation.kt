@@ -1,6 +1,6 @@
 package com.example.data.model
 
-import com.example.ui.R
+import com.example.data.R
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import java.io.Serializable
