@@ -14,7 +14,7 @@ internal class ConversationLocalDataSource(
     fun getAllConversation(): Flow<List<ConversationEntity>> =
         conversationDao.getAllConversation()
 
-    fun getConversation(conversationId: String): ConversationEntity? =
+    suspend fun getConversation(conversationId: String): ConversationEntity? =
         conversationDao.getConversation(conversationId)
 
     suspend fun insertConversation(conversationEntity: ConversationEntity) =
