@@ -25,6 +25,7 @@ object Dependencies {
     const val roomRuntime = "androidx.room:room-runtime:${Versions.room}"
 //    const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
     const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
+    const val dataStore = "androidx.datastore:datastore-preferences:${Versions.dataStore}"
 }
 
 fun DependencyHandler.appCompat(){
@@ -89,6 +90,10 @@ fun DependencyHandler.coroutines() {
 
 fun DependencyHandler.koin(){
     implementation(Dependencies.koin)
+}
+
+fun DependencyHandler.dataStore(){
+    implementation(Dependencies.dataStore)
 }
 
 fun DependencyHandler.data(){

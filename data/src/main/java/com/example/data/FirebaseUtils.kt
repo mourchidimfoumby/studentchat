@@ -5,7 +5,8 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.database.FirebaseDatabase
 
-private const val URL_DATABASE = "https://studentchat-a99ae-default-rtdb.europe-west1.firebasedatabase.app/"
+private const val URL_DATABASE =
+    "https://studentchat-a99ae-default-rtdb.europe-west1.firebasedatabase.app/"
 const val TABLE_USER_CONVERSATION = "user-conversation"
 const val TABLE_CONVERSATION = "conversation"
 const val TABLE_USER_FRIENDS = "user-friends"

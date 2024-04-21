@@ -49,7 +49,7 @@ class ConversationAdapter(
             lastMessage.text = conversation.lastMessage.text
             hourConversation.text =
                 formatTimestampUseCase(conversation.lastMessage.timestamp, DateUnit.HOUR_MINUTE)
-            title.text = conversation.otherUser().toString()
+            title.text = conversation.interlocutor.toString()
             imgAvatar.setImageResource(conversation.picture)
         }
     }

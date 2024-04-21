@@ -36,6 +36,7 @@ android {
 dependencies {
     testImplementation("junit:junit:4.13.2")
     room()
+    dataStore()
     firebase()
     firebaseAuth()
     coroutines()
