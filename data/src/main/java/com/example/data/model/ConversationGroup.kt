@@ -9,7 +9,7 @@ data class ConversationGroup(
     var picture: Int = R.drawable.ic_group
 ) {
     var title: String = defaultTitle()
-    private fun defaultTitle(): String{
+    private fun defaultTitle(): String {
         val fullTitle = ""
         listInterlocutors.forEach {
             fullTitle.plus("$it, ")

@@ -4,7 +4,7 @@ import com.example.data.local.entity.MessageEntity
 import com.example.data.model.Message
 import com.example.data.remote.model.MessageRemote
 
-internal class MessageDataMapper: DataMapper<MessageEntity, Message, MessageRemote> {
+internal class MessageDataMapper : DataMapper<MessageEntity, Message, MessageRemote> {
     override suspend fun remoteToLocal(remote: MessageRemote): MessageEntity {
         TODO("Not yet implemented")
     }

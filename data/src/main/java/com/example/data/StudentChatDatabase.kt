@@ -17,7 +17,7 @@ import com.example.data.local.entity.MessageEntity
     ],
     version = 1
 )
-internal abstract class StudentChatDatabase: RoomDatabase() {
+internal abstract class StudentChatDatabase : RoomDatabase() {
     abstract fun conversationDao(): ConversationDao
     abstract fun friendsDao(): FriendsDao
     abstract fun messageDao(): MessageDao

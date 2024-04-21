@@ -4,7 +4,7 @@ import com.example.data.model.User
 import com.example.data.remote.UserRemoteDataSource
 import kotlinx.coroutines.flow.Flow
 
-internal class  UserRepositoryImpl(
+internal class UserRepositoryImpl(
     private val userRemoteDataSource: UserRemoteDataSource
 ) : UserRepository {
     override fun getCurrentUser(): Flow<User> = TODO()

@@ -15,7 +15,7 @@ internal class ConversationRepositoryImpl(
     private val conversationRemoteDataSource: ConversationRemoteDataSource,
     private val conversationLocalDataSource: ConversationLocalDataSource,
     private val conversationDataMapper: ConversationDataMapper
-): ConversationRepository {
+) : ConversationRepository {
     init {
         CoroutineScope(Dispatchers.IO).launch { getLatestDataEvent() }
     }
@@ -25,17 +25,19 @@ internal class ConversationRepositoryImpl(
             conversationEntityList.map { conversationDataMapper.localToDomain(it) }
         }
 
-    private suspend fun getLatestDataEvent(){
+    private suspend fun getLatestDataEvent() {
         conversationRemoteDataSource.getLatestEvent().collect { dataEvent ->
-            when(dataEvent){
+            when (dataEvent) {
                 is DataEvent.Add -> {
                     val data = conversationDataMapper.remoteToLocal(dataEvent.data)
                     conversationLocalDataSource.insertConversation(data)
                 }
+
                 is DataEvent.Modify -> {
                     val data = conversationDataMapper.remoteToLocal(dataEvent.data)
                     conversationLocalDataSource.updateConversation(data)
                 }
+
                 is DataEvent.Remove -> {
                     val data = conversationDataMapper.remoteToLocal(dataEvent.data)
                     conversationLocalDataSource.deleteConversation(data)

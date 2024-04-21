@@ -8,10 +8,11 @@ internal class UserLocalDataSource(
     private val userDataStore: UserDataStore
 ) {
     fun getCurrentUser(): Flow<User> = userDataStore.getObject()
-    suspend fun insertCurrentUser(user: User){
+    suspend fun insertCurrentUser(user: User) {
         userDataStore.putObject(user)
     }
-    suspend fun deleteCurrentUser(){
+
+    suspend fun deleteCurrentUser() {
         userDataStore.delete()
     }
 }

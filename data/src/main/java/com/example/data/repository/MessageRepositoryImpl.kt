@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 internal class MessageRepositoryImpl(
     private val remoteMessageDataSource: MessageRemoteDataSource
-): MessageRepository {
+) : MessageRepository {
 
     override fun getAllMessage(conversation: Conversation): Flow<Message> = TODO()
 //        remoteMessageDataSource.getAllMessage(conversation.id)

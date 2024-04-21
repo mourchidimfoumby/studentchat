@@ -4,7 +4,7 @@ import com.example.data.local.entity.FriendsEntity
 import com.example.data.model.Friends
 import com.example.data.remote.model.FriendsRemote
 
-internal class FriendsDataMapper: DataMapper<FriendsEntity, Friends, FriendsRemote> {
+internal class FriendsDataMapper : DataMapper<FriendsEntity, Friends, FriendsRemote> {
     override suspend fun remoteToLocal(remote: FriendsRemote): FriendsEntity {
         TODO("Not yet implemented")
     }

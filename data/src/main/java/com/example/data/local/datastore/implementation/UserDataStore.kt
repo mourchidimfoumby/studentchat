@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 
-internal class UserDataStore(context: Context): ObjectDataStore<User> {
+internal class UserDataStore(context: Context) : ObjectDataStore<User> {
     private val Context.dataStore by preferencesDataStore(
         name = "user_data_store"
     )
@@ -29,7 +29,7 @@ internal class UserDataStore(context: Context): ObjectDataStore<User> {
                 preferences[DataStoreKey.User.PASSWORD]!!
             )
         }.catch {
-            Log.e(javaClass.name,it.message, it)
+            Log.e(javaClass.name, it.message, it)
         }
 
     override suspend fun putObject(value: User) {
@@ -55,7 +55,7 @@ internal class UserDataStore(context: Context): ObjectDataStore<User> {
     }
 
     override suspend fun delete() {
-        dataSource.edit {  preferences ->
+        dataSource.edit { preferences ->
             preferences.clear()
         }
     }

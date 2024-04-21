@@ -62,13 +62,12 @@ internal class ConversationApiImpl : ConversationApi {
     }
 
     override fun getLatestEvent(): Flow<DataEvent<ConversationRemote>> = callbackFlow {
-        userConversationDatabaseReference.addChildEventListener(object : ChildEventListener{
+        userConversationDatabaseReference.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 try {
                     val conversationRemote = snapshot.getValue(ConversationRemote::class.java)
                     trySend(DataEvent.Add(conversationRemote!!))
-                }
-                catch(exception: Exception){
+                } catch (exception: Exception) {
                     Log.e(javaClass.name, "Error snapshot conversion", exception)
                 }
             }
@@ -77,8 +76,7 @@ internal class ConversationApiImpl : ConversationApi {
                 try {
                     val conversationRemote = snapshot.getValue(ConversationRemote::class.java)
                     trySend(DataEvent.Modify(conversationRemote!!))
-                }
-                catch(exception: Exception){
+                } catch (exception: Exception) {
                     Log.e(javaClass.name, "Error snapshot conversion", exception)
                 }
             }
@@ -87,8 +85,7 @@ internal class ConversationApiImpl : ConversationApi {
                 try {
                     val conversationRemote = snapshot.getValue(ConversationRemote::class.java)
                     trySend(DataEvent.Remove(conversationRemote!!))
-                }
-                catch(exception: Exception){
+                } catch (exception: Exception) {
                     Log.e(javaClass.name, "Error snapshot conversion", exception)
                 }
             }

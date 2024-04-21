@@ -16,16 +16,16 @@ internal class UserApiImpl : UserApi {
     private val userDatabaseReference = firebaseDatabase.child(TABLE_USER)
     override fun getAllUser(): Flow<List<UserRemote>> = callbackFlow {
         userDatabaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val userList = snapshot.children.mapNotNull { it.getValue(UserRemote::class.java) }
-                    userList.filterNot { it.uid == userId }
-                    trySend(userList)
-                }
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val userList = snapshot.children.mapNotNull { it.getValue(UserRemote::class.java) }
+                userList.filterNot { it.uid == userId }
+                trySend(userList)
+            }
 
-                override fun onCancelled(error: DatabaseError) {
-                    close(error.toException())
-                }
-            })
+            override fun onCancelled(error: DatabaseError) {
+                close(error.toException())
+            }
+        })
         awaitClose()
     }
 

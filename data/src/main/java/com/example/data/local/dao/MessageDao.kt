@@ -12,8 +12,10 @@ import kotlinx.coroutines.flow.Flow
 internal interface MessageDao {
     @Upsert
     fun insertMessage(messageEntity: MessageEntity)
+
     @Query("SELECT * FROM $TABLE_MESSAGE WHERE conversationId = :conversationId")
     fun getAllMessage(conversationId: String): Flow<MessageEntity>
+
     @Query(
         """
             SELECT * FROM $TABLE_MESSAGE
@@ -23,8 +25,10 @@ internal interface MessageDao {
             """
     )
     fun getLastMessage(conversationId: String): MessageEntity?
+
     @Query("SELECT * FROM $TABLE_MESSAGE WHERE timestamp = :timestamp")
     fun getMessage(timestamp: Long): MessageEntity?
+
     @Delete
     fun deleteMessage(messageEntity: MessageEntity)
 }

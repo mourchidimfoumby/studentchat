@@ -11,6 +11,6 @@ data class User(
     val birthday: String,
     val password: String,
     val picture: Int = R.drawable.ic_avatar,
-): Serializable {
+) : Serializable {
     override fun toString(): String = String.format("%s %s", firstName, lastName)
 }

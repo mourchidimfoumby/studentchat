@@ -14,7 +14,7 @@ internal class ConversationDataMapper(
     private val messageDao: MessageDao,
     private val messageDataMapper: MessageDataMapper,
     private val userDataStore: UserDataStore,
-): DataMapper<ConversationEntity, Conversation, ConversationRemote> {
+) : DataMapper<ConversationEntity, Conversation, ConversationRemote> {
 
     override suspend fun remoteToLocal(remote: ConversationRemote): ConversationEntity {
         val usersId = remote.interlocutors.keys
@@ -22,7 +22,8 @@ internal class ConversationDataMapper(
         return ConversationEntity(
             id = remote.id,
             interlocutorId = interlocutorId,
-            lastMessageTimestamp = remote.lastMessageId.toLong())
+            lastMessageTimestamp = remote.lastMessageId.toLong()
+        )
     }
 
     override suspend fun domainToLocal(domain: Conversation): ConversationEntity =

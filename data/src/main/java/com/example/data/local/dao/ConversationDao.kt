@@ -14,12 +14,16 @@ import kotlinx.coroutines.flow.Flow
 internal interface ConversationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertConversation(conversationEntity: ConversationEntity)
+
     @Update
     suspend fun updateConversation(conversationEntity: ConversationEntity)
+
     @Query("SELECT * FROM $TABLE_CONVERSATION")
     fun getAllConversation(): Flow<List<ConversationEntity>>
+
     @Query("SELECT * FROM $TABLE_CONVERSATION WHERE id = :conversationId")
     suspend fun getConversation(conversationId: String): ConversationEntity?
+
     @Delete
     suspend fun deleteConversation(conversationEntity: ConversationEntity)
 }

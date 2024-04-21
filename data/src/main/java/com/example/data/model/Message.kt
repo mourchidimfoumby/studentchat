@@ -6,7 +6,7 @@ data class Message(
     var author: String,
     val text: String,
     var timestamp: Long,
-): Serializable {
+) : Serializable {
     override fun equals(other: Any?): Boolean {
         other as Message
         return this === other || (this.author == other.author &&
