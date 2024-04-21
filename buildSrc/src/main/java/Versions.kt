@@ -2,6 +2,7 @@ object Versions {
     const val firebase = "32.8.0"
     const val firebaseUi = "7.2.0"
     const val googleServiceAuth = "21.0.0"
+    const val dataStore = "1.1.0"
 
     const val drawerLayout = "1.2.0"
     const val viewPager2 = "1.0.0"

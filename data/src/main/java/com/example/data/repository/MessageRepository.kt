@@ -1,12 +1,12 @@
 package com.example.data.repository
 
-import com.example.data.remote.model.ConversationRemote
-import com.example.data.remote.model.MessageRemote
+import com.example.data.model.Conversation
+import com.example.data.model.Message
 import kotlinx.coroutines.flow.Flow
 
 interface MessageRepository {
-    fun getAllMessage(conversationRemote: ConversationRemote): Flow<MessageRemote>
-    suspend fun getMessage(conversationId: String, timestamp: Long): MessageRemote?
-    suspend fun createMessage(conversationRemote: ConversationRemote, messageRemote: MessageRemote)
-    suspend fun deleteMessage(conversationRemote: ConversationRemote, messageRemote: MessageRemote)
+    fun getAllMessage(conversation: Conversation): Flow<Message>
+    suspend fun getMessage(conversationId: String, timestamp: Long): Message?
+    suspend fun createMessage(conversation: Conversation, message: Message)
+    suspend fun deleteMessage(conversation: Conversation, message: Message)
 }

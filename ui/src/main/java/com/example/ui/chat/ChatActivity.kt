@@ -56,7 +56,7 @@ class ChatActivity : AppCompatActivity() {
         recyclerViewChat = binding.rvChat
         txtViewUserName = toolbarChat.findViewById(R.id.txt_view_user_name_chat)
         imgViewUserAvatar = toolbarChat.findViewById(R.id.img_view_avatar_user_chat_toolbar)
-        val interlocutor = conversation.otherUser()
+        val interlocutor = conversation.interlocutor
         txtViewUserName.text = interlocutor.toString()
         imgViewUserAvatar.setImageResource(interlocutor.picture)
         recyclerViewChat.layoutManager = LinearLayoutManager(this@ChatActivity)

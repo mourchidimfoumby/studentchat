@@ -4,8 +4,10 @@ import android.util.Log
 import com.example.data.TABLE_CONVERSATION
 import com.example.data.TABLE_USER_CONVERSATION
 import com.example.data.firebaseDatabase
+import com.example.data.model.DataEvent
 import com.example.data.remote.model.ConversationRemote
 import com.example.data.userId
+import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -57,6 +59,51 @@ internal class ConversationApiImpl : ConversationApi {
         return conversationRemote?.apply {
             this.id = conversationId
         }
+    }
+
+    override fun getLatestEvent(): Flow<DataEvent<ConversationRemote>> = callbackFlow {
+        userConversationDatabaseReference.addChildEventListener(object : ChildEventListener{
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                try {
+                    val conversationRemote = snapshot.getValue(ConversationRemote::class.java)
+                    trySend(DataEvent.Add(conversationRemote!!))
+                }
+                catch(exception: Exception){
+                    Log.e(javaClass.name, "Error snapshot conversion", exception)
+                }
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                try {
+                    val conversationRemote = snapshot.getValue(ConversationRemote::class.java)
+                    trySend(DataEvent.Modify(conversationRemote!!))
+                }
+                catch(exception: Exception){
+                    Log.e(javaClass.name, "Error snapshot conversion", exception)
+                }
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                try {
+                    val conversationRemote = snapshot.getValue(ConversationRemote::class.java)
+                    trySend(DataEvent.Remove(conversationRemote!!))
+                }
+                catch(exception: Exception){
+                    Log.e(javaClass.name, "Error snapshot conversion", exception)
+                }
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                val conversationRemote = snapshot.getValue(ConversationRemote::class.java)
+                Log.i(javaClass.name, "$conversationRemote moved")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e(javaClass.name, "Error to get the latest event", error.toException())
+            }
+
+        })
+        awaitClose()
     }
 
     override suspend fun insertConversation(conversationRemote: ConversationRemote) {

@@ -2,10 +2,10 @@ package com.example.data.remote.model
 
 import com.google.firebase.database.Exclude
 
-data class ConversationRemote(
+internal data class ConversationRemote(
     var id: String = "",
     val interlocutors: Map<String, Boolean> = mapOf(),
-    var lastMessage: String = ""
+    var lastMessageId: String = ""
 ) {
     @Exclude
     fun isNotActive(): Boolean = interlocutors.values.all { !it }

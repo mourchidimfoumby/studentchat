@@ -5,7 +5,6 @@ import com.example.domain.chat.GetAllMessageUseCase
 import com.example.domain.chat.GetLastMessageUseCase
 import com.example.domain.chat.SendMessageUseCase
 import com.example.domain.chat.TimestampToLocalDateUseCase
-import com.example.domain.conversation.ConvertConversationUseCase
 import com.example.domain.conversation.CreateConversationUseCase
 import com.example.domain.conversation.DeleteConversationUseCase
 import com.example.domain.conversation.GetAllConversationsUseCase
@@ -20,7 +19,6 @@ import org.koin.dsl.module
 val domainModule = module {
 
     singleOf(::GetAllConversationsUseCase)
-    singleOf(::ConvertConversationUseCase)
     singleOf(::CreateConversationUseCase)
     singleOf(::DeleteConversationUseCase)
 
