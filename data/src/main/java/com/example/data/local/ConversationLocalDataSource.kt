@@ -31,5 +31,4 @@ internal class ConversationLocalDataSource(
         withContext(coroutineDispatcher) {
             conversationDao.deleteConversation(conversationEntity)
         }
-
 }

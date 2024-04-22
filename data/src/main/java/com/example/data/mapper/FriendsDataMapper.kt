@@ -4,21 +4,37 @@ import com.example.data.local.entity.FriendsEntity
 import com.example.data.model.Friends
 import com.example.data.remote.model.FriendsRemote
 
-internal class FriendsDataMapper : DataMapper<FriendsEntity, Friends, FriendsRemote> {
-    override suspend fun remoteToLocal(remote: FriendsRemote): FriendsEntity {
-        TODO("Not yet implemented")
-    }
+internal class FriendsDataMapper {
+    fun remoteToLocal(remote: FriendsRemote): FriendsEntity =
+        FriendsEntity(
+            remote.uid,
+            remote.firstName,
+            remote.lastName,
+            remote.mail
+        )
 
-    override suspend fun domainToLocal(domain: Friends): FriendsEntity {
-        TODO("Not yet implemented")
-    }
+    fun domainToLocal(domain: Friends): FriendsEntity =
+        FriendsEntity(
+            domain.uid,
+            domain.firstName,
+            domain.lastName,
+            domain.mail
+        )
 
-    override suspend fun localToRemote(local: FriendsEntity): FriendsRemote {
-        TODO("Not yet implemented")
-    }
+    fun localToRemote(local: FriendsEntity): FriendsRemote =
+        FriendsRemote(
+            local.uid,
+            local.firstName,
+            local.lastName,
+            local.mail
+        )
 
-    override suspend fun localToDomain(local: FriendsEntity): Friends {
-        TODO("Not yet implemented")
-    }
+    fun localToDomain(local: FriendsEntity): Friends =
+        Friends(
+            local.uid,
+            local.firstName,
+            local.lastName,
+            local.mail
+        )
 
 }

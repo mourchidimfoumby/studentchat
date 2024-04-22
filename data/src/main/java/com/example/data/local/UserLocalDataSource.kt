@@ -1,6 +1,6 @@
 package com.example.data.local
 
-import com.example.data.local.datastore.implementation.UserDataStore
+import com.example.data.local.datastore.user.UserDataStore
 import com.example.data.model.User
 import kotlinx.coroutines.flow.Flow
 

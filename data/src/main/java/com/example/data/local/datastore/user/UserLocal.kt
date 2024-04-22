@@ -1,9 +1,8 @@
-package com.example.data.model
+package com.example.data.local.datastore.user
 
 import com.example.data.R
-import java.io.Serializable
 
-data class User(
+data class UserLocal(
     val uid: String,
     val firstName: String,
     val lastName: String,
@@ -11,6 +10,4 @@ data class User(
     val password: String,
     val birthday: String,
     val picture: Int = R.drawable.ic_avatar,
-) : Serializable {
-    override fun toString(): String = String.format("%s %s", firstName, lastName)
-}
+)
