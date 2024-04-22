@@ -2,7 +2,7 @@ package com.example.data.mapper
 
 import com.example.data.local.dao.FriendsDao
 import com.example.data.local.dao.MessageDao
-import com.example.data.local.datastore.implementation.UserDataStore
+import com.example.data.local.datastore.user.UserDataStore
 import com.example.data.local.entity.ConversationEntity
 import com.example.data.model.Conversation
 import com.example.data.remote.model.ConversationRemote
@@ -14,43 +14,43 @@ internal class ConversationDataMapper(
     private val messageDao: MessageDao,
     private val messageDataMapper: MessageDataMapper,
     private val userDataStore: UserDataStore,
-) : DataMapper<ConversationEntity, Conversation, ConversationRemote> {
+) {
 
-    override suspend fun remoteToLocal(remote: ConversationRemote): ConversationEntity {
-        val usersId = remote.interlocutors.keys
+    suspend fun remoteToLocal(conversationRemote: ConversationRemote): ConversationEntity {
+        val usersId = conversationRemote.interlocutors.keys
         val interlocutorId = usersId.find { friendsDao.getFriends(it) != null }!!
         return ConversationEntity(
-            id = remote.id,
+            id = conversationRemote.id,
             interlocutorId = interlocutorId,
-            lastMessageTimestamp = remote.lastMessageId.toLong()
+            lastMessageTimestamp = conversationRemote.lastMessageId.toLong()
         )
     }
 
-    override suspend fun domainToLocal(domain: Conversation): ConversationEntity =
+    fun domainToLocal(conversation: Conversation): ConversationEntity =
         ConversationEntity(
-            id = domain.id,
-            interlocutorId = domain.interlocutor.uid,
-            lastMessageTimestamp = domain.lastMessage.timestamp
+            id = conversation.id,
+            interlocutorId = conversation.interlocutor.uid,
+            lastMessageTimestamp = conversation.lastMessage.timestamp
         )
 
-    override suspend fun localToRemote(local: ConversationEntity): ConversationRemote {
-        val interlocutorEntity = friendsDao.getFriends(local.interlocutorId)
+    suspend fun localToRemote(conversationEntity: ConversationEntity): ConversationRemote {
+        val interlocutorEntity = friendsDao.getFriends(conversationEntity.interlocutorId)
         val interlocutor = friendsDataMapper.localToDomain(interlocutorEntity!!)
         val user = userDataStore.getObject().first()
         return ConversationRemote(
-            id = local.id,
+            id = conversationEntity.id,
             interlocutors = mapOf(Pair(user.uid, true), Pair(interlocutor.uid, true)),
-            lastMessageId = local.lastMessageTimestamp.toString()
+            lastMessageId = conversationEntity.lastMessageTimestamp.toString()
         )
     }
 
-    override suspend fun localToDomain(local: ConversationEntity): Conversation {
-        val interlocutorEntity = friendsDao.getFriends(local.interlocutorId)!!
+    suspend fun localToDomain(conversationEntity: ConversationEntity): Conversation {
+        val interlocutorEntity = friendsDao.getFriends(conversationEntity.interlocutorId)!!
         val interlocutor = friendsDataMapper.localToDomain(interlocutorEntity)
-        val messageEntity = messageDao.getMessage(local.lastMessageTimestamp)!!
+        val messageEntity = messageDao.getMessage(conversationEntity.lastMessageTimestamp)!!
         val message = messageDataMapper.localToDomain(messageEntity)
         return Conversation(
-            id = local.id,
+            id = conversationEntity.id,
             interlocutor = interlocutor,
             lastMessage = message,
         )

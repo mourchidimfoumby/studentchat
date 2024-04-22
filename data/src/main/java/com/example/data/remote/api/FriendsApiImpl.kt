@@ -3,9 +3,11 @@ package com.example.data.remote.api
 import android.util.Log
 import com.example.data.TABLE_USER_FRIENDS
 import com.example.data.firebaseDatabase
+import com.example.data.model.DataEvent
 import com.example.data.remote.model.FriendsRemote
 import com.example.data.remote.model.UserRemote
 import com.example.data.userId
+import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -68,6 +70,48 @@ internal class FriendsApiImpl(private val userApi: UserApi) : FriendsApi {
             .get()
             .await()
             .getValue(FriendsRemote::class.java)
+
+    override fun getLatestEvent(): Flow<DataEvent<FriendsRemote>> = callbackFlow {
+        friendsDatabaseReference.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                try {
+                    val friendsRemote = snapshot.getValue(FriendsRemote::class.java)
+                    trySend(DataEvent.Add(friendsRemote!!))
+                } catch (exception: Exception) {
+                    Log.e(javaClass.name, "Error snapshot conversion", exception)
+                }
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                try {
+                    val friendsRemote = snapshot.getValue(FriendsRemote::class.java)
+                    trySend(DataEvent.Modify(friendsRemote!!))
+                } catch (exception: Exception) {
+                    Log.e(javaClass.name, "Error snapshot conversion", exception)
+                }
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                try {
+                    val friendsRemote = snapshot.getValue(FriendsRemote::class.java)
+                    trySend(DataEvent.Remove(friendsRemote!!))
+                } catch (exception: Exception) {
+                    Log.e(javaClass.name, "Error snapshot conversion", exception)
+                }
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                val friendsRemote = snapshot.getValue(FriendsRemote::class.java)
+                Log.i(javaClass.name, "$friendsRemote moved")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e(javaClass.name, "Error to get the latest event", error.toException())
+            }
+
+        })
+        awaitClose()
+    }
 
 
     override suspend fun insertFriends(friendsRemote: FriendsRemote) {

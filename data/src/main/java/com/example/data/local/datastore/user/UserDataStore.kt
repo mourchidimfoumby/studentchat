@@ -1,4 +1,4 @@
-package com.example.data.local.datastore.implementation
+package com.example.data.local.datastore.user
 
 import android.content.Context
 import android.util.Log
@@ -6,7 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.data.local.datastore.DataStoreKey
-import com.example.data.local.datastore.interfaces.ObjectDataStore
+import com.example.data.local.datastore.ObjectDataStore
 import com.example.data.model.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -25,8 +25,8 @@ internal class UserDataStore(context: Context) : ObjectDataStore<User> {
                 preferences[DataStoreKey.User.FIRST_NAME]!!,
                 preferences[DataStoreKey.User.LAST_NAME]!!,
                 preferences[DataStoreKey.User.MAIL]!!,
-                preferences[DataStoreKey.User.BIRTHDAY]!!,
-                preferences[DataStoreKey.User.PASSWORD]!!
+                preferences[DataStoreKey.User.PASSWORD]!!,
+                preferences[DataStoreKey.User.BIRTHDAY]!!
             )
         }.catch {
             Log.e(javaClass.name, it.message, it)
@@ -38,8 +38,8 @@ internal class UserDataStore(context: Context) : ObjectDataStore<User> {
             preferences[DataStoreKey.User.FIRST_NAME] = value.firstName
             preferences[DataStoreKey.User.LAST_NAME] = value.lastName
             preferences[DataStoreKey.User.MAIL] = value.mail
-            preferences[DataStoreKey.User.BIRTHDAY] = value.birthday
             preferences[DataStoreKey.User.PASSWORD] = value.password
+            preferences[DataStoreKey.User.BIRTHDAY] = value.birthday
         }
     }
 

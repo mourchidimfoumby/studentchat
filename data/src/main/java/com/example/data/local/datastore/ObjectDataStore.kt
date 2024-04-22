@@ -1,4 +1,4 @@
-package com.example.data.local.datastore.interfaces
+package com.example.data.local.datastore
 
 import kotlinx.coroutines.flow.Flow
 
