@@ -7,8 +7,11 @@ import com.example.data.model.DataEvent
 import com.example.data.model.Friends
 import com.example.data.model.User
 import com.example.data.remote.FriendsRemoteDataSource
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 internal class FriendsRepositoryImpl(
     private val friendsRemoteDataSource: FriendsRemoteDataSource,
@@ -16,6 +19,10 @@ internal class FriendsRepositoryImpl(
     private val friendsDataMapper: FriendsDataMapper,
     private val userDataMapper: UserDataMapper
 ) : FriendsRepository {
+    init {
+        CoroutineScope(Dispatchers.IO).launch { getLastDataEvent() }
+    }
+
     override fun getAllFriends(): Flow<List<Friends>> =
         friendsLocalDataSource.getAllFriends().map { friendsEntityList ->
             friendsEntityList.map { friendsDataMapper.localToDomain(it) }
@@ -31,7 +38,7 @@ internal class FriendsRepositoryImpl(
         return friendsEntity?.let { friendsDataMapper.localToDomain(it) }
     }
 
-    private suspend fun getLatestDataEvent() {
+    private suspend fun getLastDataEvent() {
         friendsRemoteDataSource.getLatestEvent().collect { dataEvent ->
             when (dataEvent) {
                 is DataEvent.Add -> {

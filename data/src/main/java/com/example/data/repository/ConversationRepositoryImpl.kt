@@ -17,7 +17,7 @@ internal class ConversationRepositoryImpl(
     private val conversationDataMapper: ConversationDataMapper
 ) : ConversationRepository {
     init {
-        CoroutineScope(Dispatchers.IO).launch { getLatestDataEvent() }
+        CoroutineScope(Dispatchers.IO).launch { getLastDataEvent() }
     }
 
     override fun getAllConversations(): Flow<List<Conversation>> =
@@ -25,7 +25,7 @@ internal class ConversationRepositoryImpl(
             conversationEntityList.map { conversationDataMapper.localToDomain(it) }
         }
 
-    private suspend fun getLatestDataEvent() {
+    private suspend fun getLastDataEvent() {
         conversationRemoteDataSource.getLatestEvent().collect { dataEvent ->
             when (dataEvent) {
                 is DataEvent.Add -> {

@@ -1,5 +1,6 @@
 package com.example.data.remote
 
+import com.example.data.model.DataEvent
 import com.example.data.remote.api.MessageApi
 import com.example.data.remote.model.MessageRemote
 import kotlinx.coroutines.Dispatchers
@@ -17,13 +18,21 @@ internal class MessageRemoteDataSource(
             messageApi.getMessage(conversationId, timestamp)
         }
 
-    suspend fun insertMessage(conversationId: String, messageRemote: MessageRemote) =
+    fun getLatestEvent(): Flow<DataEvent<MessageRemote>> =
+        messageApi.getLatestEvent()
+
+    suspend fun insertMessage(messageRemote: MessageRemote) =
         withContext(Dispatchers.IO) {
-            messageApi.insertMessage(conversationId, messageRemote)
+            messageApi.insertMessage(messageRemote)
         }
 
-    suspend fun deleteMessage(conversationId: String, messageRemote: MessageRemote) =
+    suspend fun updateMessage(messageRemote: MessageRemote) =
         withContext(Dispatchers.IO) {
-            messageApi.deleteMessage(conversationId, messageRemote)
+            messageApi.updateMessage(messageRemote)
+        }
+
+    suspend fun deleteMessage(messageRemote: MessageRemote) =
+        withContext(Dispatchers.IO) {
+            messageApi.deleteMessage(messageRemote)
         }
 }
