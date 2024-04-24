@@ -2,7 +2,7 @@ package com.example.data.local.datastore.user
 
 import com.example.data.R
 
-data class UserLocal(
+internal data class UserLocal(
     val uid: String,
     val firstName: String,
     val lastName: String,

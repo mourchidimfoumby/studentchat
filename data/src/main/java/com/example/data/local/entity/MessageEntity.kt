@@ -6,9 +6,8 @@ import com.example.data.TABLE_MESSAGE
 
 @Entity(tableName = TABLE_MESSAGE)
 internal data class MessageEntity(
-    @PrimaryKey
-    val timestamp: Long,
     val authorId: String,
+    @PrimaryKey val timestamp: Long,
     val text: String,
     val conversationId: String
 )

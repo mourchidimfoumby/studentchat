@@ -50,7 +50,7 @@ class ChatAdapter(
     override fun getItemCount(): Int = messageList.size
 
     override fun getItemViewType(position: Int): Int {
-        return if (messageList[position].author == conversation.interlocutor.toString())
+        return if (messageList[position].authorId == conversation.interlocutor.toString())
             ITEM_RECEIVER
         else ITEM_SENDER
     }

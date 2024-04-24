@@ -17,10 +17,13 @@ internal interface FriendsDao {
 
     @Update
     suspend fun updateFriends(friendsEntity: FriendsEntity)
+
     @Query("SELECT * FROM $TABLE_USER_FRIENDS")
     fun getAllFriends(): Flow<List<FriendsEntity>>
+
     @Query("SELECT * FROM $TABLE_USER_FRIENDS WHERE uid = :uid")
     suspend fun getFriends(uid: String): FriendsEntity?
+
     @Delete
     suspend fun deleteFriends(friendsEntity: FriendsEntity)
 }
