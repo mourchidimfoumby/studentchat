@@ -1,6 +1,6 @@
 package com.example.data.remote.model
 
-data class UserRemote(
+internal data class UserRemote(
     var uid: String = "",
     val firstName: String = "",
     val lastName: String = "",

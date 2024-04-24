@@ -47,7 +47,7 @@ internal class ConversationDataMapper(
     suspend fun localToDomain(conversationEntity: ConversationEntity): Conversation {
         val interlocutorEntity = friendsDao.getFriends(conversationEntity.interlocutorId)!!
         val interlocutor = friendsDataMapper.localToDomain(interlocutorEntity)
-        val messageEntity = messageDao.getMessage(conversationEntity.lastMessageTimestamp)!!
+        val messageEntity = messageDao.getMessage(conversationEntity.id, conversationEntity.lastMessageTimestamp)!!
         val message = messageDataMapper.localToDomain(messageEntity)
         return Conversation(
             id = conversationEntity.id,
