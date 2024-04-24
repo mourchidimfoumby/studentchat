@@ -4,8 +4,11 @@ import com.example.data.local.MessageLocalDataSource
 import com.example.data.mapper.MessageDataMapper
 import com.example.data.model.Message
 import com.example.data.remote.MessageRemoteDataSource
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 internal class MessageRepositoryImpl(
     private val messageRemoteDataSource: MessageRemoteDataSource,
@@ -13,6 +16,9 @@ internal class MessageRepositoryImpl(
     private val messageDataMapper: MessageDataMapper
 ) : MessageRepository {
 
+    init {
+        CoroutineScope(Dispatchers.IO).launch { getLastDataEvent() }
+    }
     override fun getAllMessage(conversationId: String): Flow<List<Message>> =
         messageLocalDataSource.getAllMessage(conversationId).map {  messageEntityList ->
             messageEntityList.map { messageDataMapper.localToDomain(it) }
