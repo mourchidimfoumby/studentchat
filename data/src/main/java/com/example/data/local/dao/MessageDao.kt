@@ -28,7 +28,7 @@ internal interface MessageDao {
             LIMIT 1
             """
     )
-    suspend fun getLastMessage(conversationId: String): MessageEntity?
+    fun getLastMessage(conversationId: String): Flow<MessageEntity>
 
     @Query("SELECT * FROM $TABLE_MESSAGE WHERE timestamp = :timestamp AND conversationId = :conversationId")
     suspend fun getMessage(conversationId: String, timestamp: Long): MessageEntity?

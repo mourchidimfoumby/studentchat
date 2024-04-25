@@ -5,5 +5,5 @@ import com.example.data.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
 
 class GetCurrentUserUseCase(private val userRepository: UserRepository) {
-    operator fun invoke(): Flow<User> = userRepository.getCurrentUser()
+    operator fun invoke(): Flow<User> = userRepository.currentUser
 }

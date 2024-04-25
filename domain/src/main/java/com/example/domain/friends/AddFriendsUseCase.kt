@@ -5,7 +5,6 @@ import com.example.data.repository.FriendsRepository
 
 class AddFriendsUseCase(private val friendsRepository: FriendsRepository) {
     suspend operator fun invoke(user: User) {
-        TODO()
-//        friendsRepository.addFriends(user.toFriends().toRemote())
+        friendsRepository.addFriends(user)
     }
 }

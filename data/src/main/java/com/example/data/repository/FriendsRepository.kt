@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface FriendsRepository {
     fun getAllFriends(): Flow<List<Friends>>
-    fun getAllNoFriends(): Flow<List<User>>
+    fun getAllNotFriends(): Flow<List<User>>
     suspend fun getFriends(uid: String): Friends?
-    suspend fun addFriends(friends: Friends)
+    suspend fun addFriends(user: User)
     suspend fun deleteFriends(friends: Friends)
 }

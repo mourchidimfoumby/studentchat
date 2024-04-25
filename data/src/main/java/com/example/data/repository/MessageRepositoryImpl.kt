@@ -29,6 +29,11 @@ internal class MessageRepositoryImpl(
         return messageEntity?.let { messageDataMapper.localToDomain(it) }
     }
 
+    override fun getLastMessage(conversationId: String): Flow<Message> =
+        messageLocalDataSource.getLastMessage(conversationId).map {
+            messageDataMapper.localToDomain(it)
+        }
+
     private suspend fun getLastDataEvent() {
         messageRemoteDataSource.getLatestEvent().collect { dataEvent ->
             when (dataEvent) {

@@ -20,6 +20,9 @@ internal class MessageLocalDataSource(
             messageDao.getMessage(conversationId, timestamp)
         }
 
+    fun getLastMessage(conversationId: String): Flow<MessageEntity> =
+        messageDao.getLastMessage(conversationId)
+
     suspend fun insertMessage(messageEntity: MessageEntity) =
         withContext(coroutineDispatcher) {
             messageDao.insertMessage(messageEntity)

@@ -7,20 +7,19 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.data.local.datastore.DataStoreKey
 import com.example.data.local.datastore.ObjectDataStore
-import com.example.data.model.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 
-internal class UserDataStore(context: Context) : ObjectDataStore<User> {
+internal class UserDataStore(context: Context) : ObjectDataStore<UserLocal> {
     private val Context.dataStore by preferencesDataStore(
         name = "user_data_store"
     )
     private val dataSource = context.dataStore
 
-    override fun getObject(): Flow<User> =
+    override fun getObject(): Flow<UserLocal> =
         dataSource.data.map { preferences ->
-            User(
+            UserLocal(
                 preferences[DataStoreKey.User.UID]!!,
                 preferences[DataStoreKey.User.FIRST_NAME]!!,
                 preferences[DataStoreKey.User.LAST_NAME]!!,
@@ -32,7 +31,7 @@ internal class UserDataStore(context: Context) : ObjectDataStore<User> {
             Log.e(javaClass.name, it.message, it)
         }
 
-    override suspend fun putObject(value: User) {
+    override suspend fun putObject(value: UserLocal) {
         dataSource.edit { preferences ->
             preferences[DataStoreKey.User.UID] = value.uid
             preferences[DataStoreKey.User.FIRST_NAME] = value.firstName
@@ -43,7 +42,7 @@ internal class UserDataStore(context: Context) : ObjectDataStore<User> {
         }
     }
 
-    override suspend fun <T> get(key: Preferences.Key<T>, defaultValue: T): Flow<T> =
+    override fun <T> get(key: Preferences.Key<T>, defaultValue: T): Flow<T> =
         dataSource.data.map { preferences ->
             preferences[key] ?: defaultValue
         }
