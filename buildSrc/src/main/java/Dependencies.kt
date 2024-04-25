@@ -23,7 +23,7 @@ object Dependencies {
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
     const val koin = "io.insert-koin:koin-android:${Versions.koin}"
     const val roomRuntime = "androidx.room:room-runtime:${Versions.room}"
-//    const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
+    const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
     const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
     const val dataStore = "androidx.datastore:datastore-preferences:${Versions.dataStore}"
 }
@@ -68,7 +68,7 @@ fun DependencyHandler.liveData(){
 fun DependencyHandler.room() {
     implementation(Dependencies.roomRuntime)
     implementation(Dependencies.roomKtx)
-//    kapt(Dependencies.roomCompiler)
+    kapt(Dependencies.roomCompiler)
 }
 
 fun DependencyHandler.firebase() {

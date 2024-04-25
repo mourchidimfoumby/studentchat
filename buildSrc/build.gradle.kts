@@ -1,5 +1,6 @@
 plugins {
     id("org.gradle.kotlin.kotlin-dsl") version "4.3.1"
+    kotlin("kapt") version "1.9.23"
 }
 
 repositories {

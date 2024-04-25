@@ -50,7 +50,7 @@ class AuthenticationViewModel: ViewModel() {
                         _authenticationState.value = authState
                     },
                     onFailure = { error ->
-                        _authenticationState.value = AuthenticationState.ERROR_AUTHENTICATION
+                        _authenticationState.value = AuthenticationState.ERROR_REGISTRATION
                         Log.e(javaClass.name, "Error authentication: ${error.message}")
                     }
                 )

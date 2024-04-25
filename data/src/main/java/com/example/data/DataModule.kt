@@ -37,7 +37,7 @@ import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
-internal const val STUDENT_CHAT_DATABASE = "StudentChatDatabase"
+private const val STUDENT_CHAT_DATABASE = "StudentChatDatabase"
 
 val dataModule = module {
 

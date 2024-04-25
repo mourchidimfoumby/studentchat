@@ -2,7 +2,6 @@ package com.example.authentication.ui
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.DatePicker
@@ -14,12 +13,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.example.authentication.AuthenticationState
 import com.example.authentication.PATTERN_DAY_MONTH_YEAR
 import com.example.authentication.R
 import com.example.authentication.convertDateToString
 import com.example.authentication.databinding.FragmentRegistrationBinding
 import com.example.authentication.inputIsEmpty
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.launch
 import java.util.Calendar
 
 class RegistrationFragment : Fragment(R.layout.fragment_registration) {
@@ -50,6 +52,18 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
         parentActivity = activity as AppCompatActivity
         setActionBar()
 
+        lifecycleScope.launch {
+            authenticationViewModel.authenticationState.collect {
+                if(it == AuthenticationState.ERROR_REGISTRATION){
+                    Toast.makeText(
+                        requireContext(),
+                        "Erreur d'inscription, veuillez réessayer",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+
         btnRgistration.setOnClickListener {
             txtViewError.isVisible = false
             val inputList = listOf(
@@ -77,17 +91,7 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
     }
 
     private fun registration(mail: String, password: String) {
-        try {
-            authenticationViewModel.signUpWithEmailPassword(mail, password)
-        }
-        catch (e: Exception) {
-            Log.e(javaClass.name, e.cause!!.message.toString())
-            Toast.makeText(
-                requireContext(),
-                "Erreur d'inscription, veuillez réessayer",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+        authenticationViewModel.signUpWithEmailPassword(mail, password)
     }
 
     private fun verifPassword(): Boolean {

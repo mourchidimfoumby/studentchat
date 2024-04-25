@@ -7,19 +7,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
 class SignUpWithEmailPasswordUseCase(
-    private val authenticationRepository: AuthenticationManager,
+    private val authenticationManager: AuthenticationManager,
 ) {
     operator fun invoke(mail: String, password: String): Flow<Result<AuthenticationState>> =
         callbackFlow {
             val callback: (Result<AuthenticationState>) -> Unit = {
                 trySend(it)
             }
-            authenticationRepository.signUpWithEmailPassword(
-                mail,
-                password,
-                callback
-            )
-            authenticationRepository.logInWithEmailPassword(
+            authenticationManager.signUpWithEmailPassword(
                 mail,
                 password,
                 callback

@@ -7,9 +7,9 @@ import com.google.firebase.database.FirebaseDatabase
 
 private const val URL_DATABASE =
     "https://studentchat-a99ae-default-rtdb.europe-west1.firebasedatabase.app/"
-internal const val TABLE_USER_CONVERSATION = "user-conversation"
+internal const val TABLE_USER_CONVERSATION = "user_conversation"
 internal const val TABLE_CONVERSATION = "conversation"
-internal const val TABLE_USER_FRIENDS = "user-friends"
+internal const val TABLE_USER_FRIENDS = "user_friends"
 internal const val TABLE_USER = "user"
 internal const val TABLE_MESSAGE = "message"
 internal val firebaseDatabase = FirebaseDatabase.getInstance(URL_DATABASE).reference

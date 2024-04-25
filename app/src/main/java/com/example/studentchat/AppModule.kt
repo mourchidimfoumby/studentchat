@@ -1,5 +1,6 @@
 package com.example.studentchat
 
+import com.example.studentchat.sharedpreferences.SharedPreferencesUseCase
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 

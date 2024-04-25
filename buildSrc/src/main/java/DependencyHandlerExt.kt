@@ -25,6 +25,6 @@ fun DependencyHandler.debugImplementation(dependency: String){
     add("implementation", dependency)
 }
 
-//fun DependencyHandler.kapt(dependency: String){
-//    add("kapt", dependency)
-//}
+fun DependencyHandler.kapt(dependency: String){
+    add("kapt", dependency)
+}

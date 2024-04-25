@@ -9,8 +9,9 @@ import kotlinx.coroutines.withContext
 
 internal class MessageLocalDataSource(
     private val messageDao: MessageDao,
-    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
+    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
+
     fun getAllMessage(conversationId: String): Flow<List<MessageEntity>> =
         messageDao.getAllMessage(conversationId)
 

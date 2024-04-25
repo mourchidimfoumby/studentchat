@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -16,11 +16,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout_name_registration"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
-            app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
-            app:layout_constraintTop_toBottomOf="@id/guideline_middle_horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_text_name_registration"
@@ -33,7 +30,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout_firstname_registration"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_form"
             app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
@@ -51,11 +48,9 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout_mail_registration"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_form"
-            app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
-            app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
             app:layout_constraintTop_toBottomOf="@id/input_layout_firstname_registration">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -69,11 +64,9 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout_password_registration"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_form"
-            app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
-            app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
             app:layout_constraintTop_toBottomOf="@id/input_layout_mail_registration"
             app:passwordToggleEnabled="true">
 
@@ -88,11 +81,9 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout_birthday_registration"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_form"
-            app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
-            app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
             app:layout_constraintTop_toBottomOf="@id/input_layout_password_registration"
             app:startIconDrawable="@drawable/ic_calendar">
 
@@ -113,56 +104,26 @@
             android:layout_marginTop="@dimen/margin_form"
             android:textColor="@android:color/holo_red_dark"
             android:textSize="15sp"
+            android:layout_gravity="start"
             android:visibility="gone"
-            app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
-            app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
-            app:layout_constraintTop_toBottomOf="@id/input_layout_birthday_registration"
-            tools:text="Nom d'utilisateur ou mot de passe incorrect" />
+            tools:text="Veuillez remplir tous les champs" />
 
         <Button
             android:id="@+id/button_registration"
             style="@style/buttonColor"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="@dimen/margin_form"
-            android:text="@string/register"
-            app:layout_constraintEnd_toStartOf="@id/guideline_end_vertical"
-            app:layout_constraintStart_toEndOf="@id/guideline_start_vertical"
-            app:layout_constraintTop_toBottomOf="@id/txt_view_register_error" />
+            android:text="@string/register" />
 
         <ProgressBar
             android:id="@+id/progress_bar_registration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"
             android:indeterminateTint="@color/color_element"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:visibility="gone" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_start_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.10" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_end_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.90" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_middle_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.1" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>

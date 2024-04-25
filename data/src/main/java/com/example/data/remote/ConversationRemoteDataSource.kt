@@ -10,8 +10,9 @@ import kotlinx.coroutines.withContext
 
 internal class ConversationRemoteDataSource(
     private val conversationApi: ConversationApi,
-    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
+    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
+
     fun getAllConversations(): Flow<List<ConversationRemote>> =
         conversationApi.getAllConversations()
 

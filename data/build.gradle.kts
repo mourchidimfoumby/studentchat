@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     id("com.google.gms.google-services")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {

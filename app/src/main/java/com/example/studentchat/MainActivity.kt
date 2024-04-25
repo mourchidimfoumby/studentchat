@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment
 import com.example.authentication.domain.IsLoggedInUseCase
 import com.example.authentication.ui.AuthenticationActivity
 import com.example.studentchat.databinding.ActivityMainBinding
+import com.example.studentchat.sharedpreferences.SharedPreferencesName
+import com.example.studentchat.sharedpreferences.SharedPreferencesTag
+import com.example.studentchat.sharedpreferences.SharedPreferencesUseCase
 import com.example.ui.conversation.ConversationFragment
 import com.example.ui.friends.FriendsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView

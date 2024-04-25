@@ -9,8 +9,9 @@ import kotlinx.coroutines.withContext
 
 internal class FriendsLocalDataSource(
     private val friendsDao: FriendsDao,
-    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
+    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
+
     fun getAllFriends(): Flow<List<FriendsEntity>> =
         friendsDao.getAllFriends()
 

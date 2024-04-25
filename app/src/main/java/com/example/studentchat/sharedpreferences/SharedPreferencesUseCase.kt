@@ -1,4 +1,4 @@
-package com.example.studentchat
+package com.example.studentchat.sharedpreferences
 
 import android.content.Context
 

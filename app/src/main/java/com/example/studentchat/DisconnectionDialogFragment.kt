@@ -7,6 +7,8 @@ import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.example.authentication.domain.LogOutUseCase
 import com.example.authentication.ui.AuthenticationActivity
+import com.example.studentchat.sharedpreferences.SharedPreferencesTag
+import com.example.studentchat.sharedpreferences.SharedPreferencesUseCase
 import org.koin.android.ext.android.inject
 
 class DisconnectionDialogFragment: DialogFragment() {

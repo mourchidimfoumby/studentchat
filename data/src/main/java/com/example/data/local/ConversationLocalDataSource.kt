@@ -9,8 +9,9 @@ import kotlinx.coroutines.withContext
 
 internal class ConversationLocalDataSource(
     private val conversationDao: ConversationDao,
-    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
+    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
+
     fun getAllConversation(): Flow<List<ConversationEntity>> =
         conversationDao.getAllConversation()
 
