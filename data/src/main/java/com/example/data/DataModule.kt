@@ -7,11 +7,11 @@ import com.example.data.local.MessageLocalDataSource
 import com.example.data.local.UserLocalDataSource
 import com.example.data.local.datastore.ObjectDataStore
 import com.example.data.local.datastore.user.UserDataStore
+import com.example.data.local.datastore.user.UserLocal
 import com.example.data.mapper.ConversationDataMapper
 import com.example.data.mapper.FriendsDataMapper
 import com.example.data.mapper.MessageDataMapper
 import com.example.data.mapper.UserDataMapper
-import com.example.data.model.User
 import com.example.data.remote.ConversationRemoteDataSource
 import com.example.data.remote.FriendsRemoteDataSource
 import com.example.data.remote.MessageRemoteDataSource
@@ -62,7 +62,7 @@ val dataModule = module {
     singleOf(::UserApiImpl) { bind<UserApi>() }
     singleOf(::UserRemoteDataSource)
     singleOf(::UserLocalDataSource)
-    singleOf(::UserDataStore) { bind<ObjectDataStore<User>>() }
+    singleOf(::UserDataStore) { bind<ObjectDataStore<UserLocal>>() }
 
     singleOf(::FriendsRepositoryImpl) { bind<FriendsRepository>() }
     singleOf(::FriendsApiImpl) { bind<FriendsApi>() }

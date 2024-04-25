@@ -7,8 +7,5 @@ import kotlinx.coroutines.flow.Flow
 class GetAllFriendsUseCase(
     private val friendsRepository: FriendsRepository
 ) {
-    operator fun invoke(): Flow<List<Friends>> = TODO()
-//        friendsRepository.friends.map { friendsList ->
-//            friendsList.map { it.toFriends() }
-//        }
+    operator fun invoke(): Flow<List<Friends>> = friendsRepository.getAllFriends()
 }

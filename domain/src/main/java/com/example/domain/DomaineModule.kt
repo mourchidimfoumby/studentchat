@@ -24,6 +24,7 @@ val domainModule = module {
 
     singleOf(::GetUserUseCase)
     singleOf(::GetCurrentUserUseCase)
+
     singleOf(::AddFriendsUseCase)
     singleOf(::GetAllFriendsUseCase)
     singleOf(::GetAllNotFriendsUseCase)

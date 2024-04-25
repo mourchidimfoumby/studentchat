@@ -7,6 +7,6 @@ class CreateConversationUseCase(
     private val conversationRepository: ConversationRepository
 ) {
     suspend operator fun invoke(conversation: Conversation) {
-//        conversationRepository.createConversation(conversation.toRemote())
+        conversationRepository.createConversation(conversation)
     }
 }

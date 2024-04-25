@@ -1,7 +1,6 @@
 package com.example.ui.chat.stateholder
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.data.model.Conversation
 import com.example.data.model.Message
 import com.example.domain.chat.GetAllMessageUseCase
@@ -9,7 +8,6 @@ import com.example.domain.chat.SendMessageUseCase
 import com.example.domain.user.GetCurrentUserUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 
 class ChatViewModel : ViewModel() {
@@ -22,11 +20,12 @@ class ChatViewModel : ViewModel() {
 
     operator fun invoke(conversation: Conversation) {
         this.conversation = conversation
-        viewModelScope.launch {
-            getAllMessageUseCase(conversation).collect {
-                _message.value = it
-            }
-        }
+        TODO()
+//        viewModelScope.launch {
+//            getAllMessageUseCase(conversation).collect {
+//                _message.value = it
+//            }
+//        }
     }
 
     fun sendMessage(messageText: String) {

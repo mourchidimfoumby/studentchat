@@ -28,7 +28,7 @@ internal class FriendsRepositoryImpl(
             friendsEntityList.map { friendsDataMapper.localToDomain(it) }
         }
 
-    override fun getAllNoFriends(): Flow<List<User>> =
+    override fun getAllNotFriends(): Flow<List<User>> =
         friendsRemoteDataSource.getAllNotFriends().map { userRemoteList ->
             userRemoteList.map { userDataMapper.remoteToDomain(it) }
         }
@@ -59,7 +59,8 @@ internal class FriendsRepositoryImpl(
         }
     }
 
-    override suspend fun addFriends(friends: Friends) {
+    override suspend fun addFriends(user: User) {
+        val friends = userDataMapper.toFriends(user)
         val friendsEntity = friendsDataMapper.domainToLocal(friends)
         val friendsRemote = friendsDataMapper.localToRemote(friendsEntity)
         friendsLocalDataSource.insertFriends(friendsEntity)
